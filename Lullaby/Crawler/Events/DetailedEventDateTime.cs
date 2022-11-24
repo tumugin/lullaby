@@ -1,4 +1,4 @@
-namespace lullaby.Crawler.Events;
+namespace Lullaby.Crawler.Events;
 
 public class DetailedEventDateTime : IEventDateTime
 {

@@ -1,6 +1,6 @@
-namespace lullaby.Crawler.Groups;
+namespace Lullaby.Crawler.Groups;
 
-using lullaby.Crawler.Events;
+using Events;
 
 public interface IGroup
 {

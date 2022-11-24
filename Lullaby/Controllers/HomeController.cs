@@ -1,8 +1,8 @@
-﻿using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
-using lullaby.Models;
+﻿namespace Lullaby.Controllers;
 
-namespace lullaby.Controllers;
+using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc;
+using Models;
 
 public class HomeController : Controller
 {
