@@ -12,8 +12,7 @@ public class EventTypeDetectorTest
     )
     {
         var detector = new EventTypeDetector();
-        Assert.That(EventType.BATTLE,
-        Is.EqualTo(detector.DetectEventTypeByTitle(eventName)));
+        Assert.That(EventType.BATTLE, Is.EqualTo(detector.DetectEventTypeByTitle(eventName)));
     }
 
     [Test, Combinatorial] public void TestFesEventType(
@@ -25,8 +24,7 @@ public class EventTypeDetectorTest
     )
     {
         var detector = new EventTypeDetector();
-        Assert.That(EventType.FES,
-        Is.EqualTo(detector.DetectEventTypeByTitle(eventName)));
+        Assert.That(EventType.FES, Is.EqualTo(detector.DetectEventTypeByTitle(eventName)));
     }
 
     [Test, Combinatorial] public void TestNotDefinedType(
@@ -37,7 +35,6 @@ public class EventTypeDetectorTest
     )
     {
         var detector = new EventTypeDetector();
-        Assert.That(EventType.NOT_DEFINED,
-        Is.EqualTo(detector.DetectEventTypeByTitle(eventName)));
+        Assert.That(EventType.NOT_DEFINED, Is.EqualTo(detector.DetectEventTypeByTitle(eventName)));
     }
 }
