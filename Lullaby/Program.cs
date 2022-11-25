@@ -3,8 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<LullabyContext>(options =>
-    options.UseMySQL(builder.Configuration.GetConnectionString("DefaultConnection"))
+    options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString))
 );
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
