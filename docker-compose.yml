@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  mysql:
+    image: mariadb:10.7.3
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=lullaby
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=lullaby
+      - MYSQL_PASSWORD=lullaby
+  redis:
+    image: redis:7.0.0
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+volumes:
+  mysql_data:
+  redis_data:
