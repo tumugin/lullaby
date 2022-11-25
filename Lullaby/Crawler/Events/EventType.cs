@@ -2,23 +2,23 @@ namespace Lullaby.Crawler.Events;
 
 public enum EventType
 {
-	/**
+    /**
 	 * 未定義
 	 */
-	NOT_DEFINED,
+    NOT_DEFINED,
 
-	/**
+    /**
 	 * 主催ワンマン
 	 */
-	ONE_MAN,
+    ONE_MAN,
 
-	/**
+    /**
 	 * 対バン
 	 */
-	BATTLE,
+    BATTLE,
 
-	/**
+    /**
 	 * フェス
 	 */
-	FES,
+    FES,
 }
