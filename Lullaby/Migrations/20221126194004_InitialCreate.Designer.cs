@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lullaby.Migrations
 {
     [DbContext(typeof(LullabyContext))]
-    [Migration("20221126193412_InitialCreate")]
+    [Migration("20221126194004_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -51,7 +51,7 @@ namespace Lullaby.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Schedules");
+                    b.ToTable("Events");
                 });
 #pragma warning restore 612, 618
         }

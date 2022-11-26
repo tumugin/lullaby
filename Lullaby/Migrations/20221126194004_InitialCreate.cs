@@ -16,7 +16,7 @@ namespace Lullaby.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "Schedules",
+                name: "Events",
                 columns: table => new
                 {
                     ID = table.Column<long>(type: "bigint", nullable: false)
@@ -34,7 +34,7 @@ namespace Lullaby.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Schedules", x => x.ID);
+                    table.PrimaryKey("PK_Events", x => x.ID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
         }
@@ -43,7 +43,7 @@ namespace Lullaby.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Schedules");
+                name: "Events");
         }
     }
 }

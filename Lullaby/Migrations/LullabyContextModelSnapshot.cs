@@ -48,7 +48,7 @@ namespace Lullaby.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Schedules");
+                    b.ToTable("Events");
                 });
 #pragma warning restore 612, 618
         }
