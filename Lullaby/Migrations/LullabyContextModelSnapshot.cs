@@ -29,7 +29,7 @@ namespace Lullaby.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime>("EventEnds")
+                    b.Property<DateTimeOffset>("EventEnds")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("EventName")
@@ -39,7 +39,7 @@ namespace Lullaby.Migrations
                     b.Property<string>("EventPlace")
                         .HasColumnType("longtext");
 
-                    b.Property<DateTime>("EventStarts")
+                    b.Property<DateTimeOffset>("EventStarts")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("GroupKey")
