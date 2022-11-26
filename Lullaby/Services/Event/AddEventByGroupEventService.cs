@@ -32,7 +32,9 @@ public class AddEventByGroupEventService
             EventDescription = groupEvent.EventDescription,
             EventPlace = groupEvent.EventPlace
         };
+        await Context.Events.AddAsync(draftEvent);
+        await Context.SaveChangesAsync();
 
-        return (await Context.Events.AddAsync(draftEvent)).Entity;
+        return draftEvent;
     }
 }
