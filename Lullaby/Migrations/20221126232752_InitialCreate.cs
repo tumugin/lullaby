@@ -23,8 +23,8 @@ namespace Lullaby.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     GroupKey = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    EventStarts = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    EventEnds = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    EventStarts = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: false),
+                    EventEnds = table.Column<DateTimeOffset>(type: "datetime(6)", nullable: false),
                     EventName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     EventDescription = table.Column<string>(type: "longtext", nullable: false)
