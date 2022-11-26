@@ -1,6 +1,6 @@
 namespace Lullaby.Crawler.Events;
 
-public class Event
+public class GroupEvent
 {
     public required string EventName { get; init; }
 

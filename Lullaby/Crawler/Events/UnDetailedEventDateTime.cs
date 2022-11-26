@@ -4,5 +4,5 @@ public class UnDetailedEventDateTime : IEventDateTime
 {
     public required DateTime EventStartDate { get; init; }
 
-    public required DateTime EventEncDate { get; init; }
+    public required DateTime EventEndDate { get; init; }
 }
