@@ -19,7 +19,7 @@ namespace Lullaby.Migrations
                 .HasAnnotation("ProductVersion", "7.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Lullaby.Models.Schedule", b =>
+            modelBuilder.Entity("Lullaby.Models.Event", b =>
                 {
                     b.Property<long>("ID")
                         .ValueGeneratedOnAdd()

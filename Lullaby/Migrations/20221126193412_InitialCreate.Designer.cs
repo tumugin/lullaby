@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lullaby.Migrations
 {
     [DbContext(typeof(LullabyContext))]
-    [Migration("20221125213257_InitialCreate")]
+    [Migration("20221126193412_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -22,7 +22,7 @@ namespace Lullaby.Migrations
                 .HasAnnotation("ProductVersion", "7.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Lullaby.Models.Schedule", b =>
+            modelBuilder.Entity("Lullaby.Models.Event", b =>
                 {
                     b.Property<long>("ID")
                         .ValueGeneratedOnAdd()

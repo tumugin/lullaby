@@ -1,6 +1,6 @@
 namespace Lullaby.Models;
 
-public class Schedule
+public class Event
 {
     public long ID { get; set; }
 
