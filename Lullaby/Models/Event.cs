@@ -9,9 +9,9 @@ public class Event
 
     public required string GroupKey { get; set; }
 
-    public required DateTime EventStarts { get; set; }
+    public required DateTimeOffset EventStarts { get; set; }
 
-    public required DateTime EventEnds { get; set; }
+    public required DateTimeOffset EventEnds { get; set; }
 
     public required string EventName { get; set; }
 

@@ -1,11 +1,11 @@
+using Lullaby;
 using Lullaby.Data;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<LullabyContext>(options =>
-    options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString))
+    DatabaseConfig.createDbContextOptions(dbConnectionString, options)
 );
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -31,7 +31,8 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-name: "default",
-pattern: "{controller=Home}/{action=Index}/{id?}");
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}"
+);
 
 app.Run();

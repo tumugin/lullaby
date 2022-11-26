@@ -23,14 +23,14 @@ public class AddEventByGroupEventServiceTest : BaseDatabaseTest
                 EventDescription = "チケット▶︎ https://t.livepocket.jp/e/221115",
                 EventDateTime = new DetailedEventDateTime
                 {
-                    EventStartDateTime = DateTime.Parse("2022-11-15 19:30:00+09:00"),
-                    EventEndDateTime = DateTime.Parse("2022-11-15 21:30:00+09:00")
+                    EventStartDateTime = DateTimeOffset.Parse("2022-11-15 19:30:00+09:00"),
+                    EventEndDateTime = DateTimeOffset.Parse("2022-11-15 21:30:00+09:00")
                 }
             }
         );
         Assert.That(result.ID, Is.GreaterThan(0L));
-        Assert.That(result.EventStarts, Is.EqualTo(DateTime.Parse("2022-11-15 19:30:00+09:00")));
-        Assert.That(result.EventEnds, Is.EqualTo(DateTime.Parse("2022-11-15 21:30:00+09:00")));
+        Assert.That(result.EventStarts, Is.EqualTo(DateTimeOffset.Parse("2022-11-15 19:30:00+09:00")));
+        Assert.That(result.EventEnds, Is.EqualTo(DateTimeOffset.Parse("2022-11-15 21:30:00+09:00")));
     }
 
     [Test] public async Task TestExecuteWithUnDetailedEventDateTime()
@@ -44,13 +44,13 @@ public class AddEventByGroupEventServiceTest : BaseDatabaseTest
                 EventDescription = "チケット▶︎ https://t.livepocket.jp/e/221115",
                 EventDateTime = new UnDetailedEventDateTime
                 {
-                    EventStartDate = DateTime.Parse("2022-11-15 00:00:00+09:00"),
-                    EventEndDate = DateTime.Parse("2022-11-15 00:00:00+09:00")
+                    EventStartDate = DateTimeOffset.Parse("2022-11-15 00:00:00+09:00"),
+                    EventEndDate = DateTimeOffset.Parse("2022-11-15 00:00:00+09:00")
                 }
             }
         );
         Assert.That(result.ID, Is.GreaterThan(0L));
-        Assert.That(result.EventStarts, Is.EqualTo(DateTime.Parse("2022-11-15 00:00:00+09:00")));
-        Assert.That(result.EventEnds, Is.EqualTo(DateTime.Parse("2022-11-15 00:00:00+09:00")));
+        Assert.That(result.EventStarts, Is.EqualTo(DateTimeOffset.Parse("2022-11-15 00:00:00+09:00")));
+        Assert.That(result.EventEnds, Is.EqualTo(DateTimeOffset.Parse("2022-11-15 00:00:00+09:00")));
     }
 }

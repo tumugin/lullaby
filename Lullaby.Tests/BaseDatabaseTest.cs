@@ -12,8 +12,7 @@ public class BaseDatabaseTest
     public BaseDatabaseTest()
     {
         Context = new LullabyContext(
-            new DbContextOptionsBuilder<LullabyContext>()
-                .UseMySql(ConnectionString, ServerVersion.AutoDetect(ConnectionString))
+            DatabaseConfig.createDbContextOptions(ConnectionString, new DbContextOptionsBuilder<LullabyContext>())
                 .Options
         );
     }
