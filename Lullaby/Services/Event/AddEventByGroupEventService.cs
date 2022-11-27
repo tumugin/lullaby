@@ -25,14 +25,15 @@ public class AddEventByGroupEventService
             _ => throw new ArgumentException("EventDateTime is not a valid type"),
         };
 
-        var draftEvent = new Event()
+        var draftEvent = new Event
         {
             GroupKey = groupKey,
             EventStarts = eventStarts,
             EventEnds = eventEnds,
             EventName = groupEvent.EventName,
             EventDescription = groupEvent.EventDescription,
-            EventPlace = groupEvent.EventPlace
+            EventPlace = groupEvent.EventPlace,
+            EventType = groupEvent.EventType
         };
         await Context.Events.AddAsync(draftEvent);
         await Context.SaveChangesAsync();

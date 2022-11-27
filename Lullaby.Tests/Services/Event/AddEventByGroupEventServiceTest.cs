@@ -1,5 +1,6 @@
 namespace Lullaby.Tests.Services.Event;
 
+using System.Globalization;
 using Lullaby.Crawler.Events;
 using Lullaby.Services.Event;
 
@@ -20,14 +21,24 @@ public class AddEventByGroupEventServiceTest : BaseDatabaseTest
                 EventDescription = "チケット▶︎ https://t.livepocket.jp/e/221115",
                 EventDateTime = new DetailedEventDateTime
                 {
-                    EventStartDateTime = DateTimeOffset.Parse("2022-11-15 19:30:00+09:00"),
-                    EventEndDateTime = DateTimeOffset.Parse("2022-11-15 21:30:00+09:00")
+                    EventStartDateTime = DateTimeOffset.Parse(
+                        "2022-11-15 19:30:00+09:00",
+                        CultureInfo.InvariantCulture
+                    ),
+                    EventEndDateTime = DateTimeOffset.Parse(
+                        "2022-11-15 21:30:00+09:00",
+                        CultureInfo.InvariantCulture
+                    )
                 }
             }
         );
         Assert.That(result.Id, Is.GreaterThan(0L));
-        Assert.That(result.EventStarts, Is.EqualTo(DateTimeOffset.Parse("2022-11-15 19:30:00+09:00")));
-        Assert.That(result.EventEnds, Is.EqualTo(DateTimeOffset.Parse("2022-11-15 21:30:00+09:00")));
+        Assert.That(result.EventStarts,
+            Is.EqualTo(DateTimeOffset.Parse("2022-11-15 19:30:00+09:00", CultureInfo.InvariantCulture))
+        );
+        Assert.That(result.EventEnds,
+            Is.EqualTo(DateTimeOffset.Parse("2022-11-15 21:30:00+09:00", CultureInfo.InvariantCulture))
+        );
     }
 
     [Test] public async Task TestExecuteWithUnDetailedEventDateTime()
@@ -41,13 +52,24 @@ public class AddEventByGroupEventServiceTest : BaseDatabaseTest
                 EventDescription = "チケット▶︎ https://t.livepocket.jp/e/221115",
                 EventDateTime = new UnDetailedEventDateTime
                 {
-                    EventStartDate = DateTimeOffset.Parse("2022-11-15 00:00:00+09:00"),
-                    EventEndDate = DateTimeOffset.Parse("2022-11-15 00:00:00+09:00")
+                    EventStartDate =
+                        DateTimeOffset.Parse(
+                            "2022-11-15 00:00:00+09:00",
+                            CultureInfo.InvariantCulture
+                        ),
+                    EventEndDate = DateTimeOffset.Parse(
+                        "2022-11-15 00:00:00+09:00",
+                        CultureInfo.InvariantCulture
+                    )
                 }
             }
         );
         Assert.That(result.Id, Is.GreaterThan(0L));
-        Assert.That(result.EventStarts, Is.EqualTo(DateTimeOffset.Parse("2022-11-15 00:00:00+09:00")));
-        Assert.That(result.EventEnds, Is.EqualTo(DateTimeOffset.Parse("2022-11-15 00:00:00+09:00")));
+        Assert.That(result.EventStarts,
+            Is.EqualTo(DateTimeOffset.Parse("2022-11-15 00:00:00+09:00", CultureInfo.InvariantCulture))
+        );
+        Assert.That(result.EventEnds,
+            Is.EqualTo(DateTimeOffset.Parse("2022-11-15 00:00:00+09:00", CultureInfo.InvariantCulture))
+        );
     }
 }
