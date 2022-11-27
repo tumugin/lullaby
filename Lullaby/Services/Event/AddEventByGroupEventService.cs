@@ -10,7 +10,7 @@ public class AddEventByGroupEventService
 
     public AddEventByGroupEventService(LullabyContext context) => Context = context;
 
-    public async Task<Event> execute(string groupKey, GroupEvent groupEvent)
+    public async Task<Event> Execute(string groupKey, GroupEvent groupEvent)
     {
         var eventStarts = groupEvent.EventDateTime switch
         {

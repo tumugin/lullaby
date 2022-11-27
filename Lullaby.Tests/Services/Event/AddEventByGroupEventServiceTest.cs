@@ -5,16 +5,13 @@ using Lullaby.Services.Event;
 
 public class AddEventByGroupEventServiceTest : BaseDatabaseTest
 {
-    private AddEventByGroupEventService Service { get; set; }
+    private AddEventByGroupEventService Service { get; set; } = null!;
 
-    [SetUp] public void Setup()
-    {
-        Service = new AddEventByGroupEventService(Context);
-    }
+    [SetUp] public void Setup() => Service = new AddEventByGroupEventService(Context);
 
     [Test] public async Task TestExecuteWithDetailedEventDateTime()
     {
-        var result = await Service.execute("aoseka",
+        var result = await Service.Execute("aoseka",
             new GroupEvent
             {
                 EventName = "【LIVE】群青の世界×MARQUEE 定期公演 青の記録vol.11",
@@ -35,7 +32,7 @@ public class AddEventByGroupEventServiceTest : BaseDatabaseTest
 
     [Test] public async Task TestExecuteWithUnDetailedEventDateTime()
     {
-        var result = await Service.execute("aoseka",
+        var result = await Service.Execute("aoseka",
             new GroupEvent
             {
                 EventName = "【LIVE】群青の世界×MARQUEE 定期公演 青の記録vol.11",
