@@ -2,8 +2,10 @@ namespace Lullaby.Crawler.Scraper.Aoseka;
 
 using System.Text.Json;
 using AngleSharp;
+using AngleSharp.Html.Parser;
 using Events;
 using RestSharp;
+using Utils;
 
 public class AosekaSchedulePageScraper
 {
@@ -34,15 +36,24 @@ public class AosekaSchedulePageScraper
 
     public async Task<IEnumerable<GroupEvent>> ScrapeAsync()
     {
+        var htmlParser = new HtmlParser();
         var downloadedDocument = await DownloadDocument();
         var aosekaEvents = await ScrapeRawDocument(downloadedDocument);
         var convertedEvents = aosekaEvents.Select(v => new GroupEvent
         {
-            EventName = v.Title,
+            EventName = v.Title.Let(s =>
+                s.Replace("【LIVE】", "")
+                    .Replace("【配信】", "")
+                    .Replace("【イベント】", "")
+                    .Trim()
+            ),
             EventPlace = null,
             EventDateTime = v.ConvertedEventDateTime,
             EventType = v.EventType,
-            EventDescription = v.Description,
+            EventDescription = htmlParser
+                .ParseFragment(v.Description, null)
+                .Select(x => x.TextContent)
+                .Let(x => String.Join("", x)),
         });
         return convertedEvents;
     }
