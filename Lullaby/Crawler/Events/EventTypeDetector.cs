@@ -19,6 +19,6 @@ public class EventTypeDetector
             not null when _battleEventNames.Any(eventTitle.Contains) => EventType.BATTLE,
             not null when _fesEventNames.Any(eventTitle.Contains) => EventType.FES,
             not null when eventTitle.Contains("対バン") => EventType.BATTLE,
-            _ => EventType.NOT_DEFINED
+            _ => EventType.UNKNOWN
         };
 }

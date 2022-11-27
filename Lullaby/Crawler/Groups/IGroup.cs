@@ -10,5 +10,5 @@ public interface IGroup
 
     public int CrawlInterval { get; }
 
-    public Task<GroupEvent[]> getEvents();
+    public Task<IEnumerable<GroupEvent>> getEvents();
 }

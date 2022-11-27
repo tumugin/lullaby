@@ -1,4 +1,4 @@
-namespace Lullaby.Crawler.Scraper;
+namespace Lullaby.Crawler.Scraper.Aoseka;
 
 using System.Globalization;
 using System.Text.Json.Serialization;
@@ -31,6 +31,6 @@ public class AosekaCalenderObject
     {
         "#6475C5" => EventType.ONE_MAN,
         "#23A455" => EventType.ONE_MAN,
-        _ => EventType.NOT_DEFINED
+        _ => EventType.UNKNOWN
     };
 }

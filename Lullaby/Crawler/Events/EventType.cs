@@ -3,9 +3,9 @@ namespace Lullaby.Crawler.Events;
 public enum EventType
 {
     /**
-	 * 未定義
+	 * 不明
 	 */
-    NOT_DEFINED,
+    UNKNOWN,
 
     /**
 	 * 主催ワンマン

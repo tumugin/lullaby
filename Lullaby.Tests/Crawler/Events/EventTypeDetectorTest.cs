@@ -35,6 +35,6 @@ public class EventTypeDetectorTest
     )
     {
         var detector = new EventTypeDetector();
-        Assert.That(detector.DetectEventTypeByTitle(eventName), Is.EqualTo(EventType.NOT_DEFINED));
+        Assert.That(detector.DetectEventTypeByTitle(eventName), Is.EqualTo(EventType.UNKNOWN));
     }
 }

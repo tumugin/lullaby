@@ -1,4 +1,4 @@
-namespace Lullaby.Crawler.Scraper;
+namespace Lullaby.Crawler.Scraper.Aoseka;
 
 using System.Text.Json;
 using AngleSharp;
@@ -32,11 +32,11 @@ public class AosekaSchedulePageScraper
         return calenderEvents;
     }
 
-    public async Task<GroupEvent[]> ScrapeAsync()
+    public async Task<IEnumerable<GroupEvent>> ScrapeAsync()
     {
         var downloadedDocument = await DownloadDocument();
         var aosekaEvents = await ScrapeRawDocument(downloadedDocument);
-        aosekaEvents.Select(v => new GroupEvent
+        var convertedEvents = aosekaEvents.Select(v => new GroupEvent
         {
             EventName = v.Title,
             EventPlace = null,
@@ -44,6 +44,6 @@ public class AosekaSchedulePageScraper
             EventType = v.EventType,
             EventDescription = v.Description,
         });
-        throw new NotImplementedException();
+        return convertedEvents;
     }
 }

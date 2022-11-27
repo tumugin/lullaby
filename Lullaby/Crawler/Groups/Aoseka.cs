@@ -1,6 +1,8 @@
 namespace Lullaby.Crawler.Groups;
 
 using Events;
+using RestSharp;
+using Scraper.Aoseka;
 
 public class Aoseka : IGroup
 {
@@ -10,5 +12,9 @@ public class Aoseka : IGroup
 
     public int CrawlInterval => 60 * 60;
 
-    public Task<GroupEvent[]> getEvents() => throw new NotImplementedException();
+    public Task<IEnumerable<GroupEvent>> getEvents()
+    {
+        var aosekaScraper = new AosekaSchedulePageScraper(new RestClient());
+        return aosekaScraper.ScrapeAsync();
+    }
 }
