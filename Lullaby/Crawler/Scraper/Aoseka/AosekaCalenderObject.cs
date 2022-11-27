@@ -29,9 +29,14 @@ public class AosekaCalenderObject
     [JsonIgnore]
     public EventType EventType => Color switch
     {
+        // 色で分けるしかないっぽい。どうしてこうなった？？
+        // 関東主催ライブ/イベント
         "#6475C5" => EventType.ONE_MAN,
+        // 地方主催ライブ/イベント
         "#23A455" => EventType.ONE_MAN,
+        // 関東ライブ/イベント
         "#6EC1E4" => EventType.BATTLE_OR_FES,
+        // 地方ライブ/イベント
         "#99E7A4" => EventType.BATTLE_OR_FES,
         _ => EventType.UNKNOWN
     };
