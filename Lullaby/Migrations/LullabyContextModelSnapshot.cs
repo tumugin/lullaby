@@ -42,8 +42,9 @@ namespace Lullaby.Migrations
                     b.Property<DateTimeOffset>("EventStarts")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("EventType")
-                        .HasColumnType("int");
+                    b.Property<string>("EventType")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("GroupKey")
                         .IsRequired()

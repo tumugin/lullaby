@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lullaby.Migrations
 {
     [DbContext(typeof(LullabyContext))]
-    [Migration("20221127170705_InitialCreate")]
+    [Migration("20221127192422_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -45,8 +45,9 @@ namespace Lullaby.Migrations
                     b.Property<DateTimeOffset>("EventStarts")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("EventType")
-                        .HasColumnType("int");
+                    b.Property<string>("EventType")
+                        .IsRequired()
+                        .HasColumnType("varchar(50)");
 
                     b.Property<string>("GroupKey")
                         .IsRequired()

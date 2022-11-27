@@ -21,4 +21,9 @@ public enum EventType
 	 * フェス
 	 */
     FES,
+
+    /**
+     * 対バンもしくはフェス
+     */
+    BATTLE_OR_FES,
 }

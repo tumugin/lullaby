@@ -31,6 +31,8 @@ public class AosekaCalenderObject
     {
         "#6475C5" => EventType.ONE_MAN,
         "#23A455" => EventType.ONE_MAN,
+        "#6EC1E4" => EventType.BATTLE_OR_FES,
+        "#99E7A4" => EventType.BATTLE_OR_FES,
         _ => EventType.UNKNOWN
     };
 }
