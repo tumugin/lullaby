@@ -19,7 +19,7 @@ public class Event
 
     public required string? EventPlace { get; set; }
 
-    public required EventType? EventType { get; set; }
+    public required EventType EventType { get; set; }
 
     [NotMapped] public EventType EstimatedEventType => (new EventTypeDetector()).DetectEventTypeByTitle(EventName);
 }

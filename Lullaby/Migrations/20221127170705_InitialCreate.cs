@@ -30,7 +30,8 @@ namespace Lullaby.Migrations
                     EventDescription = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     EventPlace = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    EventType = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
