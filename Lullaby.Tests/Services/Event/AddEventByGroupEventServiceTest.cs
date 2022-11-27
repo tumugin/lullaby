@@ -25,7 +25,7 @@ public class AddEventByGroupEventServiceTest : BaseDatabaseTest
                 }
             }
         );
-        Assert.That(result.ID, Is.GreaterThan(0L));
+        Assert.That(result.Id, Is.GreaterThan(0L));
         Assert.That(result.EventStarts, Is.EqualTo(DateTimeOffset.Parse("2022-11-15 19:30:00+09:00")));
         Assert.That(result.EventEnds, Is.EqualTo(DateTimeOffset.Parse("2022-11-15 21:30:00+09:00")));
     }
@@ -46,7 +46,7 @@ public class AddEventByGroupEventServiceTest : BaseDatabaseTest
                 }
             }
         );
-        Assert.That(result.ID, Is.GreaterThan(0L));
+        Assert.That(result.Id, Is.GreaterThan(0L));
         Assert.That(result.EventStarts, Is.EqualTo(DateTimeOffset.Parse("2022-11-15 00:00:00+09:00")));
         Assert.That(result.EventEnds, Is.EqualTo(DateTimeOffset.Parse("2022-11-15 00:00:00+09:00")));
     }

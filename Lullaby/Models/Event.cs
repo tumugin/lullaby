@@ -5,7 +5,7 @@ using Crawler.Events;
 
 public class Event
 {
-    public long ID { get; set; }
+    public long Id { get; set; }
 
     public required string GroupKey { get; set; }
 

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lullaby.Migrations
 {
     [DbContext(typeof(LullabyContext))]
-    [Migration("20221126232752_InitialCreate")]
+    [Migration("20221127102102_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,7 +24,7 @@ namespace Lullaby.Migrations
 
             modelBuilder.Entity("Lullaby.Models.Event", b =>
                 {
-                    b.Property<long>("ID")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
@@ -49,7 +49,7 @@ namespace Lullaby.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Events");
                 });

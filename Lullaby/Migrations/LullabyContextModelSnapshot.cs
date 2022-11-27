@@ -21,7 +21,7 @@ namespace Lullaby.Migrations
 
             modelBuilder.Entity("Lullaby.Models.Event", b =>
                 {
-                    b.Property<long>("ID")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
@@ -46,7 +46,7 @@ namespace Lullaby.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.ToTable("Events");
                 });
