@@ -8,7 +8,8 @@ using RichardSzalay.MockHttp;
 
 public class AosekaSchedulePageScraperTest
 {
-    [Test] public async Task TestScrapeAsync()
+    [Test]
+    public async Task TestScrapeAsync()
     {
         // mock html request
         var testFileStream = typeof(AosekaSchedulePageScraperTest)
@@ -31,25 +32,28 @@ public class AosekaSchedulePageScraperTest
             .FirstOrDefault(v =>
                 v.EventName == "TOKYO IDOL FESTIVAL 2022 supported byにしたんクリニック"
             );
-        Assert.That(tif?.EventName, Is.EqualTo("TOKYO IDOL FESTIVAL 2022 supported byにしたんクリニック"));
-        Assert.That(tif?.EventDescription,
-            Is.EqualTo(@"「TOKYO IDOL FESTIVAL 2022 supported byにしたんクリニック」
+        Assert.Multiple(() =>
+        {
+            Assert.That(tif?.EventName, Is.EqualTo("TOKYO IDOL FESTIVAL 2022 supported byにしたんクリニック"));
+            Assert.That(tif?.EventDescription,
+                Is.EqualTo(@"「TOKYO IDOL FESTIVAL 2022 supported byにしたんクリニック」
 □お台場・青海周辺エリア
 チケット▶︎https://ticket.rakuten.co.jp/features/tip/
 
 日割りは後日解禁！
 詳細▶︎https://official.idolfes.com/s/tif2022/?ima=0914")
-        );
-        Assert.That(tif?.EventType, Is.EqualTo(EventType.BATTLE_OR_FES));
-        Assert.That(tif?.EventPlace, Is.Null);
-        Assert.That(tif?.EventDateTime, Is.TypeOf(typeof(UnDetailedEventDateTime)));
-        Assert.That(
-            (tif?.EventDateTime as UnDetailedEventDateTime)?.EventStartDate,
-            Is.EqualTo(DateTimeOffset.Parse("2022-08-05 00:00:00+09:00", CultureInfo.InvariantCulture))
-        );
-        Assert.That(
-            (tif?.EventDateTime as UnDetailedEventDateTime)?.EventEndDate,
-            Is.EqualTo(DateTimeOffset.Parse("2022-08-06 00:00:00+09:00", CultureInfo.InvariantCulture))
-        );
+            );
+            Assert.That(tif?.EventType, Is.EqualTo(EventType.BATTLE_OR_FES));
+            Assert.That(tif?.EventPlace, Is.Null);
+            Assert.That(tif?.EventDateTime, Is.TypeOf(typeof(UnDetailedEventDateTime)));
+            Assert.That(
+                (tif?.EventDateTime as UnDetailedEventDateTime)?.EventStartDate,
+                Is.EqualTo(DateTimeOffset.Parse("2022-08-05 00:00:00+09:00", CultureInfo.InvariantCulture))
+            );
+            Assert.That(
+                (tif?.EventDateTime as UnDetailedEventDateTime)?.EventEndDate,
+                Is.EqualTo(DateTimeOffset.Parse("2022-08-06 00:00:00+09:00", CultureInfo.InvariantCulture))
+            );
+        });
     }
 }
