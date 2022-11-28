@@ -13,11 +13,11 @@ public class AosekaSchedulePageScraper
 
     private RestClient Client { get; }
 
-    public AosekaSchedulePageScraper(RestClient client) => Client = client;
+    public AosekaSchedulePageScraper(RestClient client) => this.Client = client;
 
     private async Task<string> DownloadDocument()
     {
-        var request = await Client.GetAsync(new RestRequest(SchedulePageUrl));
+        var request = await this.Client.GetAsync(new RestRequest(SchedulePageUrl));
         return request.Content ?? throw new InvalidDataException("Response must not be null");
     }
 
@@ -37,8 +37,8 @@ public class AosekaSchedulePageScraper
     public async Task<IEnumerable<GroupEvent>> ScrapeAsync()
     {
         var htmlParser = new HtmlParser();
-        var downloadedDocument = await DownloadDocument();
-        var aosekaEvents = await ScrapeRawDocument(downloadedDocument);
+        var downloadedDocument = await this.DownloadDocument();
+        var aosekaEvents = await this.ScrapeRawDocument(downloadedDocument);
         var convertedEvents = aosekaEvents.Select(v => new GroupEvent
         {
             EventName = v.Title.Let(s =>
@@ -53,7 +53,7 @@ public class AosekaSchedulePageScraper
             EventDescription = htmlParser
                 .ParseFragment(v.Description, null)
                 .Select(x => x.TextContent)
-                .Let(x => String.Join("", x)),
+                .Let(x => string.Join("", x)),
         });
         return convertedEvents;
     }

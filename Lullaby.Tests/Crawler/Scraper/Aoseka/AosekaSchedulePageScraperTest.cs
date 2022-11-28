@@ -43,7 +43,7 @@ public class AosekaSchedulePageScraperTest
 日割りは後日解禁！
 詳細▶︎https://official.idolfes.com/s/tif2022/?ima=0914")
             );
-            Assert.That(tif?.EventType, Is.EqualTo(EventType.BATTLE_OR_FES));
+            Assert.That(tif?.EventType, Is.EqualTo(EventType.BattleOrFes));
             Assert.That(tif?.EventPlace, Is.Null);
             Assert.That(tif?.EventDateTime, Is.TypeOf(typeof(UnDetailedEventDateTime)));
             Assert.That(

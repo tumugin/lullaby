@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<LullabyContext>(options =>
-    DatabaseConfig.createDbContextOptions(dbConnectionString, options)
+    DatabaseConfig.CreateDbContextOptions(dbConnectionString, options)
 );
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();

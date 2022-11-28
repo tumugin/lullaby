@@ -24,7 +24,7 @@ public class FindDuplicateEventServiceTest : BaseDatabaseTest
         {
             EventName = "【LIVE】群青の世界×MARQUEE 定期公演 青の記録vol.11",
             EventPlace = "Spotify O-nest",
-            EventType = EventType.ONE_MAN,
+            EventType = EventType.OneMan,
             EventDescription = "チケット▶︎ https://t.livepocket.jp/e/221115",
             EventDateTime = new DetailedEventDateTime
             {

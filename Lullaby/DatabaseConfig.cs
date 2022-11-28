@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 public static class DatabaseConfig
 {
-    public static DbContextOptionsBuilder createDbContextOptions(
+    public static DbContextOptionsBuilder CreateDbContextOptions(
         string connectionString,
         DbContextOptionsBuilder builder
     ) =>

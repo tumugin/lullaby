@@ -8,7 +8,7 @@ public class FindDuplicateEventService
 {
     private LullabyContext Context { get; }
 
-    public FindDuplicateEventService(LullabyContext context) => Context = context;
+    public FindDuplicateEventService(LullabyContext context) => this.Context = context;
 
     /**
      * 既にDBに保存された重複するイベントを検索する

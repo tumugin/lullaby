@@ -21,5 +21,5 @@ public class Event
 
     [Column(TypeName = "varchar(50)")] public required EventType EventType { get; set; }
 
-    [NotMapped] public EventType EstimatedEventType => (new EventTypeDetector()).DetectEventTypeByTitle(EventName);
+    [NotMapped] public EventType EstimatedEventType => (new EventTypeDetector()).DetectEventTypeByTitle(this.EventName);
 }

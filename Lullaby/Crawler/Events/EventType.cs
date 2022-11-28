@@ -5,25 +5,25 @@ public enum EventType
     /**
 	 * 不明
 	 */
-    UNKNOWN,
+    Unknown,
 
     /**
 	 * 主催ワンマン
 	 */
-    ONE_MAN,
+    OneMan,
 
     /**
 	 * 対バン
 	 */
-    BATTLE,
+    Battle,
 
     /**
 	 * フェス
 	 */
-    FES,
+    Fes,
 
     /**
      * 対バンもしくはフェス
      */
-    BATTLE_OR_FES,
+    BattleOrFes,
 }

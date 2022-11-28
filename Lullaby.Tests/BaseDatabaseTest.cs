@@ -11,7 +11,7 @@ public class BaseDatabaseTest
 
     public BaseDatabaseTest() =>
         this.Context = new LullabyContext(
-            DatabaseConfig.createDbContextOptions(ConnectionString, new DbContextOptionsBuilder<LullabyContext>())
+            DatabaseConfig.CreateDbContextOptions(ConnectionString, new DbContextOptionsBuilder<LullabyContext>())
                 .Options
         );
 

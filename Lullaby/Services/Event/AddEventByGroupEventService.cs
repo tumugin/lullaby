@@ -8,7 +8,7 @@ public class AddEventByGroupEventService
 {
     private LullabyContext Context { get; }
 
-    public AddEventByGroupEventService(LullabyContext context) => Context = context;
+    public AddEventByGroupEventService(LullabyContext context) => this.Context = context;
 
     public async Task<Event> Execute(string groupKey, GroupEvent groupEvent)
     {
@@ -35,8 +35,8 @@ public class AddEventByGroupEventService
             EventPlace = groupEvent.EventPlace,
             EventType = groupEvent.EventType
         };
-        await Context.Events.AddAsync(draftEvent);
-        await Context.SaveChangesAsync();
+        await this.Context.Events.AddAsync(draftEvent);
+        await this.Context.SaveChangesAsync();
 
         return draftEvent;
     }

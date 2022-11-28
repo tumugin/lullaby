@@ -16,9 +16,9 @@ public class EventTypeDetector
     public EventType DetectEventTypeByTitle(string eventTitle) =>
         eventTitle switch
         {
-            not null when _battleEventNames.Any(eventTitle.Contains) => EventType.BATTLE,
-            not null when _fesEventNames.Any(eventTitle.Contains) => EventType.FES,
-            not null when eventTitle.Contains("対バン") => EventType.BATTLE,
-            _ => EventType.UNKNOWN
+            not null when _battleEventNames.Any(eventTitle.Contains) => EventType.Battle,
+            not null when _fesEventNames.Any(eventTitle.Contains) => EventType.Fes,
+            not null when eventTitle.Contains("対バン") => EventType.Battle,
+            _ => EventType.Unknown
         };
 }
