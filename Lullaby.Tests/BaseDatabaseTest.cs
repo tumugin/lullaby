@@ -9,18 +9,17 @@ public class BaseDatabaseTest
 
     public required LullabyContext Context { get; init; }
 
-    public BaseDatabaseTest()
-    {
-        Context = new LullabyContext(
+    public BaseDatabaseTest() =>
+        this.Context = new LullabyContext(
             DatabaseConfig.createDbContextOptions(ConnectionString, new DbContextOptionsBuilder<LullabyContext>())
                 .Options
         );
-    }
 
-    [SetUp] public void PrepareDatabase()
+    [SetUp]
+    public void PrepareDatabase()
     {
-        Context.ChangeTracker.Clear();
-        Context.Database.EnsureDeleted();
-        Context.Database.EnsureCreated();
+        this.Context.ChangeTracker.Clear();
+        this.Context.Database.EnsureDeleted();
+        this.Context.Database.EnsureCreated();
     }
 }
