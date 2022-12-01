@@ -87,15 +87,7 @@ public class GetEventsByGroupKeyServiceTest : BaseDatabaseTest
 
         var results = await this.GetEventsByGroupKeyService.Execute(
             expectedEvent.GroupKey,
-            new[] { expectedEvent.EventType },
-            DateTimeOffset.Parse(
-                "2022-11-01 00:00:00+09:00",
-                CultureInfo.InvariantCulture
-            ),
-            DateTimeOffset.Parse(
-                "2022-11-30 23:59:59+09:00",
-                CultureInfo.InvariantCulture
-            )
+            new[] { expectedEvent.EventType }
         );
 
         Assert.That(results.FirstOrDefault(), Is.EqualTo(expectedEvent));
