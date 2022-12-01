@@ -9,20 +9,13 @@ public class GetEventsByGroupKeyService
 {
     private LullabyContext LullabyContext { get; }
 
-    public GetEventsByGroupKeyService(LullabyContext context) => this.LullabyContext = context;
+    public GetEventsByGroupKeyService(LullabyContext lullabyContext) => this.LullabyContext = lullabyContext;
 
-    public async Task<IEnumerable<Event>> Execute(
-        string groupKey,
-        EventType[] eventTypes,
-        DateTimeOffset startDateTime,
-        DateTimeOffset endDateTime
-    )
+    public async Task<IEnumerable<Event>> Execute(string groupKey, EventType[] eventTypes)
     {
         var result = await this.LullabyContext.Events.Where(e =>
                 e.GroupKey == groupKey &&
-                eventTypes.Contains(e.EventType) &&
-                e.EventStarts >= startDateTime &&
-                e.EventEnds <= endDateTime
+                eventTypes.Contains(e.EventType)
             )
             .ToListAsync();
         return result;
