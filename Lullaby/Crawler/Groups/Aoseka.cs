@@ -6,7 +6,7 @@ using Scraper.Aoseka;
 
 public class Aoseka : IGroup
 {
-    public string GroupKey => "aoseka";
+    public string GroupKey => GroupKeys.Aoseka;
 
     public string GroupName => "群青の世界";
 
