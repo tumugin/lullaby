@@ -4,21 +4,21 @@ using System.Globalization;
 using Lullaby.Services.Event;
 using Seeder;
 
-public class GetEventsByGroupKeyAndDateRangeServiceTest : BaseDatabaseTest
+public class GetEventsByGroupKeyServiceTest : BaseDatabaseTest
 {
-    private GetEventsByGroupKeyAndDateRangeService GetEventsByGroupKeyAndDateRangeService { get; set; } = null!;
+    private GetEventsByGroupKeyService GetEventsByGroupKeyService { get; set; } = null!;
     private EventSeeder EventSeeder { get; set; } = null!;
 
     [SetUp]
     public void Setup()
     {
-        this.GetEventsByGroupKeyAndDateRangeService =
-            new GetEventsByGroupKeyAndDateRangeService(this.Context);
+        this.GetEventsByGroupKeyService =
+            new GetEventsByGroupKeyService(this.Context);
         this.EventSeeder = new EventSeeder(this.Context);
     }
 
     [Test]
-    public async Task TestExecute()
+    public async Task TestExecuteWithRange()
     {
         await this.EventSeeder.SeedEvent(
             eventStarts: DateTimeOffset.Parse(
@@ -51,7 +51,7 @@ public class GetEventsByGroupKeyAndDateRangeServiceTest : BaseDatabaseTest
             )
         );
 
-        var results = await this.GetEventsByGroupKeyAndDateRangeService.Execute(
+        var results = await this.GetEventsByGroupKeyService.Execute(
             expectedEvent.GroupKey,
             new[] { expectedEvent.EventType },
             DateTimeOffset.Parse(
@@ -69,5 +69,35 @@ public class GetEventsByGroupKeyAndDateRangeServiceTest : BaseDatabaseTest
             Assert.That(results.Count(), Is.EqualTo(1));
             Assert.That(results.FirstOrDefault(), Is.EqualTo(expectedEvent));
         });
+    }
+
+    [Test]
+    public async Task TestExecute()
+    {
+        var expectedEvent = await this.EventSeeder.SeedEvent(
+            eventStarts: DateTimeOffset.Parse(
+                "2022-11-30 19:30:00+09:00",
+                CultureInfo.InvariantCulture
+            ),
+            eventEnds: DateTimeOffset.Parse(
+                "2022-12-01 00:30:00+09:00",
+                CultureInfo.InvariantCulture
+            )
+        );
+
+        var results = await this.GetEventsByGroupKeyService.Execute(
+            expectedEvent.GroupKey,
+            new[] { expectedEvent.EventType },
+            DateTimeOffset.Parse(
+                "2022-11-01 00:00:00+09:00",
+                CultureInfo.InvariantCulture
+            ),
+            DateTimeOffset.Parse(
+                "2022-11-30 23:59:59+09:00",
+                CultureInfo.InvariantCulture
+            )
+        );
+
+        Assert.That(results.FirstOrDefault(), Is.EqualTo(expectedEvent));
     }
 }
