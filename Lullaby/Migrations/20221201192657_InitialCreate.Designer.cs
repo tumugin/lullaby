@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lullaby.Migrations
 {
     [DbContext(typeof(LullabyContext))]
-    [Migration("20221127192422_InitialCreate")]
+    [Migration("20221201192657_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -52,6 +52,9 @@ namespace Lullaby.Migrations
                     b.Property<string>("GroupKey")
                         .IsRequired()
                         .HasColumnType("longtext");
+
+                    b.Property<bool>("IsDateTimeDetailed")
+                        .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 

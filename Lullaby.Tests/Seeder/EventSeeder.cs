@@ -38,6 +38,7 @@ public class EventSeeder
                 "2022-11-15 21:30:00+09:00",
                 CultureInfo.InvariantCulture
             ),
+            IsDateTimeDetailed = true,
             EventName = eventName,
             EventDescription = eventDescription,
             EventPlace = eventPlace,

@@ -30,6 +30,7 @@ public class AddEventByGroupEventService
             GroupKey = groupKey,
             EventStarts = eventStarts,
             EventEnds = eventEnds,
+            IsDateTimeDetailed = groupEvent.EventDateTime is DetailedEventDateTime,
             EventName = groupEvent.EventName,
             EventDescription = groupEvent.EventDescription,
             EventPlace = groupEvent.EventPlace,

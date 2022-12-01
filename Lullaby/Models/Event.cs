@@ -13,6 +13,8 @@ public class Event
 
     public required DateTimeOffset EventEnds { get; set; }
 
+    public required bool IsDateTimeDetailed { get; set; }
+
     public required string EventName { get; set; }
 
     public required string EventDescription { get; set; }
@@ -20,6 +22,4 @@ public class Event
     public required string? EventPlace { get; set; }
 
     [Column(TypeName = "varchar(50)")] public required EventType EventType { get; set; }
-
-    [NotMapped] public EventType EstimatedEventType => (new EventTypeDetector()).DetectEventTypeByTitle(this.EventName);
 }
