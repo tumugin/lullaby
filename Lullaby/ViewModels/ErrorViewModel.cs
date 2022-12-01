@@ -1,4 +1,4 @@
-namespace Lullaby.Models;
+namespace Lullaby.ViewModels;
 
 public class ErrorViewModel
 {
