@@ -4,11 +4,11 @@ using Events;
 
 public interface IGroup
 {
-    public string GroupKey { get; }
+    public static abstract string GroupKey { get; }
 
-    public string GroupName { get; }
+    public static abstract string GroupName { get; }
 
-    public int CrawlInterval { get; }
+    public static abstract int CrawlInterval { get; }
 
     public Task<IEnumerable<GroupEvent>> getEvents();
 }
