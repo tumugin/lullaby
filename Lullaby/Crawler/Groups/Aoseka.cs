@@ -6,11 +6,11 @@ using Scraper.Aoseka;
 
 public class Aoseka : IGroup
 {
-    public string GroupKey => GroupKeys.Aoseka;
+    public static string GroupKey => "aoseka";
 
-    public string GroupName => "群青の世界";
+    public static string GroupName => "群青の世界";
 
-    public int CrawlInterval => 60 * 60;
+    public static int CrawlInterval => 60 * 60;
 
     public Task<IEnumerable<GroupEvent>> getEvents()
     {
