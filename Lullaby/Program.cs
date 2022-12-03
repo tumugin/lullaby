@@ -1,5 +1,6 @@
 using Lullaby;
 using Lullaby.Data;
+using Lullaby.Services.Event;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddDbContext<LullabyContext>(options =>
 );
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+builder.Services.AddScoped<GetEventsByGroupKeyService, GetEventsByGroupKeyService>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

@@ -6,9 +6,10 @@ using Requests.Api.Events;
 using Responses;
 using Responses.Api.Events;
 using Services.Event;
+using ViewModels;
 
 [ApiController]
-[Route("/api/events/{groupKey:string}")]
+[Route("/api/events/{groupKey}")]
 public class GroupEventController : ControllerBase
 {
     private GetEventsByGroupKeyService GetEventsByGroupKeyService { get; }
@@ -19,7 +20,8 @@ public class GroupEventController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get(
         [FromRoute] string groupKey,
-        GroupEventIndexParameters groupEventIndexParameters)
+        [FromQuery] GroupEventIndexParameters groupEventIndexParameters
+    )
     {
         if (!GroupKeys.AvailableGroupKeys.Contains(groupKey))
         {
@@ -43,6 +45,8 @@ public class GroupEventController : ControllerBase
             )
         };
 
-        return this.Ok(new GroupEventsGetResponse { Group = group, Events = events });
+        return this.Ok(
+            new GroupEventsGetResponse { Group = GroupViewModel.FromGroup(group), Events = events }
+        );
     }
 }
