@@ -1,19 +1,23 @@
 namespace Lullaby.Tests;
 
 using Data;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 public class BaseDatabaseTest
 {
-    protected const string ConnectionString = "server=127.0.0.1;port=3306;user=root;password=root;Database=lullaby_test";
+    protected LullabyContext Context { get; }
 
-    public required LullabyContext Context { get; init; }
-
-    public BaseDatabaseTest() =>
+    public BaseDatabaseTest()
+    {
+        var builder = WebApplication.CreateBuilder(new WebApplicationOptions { EnvironmentName = "Testing" });
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
         this.Context = new LullabyContext(
-            DatabaseConfig.CreateDbContextOptions(ConnectionString, new DbContextOptionsBuilder<LullabyContext>())
+            DatabaseConfig.CreateDbContextOptions(connectionString, new DbContextOptionsBuilder<LullabyContext>())
                 .Options
         );
+    }
 
     [SetUp]
     public void PrepareDatabase()
