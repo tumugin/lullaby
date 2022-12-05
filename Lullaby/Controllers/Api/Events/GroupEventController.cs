@@ -32,12 +32,12 @@ public class GroupEventController : ControllerBase
 
         var events = groupEventIndexParameters switch
         {
-            { } g when g.EventEndsAt.HasValue && g.EventStartsFrom.HasValue =>
+            { EventEndsAt: { }, EventStartsFrom: { } } =>
                 await this.GetEventsByGroupKeyService.Execute(
                     groupKey,
                     groupEventIndexParameters.EventTypes,
-                    g.EventStartsFrom.Value,
-                    g.EventEndsAt.Value
+                    groupEventIndexParameters.EventStartsFrom.Value,
+                    groupEventIndexParameters.EventEndsAt.Value
                 ),
             _ => await this.GetEventsByGroupKeyService.Execute(
                 groupKey,
