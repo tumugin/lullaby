@@ -32,6 +32,6 @@ public static class EventTypeExt
 {
     public static EventType[] AllTypes() => new[]
     {
-        EventType.OneMan, EventType.Battle, EventType.Fes, EventType.BattleOrFes,
+        EventType.Unknown, EventType.OneMan, EventType.Battle, EventType.Fes, EventType.BattleOrFes,
     };
 }
