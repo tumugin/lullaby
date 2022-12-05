@@ -12,7 +12,7 @@ public class Aoseka : IGroup
 
     public string GroupName => "群青の世界";
 
-    public int CrawlInterval => 60 * 60;
+    public string CrawlCron => "0 * * * *";
 
     public Task<IEnumerable<GroupEvent>> getEvents()
     {
