@@ -11,7 +11,7 @@ public abstract class BaseGroup
 
     public abstract string CrawlCron { get; }
 
-    public abstract Task<IEnumerable<GroupEvent>> getEvents();
+    public abstract Task<IEnumerable<GroupEvent>> GetEvents();
 
     public async Task GetAndUpdateSavedEvents(
         AddEventByGroupEventService addEventByGroupEventService,
@@ -19,7 +19,7 @@ public abstract class BaseGroup
         UpdateEventByGroupEventService updateEventByGroupEventService
     )
     {
-        var groupEvents = await this.getEvents();
+        var groupEvents = await this.GetEvents();
         var findDuplicateEventsQuery = groupEvents
             .Select(v =>
                 new FindDuplicateEventService.EventSearchQueryData()
