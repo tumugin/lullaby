@@ -24,7 +24,7 @@ public class FindDuplicateEventService
      * (タイトルのみだとTOKYO IDOL FESTIVALのような複数日出演するイベントで壊れる)
      */
     public Task<List<Event>> Execute(
-        List<EventSearchQueryData> eventSearchQueryData
+        IEnumerable<EventSearchQueryData> eventSearchQueryData
     ) =>
         Context
             .Events
