@@ -10,21 +10,29 @@ public class FindDuplicateEventService
 
     public FindDuplicateEventService(LullabyContext context) => this.Context = context;
 
+    public class EventSearchQueryData
+    {
+        public required string groupKey { get; init; }
+        public required string eventName { get; init; }
+        public required DateTimeOffset startDateTime { get; init; }
+        public required DateTimeOffset endDateTime { get; init; }
+    }
+
     /**
      * 既にDBに保存された重複するイベントを検索する
      * サイト上には基本的にIDはないので、イベント名と開始終了時刻での検索を行う
      * (タイトルのみだとTOKYO IDOL FESTIVALのような複数日出演するイベントで壊れる)
      */
-    public Task<Event?> Execute(
-        string groupKey, string eventName, DateTimeOffset startDateTime, DateTimeOffset endDateTime
+    public Task<List<Event>> Execute(
+        List<EventSearchQueryData> eventSearchQueryData
     ) =>
         Context
             .Events
             .Where(e =>
-                e.EventName == eventName &&
-                e.GroupKey == groupKey &&
-                e.EventStarts == startDateTime &&
-                e.EventEnds == endDateTime
+                eventSearchQueryData.Select(q => q.eventName).Contains(e.EventName) &&
+                eventSearchQueryData.Select(q => q.groupKey).Contains(e.GroupKey) &&
+                eventSearchQueryData.Select(q => q.startDateTime).Contains(e.EventStarts) &&
+                eventSearchQueryData.Select(q => q.endDateTime).Contains(e.EventEnds)
             )
-            .FirstOrDefaultAsync();
+            .ToListAsync();
 }

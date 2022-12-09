@@ -40,12 +40,18 @@ public class FindDuplicateEventServiceTest : BaseDatabaseTest
         };
         await this.AddEventByGroupEventService.Execute("aoseka", groupEvent);
         var result = await this.FindDuplicateEventService.Execute(
-            "aoseka",
-            groupEvent.EventName,
-            ((DetailedEventDateTime)groupEvent.EventDateTime).EventStartDateTime,
-            ((DetailedEventDateTime)groupEvent.EventDateTime).EventEndDateTime
+            new List<FindDuplicateEventService.EventSearchQueryData>
+            {
+                new()
+                {
+                    groupKey = "aoseka",
+                    eventName = groupEvent.EventName,
+                    startDateTime = ((DetailedEventDateTime)groupEvent.EventDateTime).EventStartDateTime,
+                    endDateTime = ((DetailedEventDateTime)groupEvent.EventDateTime).EventEndDateTime,
+                }
+            }
         );
 
-        Assert.That(result, Is.Not.Null);
+        Assert.That(result.FirstOrDefault(), Is.Not.Null);
     }
 }

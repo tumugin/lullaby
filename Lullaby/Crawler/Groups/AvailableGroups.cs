@@ -2,5 +2,5 @@ namespace Lullaby.Crawler.Groups;
 
 public class AvailableGroups
 {
-    public IGroup[] Groups() => new IGroup[] { new Aoseka() };
+    public BaseGroup[] Groups() => new BaseGroup[] { new Aoseka() };
 }

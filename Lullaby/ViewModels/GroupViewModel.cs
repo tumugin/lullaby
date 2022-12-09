@@ -10,11 +10,11 @@ public class GroupViewModel
 
     public required string CrawlCron { get; init; }
 
-    public static GroupViewModel FromGroup(IGroup group)
+    public static GroupViewModel FromGroup(BaseGroup baseGroup)
     {
         return new GroupViewModel
         {
-            GroupKey = group.GroupKey, GroupName = group.GroupName, CrawlCron = group.CrawlCron
+            GroupKey = baseGroup.GroupKey, GroupName = baseGroup.GroupName, CrawlCron = baseGroup.CrawlCron
         };
     }
 }
