@@ -13,7 +13,7 @@ public abstract class BaseGroup
 
     public abstract Task<IEnumerable<GroupEvent>> getEvents();
 
-    public async Task getAndUpdateSavedEvents(
+    public async Task GetAndUpdateSavedEvents(
         AddEventByGroupEventService addEventByGroupEventService,
         FindDuplicateEventService findDuplicateEventService,
         UpdateEventByGroupEventService updateEventByGroupEventService
