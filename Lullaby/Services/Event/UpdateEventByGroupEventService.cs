@@ -2,7 +2,6 @@ namespace Lullaby.Services.Event;
 
 using Crawler.Events;
 using Data;
-using Force.DeepCloner;
 using Models;
 using Utils;
 
@@ -17,8 +16,7 @@ public class UpdateEventByGroupEventService
         var eventStarts = groupEvent.EventDateTime.EventStartDateTimeOffset;
         var eventEnds = groupEvent.EventDateTime.EventEndDateTimeOffset;
 
-        var clonedEntity = eventEntity.ShallowClone();
-        clonedEntity.Also(entity =>
+        eventEntity.Also(entity =>
         {
             entity.EventStarts = eventStarts;
             entity.EventEnds = eventEnds;
@@ -29,7 +27,7 @@ public class UpdateEventByGroupEventService
             entity.EventType = groupEvent.EventType;
         });
 
-        var updatedEntity = this.Context.Events.Update(clonedEntity);
+        var updatedEntity = this.Context.Events.Update(eventEntity);
         await this.Context.SaveChangesAsync();
 
         return updatedEntity.Entity;
