@@ -12,10 +12,10 @@ public class FindDuplicateEventService
 
     public class EventSearchQueryData
     {
-        public required string groupKey { get; init; }
-        public required string eventName { get; init; }
-        public required DateTimeOffset startDateTime { get; init; }
-        public required DateTimeOffset endDateTime { get; init; }
+        public required string GroupKey { get; init; }
+        public required string EventName { get; init; }
+        public required DateTimeOffset StartDateTime { get; init; }
+        public required DateTimeOffset EndDateTime { get; init; }
     }
 
     /**
@@ -29,10 +29,10 @@ public class FindDuplicateEventService
         Context
             .Events
             .Where(e =>
-                eventSearchQueryData.Select(q => q.eventName).Contains(e.EventName) &&
-                eventSearchQueryData.Select(q => q.groupKey).Contains(e.GroupKey) &&
-                eventSearchQueryData.Select(q => q.startDateTime).Contains(e.EventStarts) &&
-                eventSearchQueryData.Select(q => q.endDateTime).Contains(e.EventEnds)
+                eventSearchQueryData.Select(q => q.EventName).Contains(e.EventName) &&
+                eventSearchQueryData.Select(q => q.GroupKey).Contains(e.GroupKey) &&
+                eventSearchQueryData.Select(q => q.StartDateTime).Contains(e.EventStarts) &&
+                eventSearchQueryData.Select(q => q.EndDateTime).Contains(e.EventEnds)
             )
             .ToListAsync();
 }

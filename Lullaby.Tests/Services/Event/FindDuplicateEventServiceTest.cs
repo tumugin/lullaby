@@ -44,10 +44,10 @@ public class FindDuplicateEventServiceTest : BaseDatabaseTest
             {
                 new()
                 {
-                    groupKey = "aoseka",
-                    eventName = groupEvent.EventName,
-                    startDateTime = ((DetailedEventDateTime)groupEvent.EventDateTime).EventStartDateTime,
-                    endDateTime = ((DetailedEventDateTime)groupEvent.EventDateTime).EventEndDateTime,
+                    GroupKey = "aoseka",
+                    EventName = groupEvent.EventName,
+                    StartDateTime = ((DetailedEventDateTime)groupEvent.EventDateTime).EventStartDateTime,
+                    EndDateTime = ((DetailedEventDateTime)groupEvent.EventDateTime).EventEndDateTime,
                 }
             }
         );
