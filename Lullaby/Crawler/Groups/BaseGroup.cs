@@ -26,18 +26,8 @@ public abstract class BaseGroup
                 {
                     GroupKey = this.GroupKey,
                     EventName = v.EventName,
-                    StartDateTime = v.EventDateTime switch
-                    {
-                        DetailedEventDateTime detailedEventDateTime => detailedEventDateTime.EventStartDateTime,
-                        UnDetailedEventDateTime unDetailedEventDateTime => unDetailedEventDateTime.EventStartDate,
-                        _ => throw new ArgumentException("EventDateTime is not a valid type"),
-                    },
-                    EndDateTime = v.EventDateTime switch
-                    {
-                        DetailedEventDateTime detailedEventDateTime => detailedEventDateTime.EventEndDateTime,
-                        UnDetailedEventDateTime unDetailedEventDateTime => unDetailedEventDateTime.EventEndDate,
-                        _ => throw new ArgumentException("EventDateTime is not a valid type"),
-                    }
+                    StartDateTime = v.EventDateTime.EventStartDateTimeOffset,
+                    EndDateTime = v.EventDateTime.EventEndDateTimeOffset
                 }
             );
 
@@ -49,24 +39,8 @@ public abstract class BaseGroup
             var duplicateEvent = duplicateEvents.FirstOrDefault(d =>
                 d.GroupKey == this.GroupKey &&
                 d.EventName == groupEvent.EventName &&
-                d.EventStarts == groupEvent.EventDateTime switch
-                {
-                    DetailedEventDateTime detailedEventDateTime =>
-                        detailedEventDateTime.EventStartDateTime,
-                    UnDetailedEventDateTime unDetailedEventDateTime
-                        => unDetailedEventDateTime.EventStartDate,
-                    _ => throw new ArgumentException(
-                        "EventDateTime is not a valid type"),
-                } &&
-                d.EventEnds == groupEvent.EventDateTime switch
-                {
-                    DetailedEventDateTime detailedEventDateTime =>
-                        detailedEventDateTime.EventEndDateTime,
-                    UnDetailedEventDateTime unDetailedEventDateTime
-                        => unDetailedEventDateTime.EventEndDate,
-                    _ => throw new ArgumentException(
-                        "EventDateTime is not a valid type"),
-                }
+                d.EventStarts == groupEvent.EventDateTime.EventStartDateTimeOffset &&
+                d.EventEnds == groupEvent.EventDateTime.EventEndDateTimeOffset
             );
             if (duplicateEvent != null)
             {

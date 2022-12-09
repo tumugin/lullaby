@@ -12,18 +12,8 @@ public class AddEventByGroupEventService
 
     public async Task<Event> Execute(string groupKey, GroupEvent groupEvent)
     {
-        var eventStarts = groupEvent.EventDateTime switch
-        {
-            DetailedEventDateTime detailedEventDateTime => detailedEventDateTime.EventStartDateTime,
-            UnDetailedEventDateTime unDetailedEventDateTime => unDetailedEventDateTime.EventStartDate,
-            _ => throw new ArgumentException("EventDateTime is not a valid type"),
-        };
-        var eventEnds = groupEvent.EventDateTime switch
-        {
-            DetailedEventDateTime detailedEventDateTime => detailedEventDateTime.EventEndDateTime,
-            UnDetailedEventDateTime unDetailedEventDateTime => unDetailedEventDateTime.EventEndDate,
-            _ => throw new ArgumentException("EventDateTime is not a valid type"),
-        };
+        var eventStarts = groupEvent.EventDateTime.EventStartDateTimeOffset;
+        var eventEnds = groupEvent.EventDateTime.EventEndDateTimeOffset;
 
         var draftEvent = new Event
         {
