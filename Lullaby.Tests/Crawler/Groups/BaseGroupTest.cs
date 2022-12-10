@@ -29,5 +29,34 @@ public class BaseGroupTest : BaseDatabaseTest
 
         var addedResult = await this.Context.Events.ToListAsync();
         Assert.That(addedResult, Has.Count.EqualTo(2));
+        Assert.Multiple(() =>
+        {
+            Assert.That(addedResult[0].EventDescription, Is.EqualTo("day1 test"));
+            Assert.That(addedResult[1].EventDescription, Is.EqualTo("day2 test"));
+        });
+    }
+
+    [Test]
+    public async Task TestGetAndUpdateSavedEventsWithDuplicate()
+    {
+        var testGroup = new TestGroup();
+        await testGroup.GetAndUpdateSavedEvents(
+            this.AddEventByGroupEventService,
+            this.FindDuplicateEventService,
+            this.UpdateEventByGroupEventService
+        );
+        await testGroup.GetAndUpdateSavedEvents(
+            this.AddEventByGroupEventService,
+            this.FindDuplicateEventService,
+            this.UpdateEventByGroupEventService
+        );
+
+        var addedResult = await this.Context.Events.ToListAsync();
+        Assert.That(addedResult, Has.Count.EqualTo(2));
+        Assert.Multiple(() =>
+        {
+            Assert.That(addedResult[0].EventDescription, Is.EqualTo("day1 test"));
+            Assert.That(addedResult[1].EventDescription, Is.EqualTo("day2 test"));
+        });
     }
 }
