@@ -1,4 +1,4 @@
-namespace Lullaby.Requests.Api.Events;
+namespace Lullaby.Requests.Ical.Events;
 
 using Crawler.Events;
 
