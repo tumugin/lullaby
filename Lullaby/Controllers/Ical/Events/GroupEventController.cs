@@ -1,7 +1,6 @@
 namespace Lullaby.Controllers.Ical.Events;
 
-using System.Net.Http.Headers;
-using System.Text;
+using System.Net;
 using AngleSharp.Text;
 using Crawler.Groups;
 using global::Ical.Net;
@@ -10,7 +9,6 @@ using global::Ical.Net.DataTypes;
 using global::Ical.Net.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Requests.Ical.Events;
-using Responses;
 using Services.Event;
 
 [Controller]
@@ -22,6 +20,7 @@ public class GroupEventController : ControllerBase
     public GroupEventController(GetEventsByGroupKeyService getEventsByGroupKeyService) =>
         this.GetEventsByGroupKeyService = getEventsByGroupKeyService;
 
+    [HttpGet]
     public async Task<IActionResult> Get(
         [FromRoute] string groupKey,
         [FromQuery] GroupEventIndexParameters groupEventIndexParameters
@@ -29,7 +28,9 @@ public class GroupEventController : ControllerBase
     {
         if (!GroupKeys.AvailableGroupKeys.Contains(groupKey))
         {
-            return this.NotFound(new BaseErrorResponse { ErrorType = ApiErrorTypes.GroupNotFound });
+            var notFoundContent = this.Content("", "text/calendar");
+            notFoundContent.StatusCode = StatusCodes.Status404NotFound;
+            return notFoundContent;
         }
 
         var group = GroupKeys.GetGroupByKey(groupKey);
@@ -67,12 +68,6 @@ public class GroupEventController : ControllerBase
         var serializer = new CalendarSerializer();
         var serializedCalendar = serializer.SerializeToString(calendar);
 
-        return this.Ok(
-            new StringContent(
-                serializedCalendar,
-                Encoding.UTF8,
-                new MediaTypeHeaderValue("text/calendar")
-            )
-        );
+        return this.Content(serializedCalendar, "text/calendar");
     }
 }

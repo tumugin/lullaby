@@ -2,11 +2,9 @@
 
 using System.Globalization;
 using System.Net;
-using System.Net.Http.Json;
 using Lullaby.Crawler.Groups;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
-using Responses.Api.Events;
 using Seeder;
 
 public class GroupEventControllerTest : BaseWebTest
@@ -19,9 +17,10 @@ public class GroupEventControllerTest : BaseWebTest
             await this.Client.GetAsync(
                 $"ical/events/{Aoseka.GroupKeyConstant}"
             );
-        Assert.Multiple(async () =>
+        var content = await result.Content.ReadAsStringAsync();
+        Assert.Multiple(() =>
         {
-            Assert.That(await result.Content.ReadAsStringAsync(), Is.Not.Null);
+            Assert.That(content, Is.Not.Null);
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(result.Content.Headers.ContentType.MediaType, Is.EqualTo("text/calendar"));
         });
@@ -60,15 +59,9 @@ public class GroupEventControllerTest : BaseWebTest
     }
 
     [Test]
-    public Task GetNotFoundTest()
+    public async Task GetNotFoundTest()
     {
-        var ex = Assert.ThrowsAsync<HttpRequestException>(async () =>
-        {
-            await this.Client.GetFromJsonAsync<GroupEventsGetResponse>(
-                $"ical/events/appare"
-            );
-        });
-        Assert.That(ex.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
-        return Task.CompletedTask;
+        var result = await this.Client.GetAsync("ical/events/appare");
+        Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
     }
 }
