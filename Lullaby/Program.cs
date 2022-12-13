@@ -1,5 +1,6 @@
 using Lullaby;
 using Lullaby.Data;
+using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,21 @@ DiConfig.BuildDi(builder);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add Quartz
+builder.Services.AddQuartz(q =>
+{
+    q.UseMicrosoftDependencyInjectionJobFactory();
+    q.UsePersistentStore(store =>
+    {
+        store.UseProperties = true;
+        store.UseMySql(dbConnectionString);
+    });
+});
+builder.Services.AddQuartzHostedService(q =>
+{
+    q.WaitForJobsToComplete = true;
+});
 
 var app = builder.Build();
 
