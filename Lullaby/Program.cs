@@ -22,6 +22,7 @@ builder.Services.AddQuartz(q =>
     q.UseMicrosoftDependencyInjectionJobFactory();
     q.UsePersistentStore(store =>
     {
+        store.UseJsonSerializer();
         store.UseProperties = true;
         store.UseClustering();
         store.UseMySqlConnector((c) =>
