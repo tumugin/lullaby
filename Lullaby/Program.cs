@@ -4,7 +4,8 @@ using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("DB ConnectionString must not be null.");
 builder.Services.AddDbContext<LullabyContext>(options =>
     DatabaseConfig.CreateDbContextOptions(dbConnectionString, options)
 );
@@ -22,7 +23,11 @@ builder.Services.AddQuartz(q =>
     q.UsePersistentStore(store =>
     {
         store.UseProperties = true;
-        store.UseMySql(dbConnectionString);
+        store.UseClustering();
+        store.UseMySqlConnector((c) =>
+        {
+            c.ConnectionString = dbConnectionString;
+        });
     });
 });
 builder.Services.AddQuartzHostedService(q =>
