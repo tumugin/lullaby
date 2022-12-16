@@ -5,7 +5,7 @@ using Quartz;
 var builder = WebApplication.CreateBuilder(args);
 
 var dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection")
-    ?? throw new InvalidOperationException("DB ConnectionString must not be null.");
+                         ?? throw new InvalidOperationException("DB ConnectionString must not be null.");
 builder.Services.AddDbContext<LullabyContext>(options =>
     DatabaseConfig.CreateDbContextOptions(dbConnectionString, options)
 );
@@ -20,16 +20,19 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddQuartz(q =>
 {
     q.UseMicrosoftDependencyInjectionJobFactory();
-    q.UsePersistentStore(store =>
+    if (builder.Environment.EnvironmentName != "Testing")
     {
-        store.UseJsonSerializer();
-        store.UseProperties = true;
-        store.UseClustering();
-        store.UseMySqlConnector((c) =>
+        q.UsePersistentStore(store =>
         {
-            c.ConnectionString = dbConnectionString;
+            store.UseJsonSerializer();
+            store.UseProperties = true;
+            store.UseClustering();
+            store.UseMySqlConnector((c) =>
+            {
+                c.ConnectionString = dbConnectionString;
+            });
         });
-    });
+    }
 });
 builder.Services.AddQuartzHostedService(q =>
 {
