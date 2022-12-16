@@ -17,12 +17,13 @@ DiConfig.BuildDi(builder);
 builder.Services.AddControllersWithViews();
 
 // Add Quartz
-builder.Services.AddQuartz(q =>
+builder.Services.AddQuartz(quartz =>
 {
-    q.UseMicrosoftDependencyInjectionJobFactory();
+    quartz.UseMicrosoftDependencyInjectionJobFactory();
+    // Do not configure quartz store databases and cron jobs for testing
     if (builder.Environment.EnvironmentName != "Testing")
     {
-        q.UsePersistentStore(store =>
+        quartz.UsePersistentStore(store =>
         {
             store.UseJsonSerializer();
             store.UseProperties = true;
@@ -32,11 +33,12 @@ builder.Services.AddQuartz(q =>
                 c.ConnectionString = dbConnectionString;
             });
         });
+        ConfigureScheduledJobs.Configure(quartz);
     }
 });
-builder.Services.AddQuartzHostedService(q =>
+builder.Services.AddQuartzHostedService(quartz =>
 {
-    q.WaitForJobsToComplete = true;
+    quartz.WaitForJobsToComplete = true;
 });
 
 var app = builder.Build();
