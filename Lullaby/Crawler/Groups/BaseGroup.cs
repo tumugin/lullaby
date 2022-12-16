@@ -1,6 +1,7 @@
 namespace Lullaby.Crawler.Groups;
 
 using Events;
+using RestSharp;
 using Services.Event;
 
 public abstract class BaseGroup
@@ -11,15 +12,16 @@ public abstract class BaseGroup
 
     public abstract string CrawlCron { get; }
 
-    public abstract Task<IEnumerable<GroupEvent>> GetEvents();
+    public abstract Task<IEnumerable<GroupEvent>> GetEvents(RestClient restClient);
 
     public async Task GetAndUpdateSavedEvents(
         AddEventByGroupEventService addEventByGroupEventService,
         FindDuplicateEventService findDuplicateEventService,
-        UpdateEventByGroupEventService updateEventByGroupEventService
+        UpdateEventByGroupEventService updateEventByGroupEventService,
+        RestClient restClient
     )
     {
-        var groupEvents = await this.GetEvents();
+        var groupEvents = await this.GetEvents(restClient);
         var findDuplicateEventsQuery = groupEvents
             .Select(v =>
                 new FindDuplicateEventService.EventSearchQueryData()

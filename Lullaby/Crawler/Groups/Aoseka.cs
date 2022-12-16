@@ -14,9 +14,9 @@ public class Aoseka : BaseGroup
 
     public override string CrawlCron => "0 * * * *";
 
-    public override Task<IEnumerable<GroupEvent>> GetEvents()
+    public override Task<IEnumerable<GroupEvent>> GetEvents(RestClient restClient)
     {
-        var aosekaScraper = new AosekaSchedulePageScraper(new RestClient());
+        var aosekaScraper = new AosekaSchedulePageScraper(restClient);
         return aosekaScraper.ScrapeAsync();
     }
 }
