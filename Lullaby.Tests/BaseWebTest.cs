@@ -4,8 +4,8 @@ public class BaseWebTest : BaseDatabaseTest
 {
     protected HttpClient Client { get; set; } = null!;
 
-    [OneTimeSetUp]
-    public void OneTimeSetUp()
+    [SetUp]
+    public void WebServerSetUp()
     {
         this.Client = new TestingWebApplicationFactory().CreateClient();
     }

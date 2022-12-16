@@ -2,12 +2,14 @@ namespace Lullaby.Tests.Crawler.Groups;
 
 using Lullaby.Services.Event;
 using Microsoft.EntityFrameworkCore;
+using RestSharp;
 
 public class BaseGroupTest : BaseDatabaseTest
 {
     private AddEventByGroupEventService AddEventByGroupEventService { get; set; } = null!;
     private FindDuplicateEventService FindDuplicateEventService { get; set; } = null!;
     private UpdateEventByGroupEventService UpdateEventByGroupEventService { get; set; } = null!;
+    private RestClient RestClient { get; set; } = null!;
 
     [SetUp]
     public void Setup()
@@ -15,6 +17,7 @@ public class BaseGroupTest : BaseDatabaseTest
         this.AddEventByGroupEventService = new AddEventByGroupEventService(this.Context);
         this.FindDuplicateEventService = new FindDuplicateEventService(this.Context);
         this.UpdateEventByGroupEventService = new UpdateEventByGroupEventService(this.Context);
+        this.RestClient = new RestClient();
     }
 
     [Test]
@@ -24,7 +27,8 @@ public class BaseGroupTest : BaseDatabaseTest
         await testGroup.GetAndUpdateSavedEvents(
             this.AddEventByGroupEventService,
             this.FindDuplicateEventService,
-            this.UpdateEventByGroupEventService
+            this.UpdateEventByGroupEventService,
+            this.RestClient
         );
 
         var addedResult = await this.Context.Events.ToListAsync();
@@ -43,12 +47,14 @@ public class BaseGroupTest : BaseDatabaseTest
         await testGroup.GetAndUpdateSavedEvents(
             this.AddEventByGroupEventService,
             this.FindDuplicateEventService,
-            this.UpdateEventByGroupEventService
+            this.UpdateEventByGroupEventService,
+            this.RestClient
         );
         await testGroup.GetAndUpdateSavedEvents(
             this.AddEventByGroupEventService,
             this.FindDuplicateEventService,
-            this.UpdateEventByGroupEventService
+            this.UpdateEventByGroupEventService,
+            this.RestClient
         );
 
         var addedResult = await this.Context.Events.ToListAsync();
