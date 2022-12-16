@@ -1,9 +1,11 @@
 using Lullaby;
 using Lullaby.Data;
+using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                         ?? throw new InvalidOperationException("DB ConnectionString must not be null.");
 builder.Services.AddDbContext<LullabyContext>(options =>
     DatabaseConfig.CreateDbContextOptions(dbConnectionString, options)
 );
@@ -13,6 +15,29 @@ DiConfig.BuildDi(builder);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Add Quartz
+builder.Services.AddQuartz(q =>
+{
+    q.UseMicrosoftDependencyInjectionJobFactory();
+    if (builder.Environment.EnvironmentName != "Testing")
+    {
+        q.UsePersistentStore(store =>
+        {
+            store.UseJsonSerializer();
+            store.UseProperties = true;
+            store.UseClustering();
+            store.UseMySqlConnector((c) =>
+            {
+                c.ConnectionString = dbConnectionString;
+            });
+        });
+    }
+});
+builder.Services.AddQuartzHostedService(q =>
+{
+    q.WaitForJobsToComplete = true;
+});
 
 var app = builder.Build();
 
