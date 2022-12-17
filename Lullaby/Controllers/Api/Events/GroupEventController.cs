@@ -21,7 +21,7 @@ public class GroupEventController : ControllerBase
 
     [HttpGet]
     [SwaggerResponse(200, "The operation was succeeded", typeof(GroupEventsGetResponse))]
-    [SwaggerResponse(404, "The group was not found", typeof(HandledErrorResponse))]
+    [SwaggerResponse(404, "The group was not found", typeof(ProblemDetails))]
     [SwaggerResponse(400, "The request was invalid", typeof(ValidationProblemDetails))]
     public async Task<IActionResult> Get(
         [FromRoute] string groupKey,
@@ -30,12 +30,7 @@ public class GroupEventController : ControllerBase
     {
         if (!GroupKeys.AvailableGroupKeys.Contains(groupKey))
         {
-            return this.NotFound(
-                new HandledErrorResponse(ApiErrorTypes.GroupNotFound)
-                {
-                    Detail = $"Specified group key '{groupKey}' is not available"
-                }
-            );
+            return this.NotFound();
         }
 
         var group = GroupKeys.GetGroupByKey(groupKey);
