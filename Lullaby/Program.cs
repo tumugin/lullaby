@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Lullaby;
 using Lullaby.Data;
 using Quartz;
@@ -14,7 +15,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 DiConfig.BuildDi(builder);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 
 // Add Quartz
 builder.Services.AddQuartz(quartz =>
@@ -42,7 +46,12 @@ builder.Services.AddQuartzHostedService(quartz =>
 });
 
 // Swagger
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(swagger =>
+{
+    swagger.EnableAnnotations();
+});
+
+builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 

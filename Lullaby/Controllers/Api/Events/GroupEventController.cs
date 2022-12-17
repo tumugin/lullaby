@@ -6,10 +6,12 @@ using Requests.Api.Events;
 using Responses;
 using Responses.Api.Events;
 using Services.Event;
+using Swashbuckle.AspNetCore.Annotations;
 using ViewModels;
 
 [ApiController]
 [Route("/api/events/{groupKey}")]
+[Produces("application/json")]
 public class GroupEventController : ControllerBase
 {
     private GetEventsByGroupKeyService GetEventsByGroupKeyService { get; }
@@ -18,6 +20,9 @@ public class GroupEventController : ControllerBase
         this.GetEventsByGroupKeyService = getEventsByGroupKeyService;
 
     [HttpGet]
+    [SwaggerResponse(200, "The operation was succeeded", typeof(GroupEventsGetResponse))]
+    [SwaggerResponse(404, "The group was not found", typeof(HandledErrorResponse))]
+    [SwaggerResponse(400, "The request was invalid", typeof(ValidationProblemDetails))]
     public async Task<IActionResult> Get(
         [FromRoute] string groupKey,
         [FromQuery] GroupEventIndexParameters groupEventIndexParameters
@@ -25,7 +30,12 @@ public class GroupEventController : ControllerBase
     {
         if (!GroupKeys.AvailableGroupKeys.Contains(groupKey))
         {
-            return this.NotFound(new BaseErrorResponse { ErrorType = ApiErrorTypes.GroupNotFound });
+            return this.NotFound(
+                new HandledErrorResponse(ApiErrorTypes.GroupNotFound)
+                {
+                    Detail = $"Specified group key '{groupKey}' is not available"
+                }
+            );
         }
 
         var group = GroupKeys.GetGroupByKey(groupKey);
