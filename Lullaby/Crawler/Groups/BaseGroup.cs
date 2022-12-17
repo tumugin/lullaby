@@ -10,6 +10,8 @@ public abstract class BaseGroup
 
     public abstract string GroupName { get; }
 
+    // see: https://www.freeformatter.com/cron-expression-generator-quartz.html
+    // see: https://www.quartz-scheduler.net/documentation/quartz-3.x/tutorial/crontriggers.html
     public abstract string CrawlCron { get; }
 
     public abstract Task<IEnumerable<GroupEvent>> GetEvents(RestClient restClient);
