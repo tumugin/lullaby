@@ -9,7 +9,7 @@ public class TestGroup : BaseGroup
 {
     public override string GroupKey => "test";
     public override string GroupName => "テスト";
-    public override string CrawlCron => "0 * * * *";
+    public override string CrawlCron => "0 0 * ? * * *";
 
     public override async Task<IEnumerable<GroupEvent>> GetEvents(RestClient restClient) =>
         await Task.Run(() => new List<GroupEvent>

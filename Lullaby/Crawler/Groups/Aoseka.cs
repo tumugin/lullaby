@@ -12,7 +12,8 @@ public class Aoseka : BaseGroup
 
     public override string GroupName => "群青の世界";
 
-    public override string CrawlCron => "0 * * * *";
+    // every hour
+    public override string CrawlCron => "0 0 * ? * * *";
 
     public override Task<IEnumerable<GroupEvent>> GetEvents(RestClient restClient)
     {
