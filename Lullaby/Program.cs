@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Lullaby;
 using Lullaby.Data;
 using Quartz;
@@ -14,7 +15,10 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 DiConfig.BuildDi(builder);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 
 // Add Quartz
 builder.Services.AddQuartz(quartz =>
@@ -42,15 +46,28 @@ builder.Services.AddQuartzHostedService(quartz =>
 });
 
 // Swagger
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(swagger =>
+{
+    swagger.EnableAnnotations();
+});
+
+builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
+app.UseStatusCodePages();
+
 if (!app.Environment.IsDevelopment())
 {
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
+    app.UseExceptionHandler();
+}
+else
+{
+    app.UseDeveloperExceptionPage();
 }
 
 // Swagger(enable for all envs because it's api application open for everyone)

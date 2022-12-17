@@ -1,6 +1,5 @@
 namespace Lullaby.Controllers.Ical.Events;
 
-using System.Net;
 using AngleSharp.Text;
 using Crawler.Groups;
 using global::Ical.Net;
@@ -10,8 +9,10 @@ using global::Ical.Net.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Requests.Ical.Events;
 using Services.Event;
+using Swashbuckle.AspNetCore.Annotations;
 
 [Controller]
+[Produces("text/calendar")]
 [Route("/ical/events/{groupKey}")]
 public class GroupEventController : ControllerBase
 {
@@ -21,6 +22,9 @@ public class GroupEventController : ControllerBase
         this.GetEventsByGroupKeyService = getEventsByGroupKeyService;
 
     [HttpGet]
+    [SwaggerResponse(200, "The operation was succeeded")]
+    [SwaggerResponse(404, "The group was not found")]
+    [SwaggerResponse(400, "The request was invalid")]
     public async Task<IActionResult> Get(
         [FromRoute] string groupKey,
         [FromQuery] GroupEventIndexParameters groupEventIndexParameters
