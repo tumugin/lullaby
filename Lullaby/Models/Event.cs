@@ -2,7 +2,11 @@ namespace Lullaby.Models;
 
 using System.ComponentModel.DataAnnotations.Schema;
 using Crawler.Events;
+using Microsoft.EntityFrameworkCore;
 
+[Index(nameof(GroupKey))]
+[Index(nameof(EventStarts))]
+[Index(nameof(EventEnds))]
 public class Event
 {
     public long Id { get; set; }
