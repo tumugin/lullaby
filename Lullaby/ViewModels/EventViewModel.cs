@@ -5,34 +5,35 @@ using Models;
 
 public class EventViewModel
 {
-    public long Id { get; }
+    public required long Id { get; init; }
 
-    public string GroupKey { get; }
+    public required string GroupKey { get; init; }
 
-    public DateTimeOffset EventStarts { get; }
+    public required DateTimeOffset EventStarts { get; init; }
 
-    public DateTimeOffset EventEnds { get; }
+    public required DateTimeOffset EventEnds { get; init; }
 
-    public bool IsDateTimeDetailed { get; }
+    public required bool IsDateTimeDetailed { get; init; }
 
-    public string EventName { get; }
+    public required string EventName { get; init; }
 
-    public string EventDescription { get; }
+    public required string EventDescription { get; init; }
 
-    public string? EventPlace { get; }
+    public required string? EventPlace { get; init; }
 
-    public EventType EventType { get; }
+    public required EventType EventType { get; init; }
 
-    public EventViewModel(Event eventModel)
-    {
-        this.Id = eventModel.Id;
-        this.GroupKey = eventModel.GroupKey;
-        this.EventStarts = eventModel.EventStarts;
-        this.EventEnds = eventModel.EventEnds;
-        this.IsDateTimeDetailed = eventModel.IsDateTimeDetailed;
-        this.EventName = eventModel.EventName;
-        this.EventDescription = eventModel.EventDescription;
-        this.EventPlace = eventModel.EventPlace;
-        this.EventType = eventModel.EventType;
-    }
+    public static EventViewModel FromEvent(Event eventModel) =>
+        new()
+        {
+            Id = eventModel.Id,
+            GroupKey = eventModel.GroupKey,
+            EventStarts = eventModel.EventStarts,
+            EventEnds = eventModel.EventEnds,
+            IsDateTimeDetailed = eventModel.IsDateTimeDetailed,
+            EventName = eventModel.EventName,
+            EventDescription = eventModel.EventDescription,
+            EventPlace = eventModel.EventPlace,
+            EventType = eventModel.EventType,
+        };
 }

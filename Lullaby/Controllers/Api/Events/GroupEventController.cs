@@ -51,7 +51,10 @@ public class GroupEventController : ControllerBase
         };
 
         return this.Ok(
-            new GroupEventsGetResponse { Group = GroupViewModel.FromGroup(group), Events = events }
+            new GroupEventsGetResponse
+            {
+                Group = GroupViewModel.FromGroup(group), Events = events.Select(EventViewModel.FromEvent)
+            }
         );
     }
 }

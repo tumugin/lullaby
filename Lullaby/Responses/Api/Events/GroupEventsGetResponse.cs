@@ -7,5 +7,5 @@ using ViewModels;
 public class GroupEventsGetResponse
 {
     public required GroupViewModel Group { get; set; }
-    public required IEnumerable<Event> Events { get; set; }
+    public required IEnumerable<EventViewModel> Events { get; set; }
 }
