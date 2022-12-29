@@ -10,7 +10,7 @@ using Utils;
 public partial class KolokolSchedulePageScraper
 {
     // サイトのレスポンスがそんなに速くないので、一旦最新1ページ+過去4ページ分だけ決め打ちで取ってくる
-    public readonly string[] SchedulePageUrls =
+    private readonly string[] schedulePageUrls =
     {
         "https://kolokol-official.com/schedule/", "https://kolokol-official.com/schedule/past/",
         "https://kolokol-official.com/schedule/past/num/10", "https://kolokol-official.com/schedule/past/num/20",
@@ -22,7 +22,7 @@ public partial class KolokolSchedulePageScraper
     private async Task<string[]> DownloadDocuments()
     {
         // 全部基本的には同じフォーマットで作られているのでまとめて落としてきてまとめて処理する
-        var asyncDocuments = this.SchedulePageUrls.Select(
+        var asyncDocuments = this.schedulePageUrls.Select(
             schedulePageUrl => Task.Run(async () =>
             {
                 var request = await this.Client.GetAsync(new RestRequest(schedulePageUrl));
@@ -126,7 +126,7 @@ public partial class KolokolSchedulePageScraper
     public async Task<IEnumerable<GroupEvent>> ScrapeAsync()
     {
         var allDocuments = await this.DownloadDocuments();
-        var allEvents = allDocuments.Select(d => this.ParseDocument(d));
+        var allEvents = allDocuments.Select(this.ParseDocument);
         return (await Task.WhenAll(allEvents)).SelectMany(e => e);
     }
 }
