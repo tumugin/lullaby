@@ -96,14 +96,16 @@ public partial class KolokolSchedulePageScraper
                     .Also(s => ManyNewLineRegex().Replace(s, "\n"))
                     .Trim();
 
-                IEventDateTime eventDateTime = detailedOpenTime.HasValue switch
+                IEventDateTime eventDateTime = detailedOpenTime switch
                 {
-                    true => new DetailedEventDateTime
+                    { } => new DetailedEventDateTime
                     {
-                        EventStartDateTime = detailedOpenTime!.Value,
+                        EventStartDateTime = detailedOpenTime.Value,
+                        // 閉場時間は分からないので一旦開場時間の4時間後にしておく
+                        // だいたい入場0.5~1h + ライブ1h~2h + 特典会2hなので4hくらいで十分だと思われる
                         EventEndDateTime = detailedOpenTime.Value.AddHours(4)
                     },
-                    false => new UnDetailedEventDateTime
+                    _ => new UnDetailedEventDateTime
                     {
                         EventStartDate = parsedDate, EventEndDate = parsedDate.AddDays(1)
                     }
