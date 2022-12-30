@@ -38,7 +38,7 @@ public partial class KolokolSchedulePageScraper
     [GeneratedRegex("^開場 / (\\d+):(\\d+)")]
     private static partial Regex OpenTimePattenRegex();
 
-    [GeneratedRegex("\t|\n|\r+")]
+    [GeneratedRegex("[\r\n]{2,}")]
     private static partial Regex ManyNewLineRegex();
 
     private async Task<IEnumerable<GroupEvent>> ParseDocument(string rawHtml)
