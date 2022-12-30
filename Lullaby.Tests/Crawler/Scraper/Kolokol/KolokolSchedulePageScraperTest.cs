@@ -25,6 +25,6 @@ public class KolokolSchedulePageScraperTest : BaseScraperTest
         var scraper = new KolokolSchedulePageScraper { Client = client };
         var result = await scraper.ScrapeAsync();
 
-        Assert.That(result.Count, Is.EqualTo(64));
+        Assert.That(result.Count, Is.EqualTo(40));
     }
 }
