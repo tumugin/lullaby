@@ -6,18 +6,17 @@ using Lullaby.Crawler.Scraper.Aoseka;
 using RestSharp;
 using RichardSzalay.MockHttp;
 
-public class AosekaSchedulePageScraperTest
+public class AosekaSchedulePageScraperTest : BaseScraperTest
 {
     [Test]
     public async Task TestScrapeAsync()
     {
         // mock html request
-        var testFileStream = typeof(AosekaSchedulePageScraperTest)
-            .Assembly
-            .GetManifestResourceStream("Lullaby.Tests.Crawler.Scraper.Aoseka.aoseka-test-page.html");
-        var testFileContent = await new StreamReader(testFileStream).ReadToEndAsync();
+        var testFileContent =
+            await this.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Aoseka.aoseka-test-page.html");
         var mockHttp = new MockHttpMessageHandler();
-        mockHttp.When(AosekaSchedulePageScraper.SchedulePageUrl)
+        mockHttp
+            .When(AosekaSchedulePageScraper.SchedulePageUrl)
             .Respond("text/html", testFileContent);
         var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
 
