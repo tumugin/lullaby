@@ -41,6 +41,9 @@ public partial class KolokolSchedulePageScraper
     [GeneratedRegex("\n+")]
     private static partial Regex ManyNewLineRegex();
 
+    [GeneratedRegex("\\s+")]
+    private static partial Regex ManyWhiteSpaceRegex();
+
     private async Task<IEnumerable<GroupEvent>> ParseDocument(string rawHtml)
     {
         var eventTypeDetector = new EventTypeDetector();
@@ -94,6 +97,7 @@ public partial class KolokolSchedulePageScraper
                     ?.TextContent
                     .Replace("\t", "")
                     .Also(s => ManyNewLineRegex().Replace(s, "\n"))
+                    .Also(s => ManyWhiteSpaceRegex().Replace(s, " "))
                     .Trim();
 
                 IEventDateTime eventDateTime = detailedOpenTime switch
