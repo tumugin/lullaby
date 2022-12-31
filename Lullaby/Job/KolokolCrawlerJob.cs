@@ -5,9 +5,9 @@ using Quartz;
 using RestSharp;
 using Services.Event;
 
-public class AosekaCrawlerJob : BaseCrawlerJob
+public class KolokolCrawlerJob : BaseCrawlerJob
 {
-    public AosekaCrawlerJob(
+    public KolokolCrawlerJob(
         AddEventByGroupEventService addEventByGroupEventService,
         FindDuplicateEventService findDuplicateEventService,
         UpdateEventByGroupEventService updateEventByGroupEventService,
@@ -23,8 +23,8 @@ public class AosekaCrawlerJob : BaseCrawlerJob
 
     public override async Task Execute(IJobExecutionContext context)
     {
-        var aoseka = new Aoseka();
-        await aoseka.GetAndUpdateSavedEvents(
+        var kolokol = new Kolokol();
+        await kolokol.GetAndUpdateSavedEvents(
             this.AddEventByGroupEventService,
             this.FindDuplicateEventService,
             this.UpdateEventByGroupEventService,
