@@ -1,2 +1,1 @@
-Lullaby.Tests/Crawler/Scraper/Aoseka/aoseka-test-page.html linguist-vendored
-Lullaby.Tests/Crawler/Scraper/Kolokol/kolokol-test-page.html linguist-vendored
+Lullaby.Tests/**/*-test-page.html linguist-vendored
