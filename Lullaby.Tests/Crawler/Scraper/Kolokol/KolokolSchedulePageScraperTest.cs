@@ -12,22 +12,32 @@ public class KolokolSchedulePageScraperTest : BaseScraperTest
     public async Task ScrapeAsyncTest()
     {
         // mock html request
-        var testFileContent =
+        var testFutureFileContent =
             await this.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Kolokol.kolokol-test-page.html");
+        var testPastFileContent =
+            await this.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Kolokol.kolokol-past-schedule-test-page.html");
         var mockHttp = new MockHttpMessageHandler();
         KolokolSchedulePageScraper.SchedulePageUrls.ToList().ForEach(pageUrl =>
         {
-            // 全て同じようなモノが入っているので、全部同じ内容でモックする
-            mockHttp
-                .When(pageUrl)
-                .Respond("text/html", testFileContent);
+            if (pageUrl.Contains("/past/"))
+            {
+                mockHttp
+                    .When(pageUrl)
+                    .Respond("text/html", testPastFileContent);
+            }
+            else
+            {
+                mockHttp
+                    .When(pageUrl)
+                    .Respond("text/html", testFutureFileContent);
+            }
         });
         var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
 
         var scraper = new KolokolSchedulePageScraper { Client = client };
         var result = await scraper.ScrapeAsync();
 
-        Assert.That(result.Count, Is.EqualTo(40));
+        Assert.That(result.Count, Is.EqualTo(48));
         var kinoSaki = result.FirstOrDefault(e => e.EventName == "きのさき生誕2023");
         Assert.Multiple(() =>
         {

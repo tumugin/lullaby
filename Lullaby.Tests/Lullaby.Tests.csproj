@@ -27,6 +27,8 @@
     <EmbeddedResource Include="Crawler\Scraper\Aoseka\aoseka-test-page.html" />
     <None Remove="Crawler\Scraper\Kolokol\kolokol-test-page.html" />
     <EmbeddedResource Include="Crawler\Scraper\Kolokol\kolokol-test-page.html" />
+    <None Remove="Crawler\Scraper\Kolokol\kolokol-past-schedule-test-page.html" />
+    <EmbeddedResource Include="Crawler\Scraper\Kolokol\kolokol-past-schedule-test-page.html" />
   </ItemGroup>
 
 </Project>

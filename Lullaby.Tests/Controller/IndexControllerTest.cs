@@ -11,7 +11,6 @@ public class IndexControllerTest : BaseWebTest
         Assert.Multiple(async () =>
         {
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            Assert.That(await result.Content.ReadAsStringAsync(), Is.EqualTo("Lullaby server\n"));
         });
     }
 }

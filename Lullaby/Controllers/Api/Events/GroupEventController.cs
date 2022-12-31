@@ -28,12 +28,12 @@ public class GroupEventController : ControllerBase
         [FromQuery] GroupEventIndexParameters groupEventIndexParameters
     )
     {
-        if (!GroupKeys.AvailableGroupKeys.Contains(groupKey))
+        var group = GroupKeys.GetGroupByKey(groupKey);
+
+        if (group == null)
         {
             return this.NotFound();
         }
-
-        var group = GroupKeys.GetGroupByKey(groupKey);
 
         var events = groupEventIndexParameters switch
         {

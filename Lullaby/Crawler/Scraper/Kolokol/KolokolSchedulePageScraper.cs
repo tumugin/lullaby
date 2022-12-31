@@ -71,8 +71,21 @@ public partial class KolokolSchedulePageScraper
                     )
                     : throw new InvalidDataException("Date must not be null");
 
-                var titleText = scheduleElement.QuerySelector(".title")?.TextContent
-                                ?? throw new InvalidDataException("Title must not be null");
+                // 過去スケジュールと将来のスケジュールでタイトルの入れ方が異なるのでどちらも取ってみる
+                var titleTextOfFutureSchedule = scheduleElement.QuerySelector(".title")?.TextContent;
+                var titleTextOfPastSchedule = scheduleElement
+                    .QuerySelectorAll("tr")
+                    .FirstOrDefault(e => e.QuerySelector("th")?.TextContent == "TITLE")
+                    ?.QuerySelector("td")
+                    ?.TextContent;
+                var titleText = (titleTextOfFutureSchedule, titleTextOfPastSchedule) switch
+                {
+                    ({ }, { }) => titleTextOfFutureSchedule,
+                    ({ }, null) => titleTextOfFutureSchedule,
+                    (null, { }) => titleTextOfPastSchedule,
+                    _ => throw new InvalidDataException("Title must not be null")
+                };
+
                 var venueText = scheduleElement.QuerySelector(".place")?.TextContent;
 
                 var timeText = scheduleElement
