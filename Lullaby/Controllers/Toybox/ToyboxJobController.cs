@@ -17,7 +17,8 @@ public class ToyboxJobController : Controller
         this.WebHostEnvironment = webHostEnvironment;
     }
 
-    private bool CanShowThisPage() => this.WebHostEnvironment.IsDevelopment();
+    private bool CanShowThisPage()
+        => this.WebHostEnvironment.IsDevelopment() || this.WebHostEnvironment.EnvironmentName == "Testing";
 
     [HttpGet]
     public IActionResult Index()
