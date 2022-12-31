@@ -9,18 +9,35 @@ using ViewModels.Toybox;
 public class ToyboxJobController : Controller
 {
     private ISchedulerFactory SchedulerFactory { get; }
+    private IWebHostEnvironment WebHostEnvironment { get; }
 
-    public ToyboxJobController(ISchedulerFactory schedulerFactory) => this.SchedulerFactory = schedulerFactory;
+    public ToyboxJobController(ISchedulerFactory schedulerFactory, IWebHostEnvironment webHostEnvironment)
+    {
+        this.SchedulerFactory = schedulerFactory;
+        this.WebHostEnvironment = webHostEnvironment;
+    }
+
+    private bool CanShowThisPage() => this.WebHostEnvironment.IsDevelopment();
 
     [HttpGet]
     public IActionResult Index()
     {
+        if (!this.CanShowThisPage())
+        {
+            return this.NotFound();
+        }
+
         return this.View(new ToyboxJobViewModel());
     }
 
     [HttpPost]
     public async Task<IActionResult> IndexPost(string jobKey)
     {
+        if (!this.CanShowThisPage())
+        {
+            return this.NotFound();
+        }
+
         var scheduler = await this.SchedulerFactory.GetScheduler();
         await scheduler.TriggerJob(new JobKey(jobKey));
         return this.Redirect("/toybox/job");
