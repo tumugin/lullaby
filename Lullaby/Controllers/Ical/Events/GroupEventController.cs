@@ -30,14 +30,14 @@ public class GroupEventController : ControllerBase
         [FromQuery] GroupEventIndexParameters groupEventIndexParameters
     )
     {
-        if (!GroupKeys.AvailableGroupKeys.Contains(groupKey))
+        var group = GroupKeys.GetGroupByKey(groupKey);
+
+        if (group == null)
         {
             var notFoundContent = this.Content("", "text/calendar");
             notFoundContent.StatusCode = StatusCodes.Status404NotFound;
             return notFoundContent;
         }
-
-        var group = GroupKeys.GetGroupByKey(groupKey);
 
         var events = groupEventIndexParameters switch
         {
