@@ -1,1 +1,45 @@
-Lullaby server
+@{
+    Layout = "_Layout";
+}
+<header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+    <h1>Welcome to Lullaby server!</h1>
+</header>
+<main>
+    <h2>これはなに？</h2>
+    <p>
+        <a href="https://github.com/tumugin/lullaby" target="_blank" rel="noopener noreferrer">tumugin/lullaby</a>は自動的にアイドルグループのスケジュールページをスクレイピングし、iCal形式やJSON形式で取得出来るようにするプロジェクトです。
+    </p>
+    <h2>SwaggerでAPIを試す</h2>
+    <p>
+        <a class="btn btn-primary btn-lg" href="/swagger/" role="button" target="_blank" rel="noopener noreferrer">SwaggerでAPIを試す</a>
+    </p>
+    <h2>対応グループ</h2>
+    <div class="d-grid gap-3">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">群青の世界</h5>
+                <div class="card-text">
+                    <ul>
+                        <li>取得元: <a href="https://gunjonosekai.com/schedule/" target="_blank" rel="noopener noreferrer">https://gunjonosekai.com/schedule/</a></li>
+                        <li>取得頻度: 毎時間</li>
+                        <li>iCal: <a href="/ical/events/aoseka" target="_blank" rel="noopener noreferrer">/ical/events/aoseka</a></li>
+                        <li>JSON: <a href="/api/events/aoseka" target="_blank" rel="noopener noreferrer">/api/events/aoseka</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Kolokol</h5>
+                <div class="card-text">
+                    <ul>
+                        <li>取得元: <a href="https://kolokol-official.com/schedule/" target="_blank" rel="noopener noreferrer">https://kolokol-official.com/schedule/</a></li>
+                        <li>取得頻度: 毎時間</li>
+                        <li>iCal: <a href="/ical/events/kolokol" target="_blank" rel="noopener noreferrer">/ical/events/kolokol</a></li>
+                        <li>JSON: <a href="/api/events/kolokol" target="_blank" rel="noopener noreferrer">/api/events/kolokol</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
