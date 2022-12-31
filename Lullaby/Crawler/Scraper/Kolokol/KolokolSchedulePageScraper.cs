@@ -41,6 +41,12 @@ public partial class KolokolSchedulePageScraper
     [GeneratedRegex("[\r\n]{2,}")]
     private static partial Regex ManyNewLineRegex();
 
+    [GeneratedRegex("[ ]{2,}")]
+    private static partial Regex ManySpaceRegex();
+
+    [GeneratedRegex("^ ", RegexOptions.Multiline)]
+    private static partial Regex StartOfLineAndSpace();
+
     private async Task<IEnumerable<GroupEvent>> ParseDocument(string rawHtml)
     {
         var eventTypeDetector = new EventTypeDetector();
@@ -93,7 +99,8 @@ public partial class KolokolSchedulePageScraper
                     .QuerySelector("tbody")
                     ?.TextContent
                     .Replace("\t", "")
-                    .Replace(" ", "")
+                    .Let(s => ManySpaceRegex().Replace(s, " "))
+                    .Let(s => StartOfLineAndSpace().Replace(s, ""))
                     .Let(s => ManyNewLineRegex().Replace(s, "\n"))
                     .Trim();
 
