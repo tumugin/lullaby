@@ -8,6 +8,7 @@ public class GroupKeys
         groupKey switch
         {
             { } s when s == Aoseka.GroupKeyConstant => new Aoseka(),
+            { } s when s == Kolokol.GroupKeyConstant => new Kolokol(),
             _ => throw new ArgumentException($"Group with key {groupKey} not found")
         };
 }
