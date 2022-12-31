@@ -1,0 +1,19 @@
+@{
+    ViewData["Title"] = "Job debug";
+    Layout = "_Layout";
+}
+@model Lullaby.ViewModels.Toybox.ToyboxJobViewModel
+
+<header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+    <h1>ジョブをデバッグする</h1>
+</header>
+<main>
+    @foreach (var job in Model.AvaliableJobs)
+    {
+        <h2>@job</h2>
+        <form asp-action="IndexPost" asp-controller="ToyboxJob" method="post">
+            <input type="hidden" name="jobKey" value="@job"/>
+            <button type="submit" class="btn btn-primary">実行する</button>
+        </form>
+    }
+</main>

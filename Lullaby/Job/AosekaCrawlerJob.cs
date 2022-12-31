@@ -7,6 +7,8 @@ using Services.Event;
 
 public class AosekaCrawlerJob : BaseCrawlerJob
 {
+    public const string JobKey = "AosekaCrawlerJob";
+
     public AosekaCrawlerJob(
         AddEventByGroupEventService addEventByGroupEventService,
         FindDuplicateEventService findDuplicateEventService,

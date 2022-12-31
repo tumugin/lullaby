@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
 using Lullaby;
 using Lullaby.Data;
+using Microsoft.AspNetCore.Mvc;
 using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +20,10 @@ builder.Services.AddControllersWithViews().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
+
+builder.Services.AddMvc(options =>
+    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute())
+);
 
 // Add Quartz
 builder.Services.AddQuartz(quartz =>
@@ -78,8 +83,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.MapControllers();
 
 app.UseAuthorization();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Index}/{action=Index}/{id?}"
+);
 
 app.Run();

@@ -7,6 +7,8 @@ using Services.Event;
 
 public class KolokolCrawlerJob : BaseCrawlerJob
 {
+    public const string JobKey = "KolokolCrawlerJob";
+
     public KolokolCrawlerJob(
         AddEventByGroupEventService addEventByGroupEventService,
         FindDuplicateEventService findDuplicateEventService,
