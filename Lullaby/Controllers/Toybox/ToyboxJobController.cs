@@ -5,6 +5,7 @@ using Quartz;
 using ViewModels.Toybox;
 
 [Route("/toybox/job")]
+[ApiExplorerSettings(IgnoreApi = true)]
 public class ToyboxJobController : Controller
 {
     private ISchedulerFactory SchedulerFactory { get; }
@@ -18,10 +19,10 @@ public class ToyboxJobController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> IndexPost(string JobKey)
+    public async Task<IActionResult> IndexPost(string jobKey)
     {
         var scheduler = await this.SchedulerFactory.GetScheduler();
-        await scheduler.TriggerJob(new JobKey(JobKey));
+        await scheduler.TriggerJob(new JobKey(jobKey));
         return this.Redirect("/toybox/job");
     }
 }
