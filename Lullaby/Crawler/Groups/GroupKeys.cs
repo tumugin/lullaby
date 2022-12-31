@@ -2,7 +2,7 @@ namespace Lullaby.Crawler.Groups;
 
 public class GroupKeys
 {
-    public static readonly string[] AvailableGroupKeys = { Aoseka.GroupKeyConstant };
+    public static readonly string[] AvailableGroupKeys = { Aoseka.GroupKeyConstant, Kolokol.GroupKeyConstant };
 
     public static BaseGroup GetGroupByKey(string groupKey) =>
         groupKey switch
