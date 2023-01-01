@@ -25,6 +25,18 @@ builder.Services.AddMvc(options =>
     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute())
 );
 
+// CORS
+builder.Services.AddCors(options =>
+{
+    // APIはどこからでも使えて問題ないので全オープンにする
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyHeader()
+            .AllowAnyOrigin();
+    });
+});
+
 // Add Quartz
 builder.Services.AddQuartz(quartz =>
 {
@@ -83,6 +95,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseCors();
 
 app.UseAuthorization();
 
