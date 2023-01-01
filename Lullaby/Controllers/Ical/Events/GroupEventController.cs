@@ -1,6 +1,5 @@
 namespace Lullaby.Controllers.Ical.Events;
 
-using AngleSharp.Text;
 using Crawler.Groups;
 using global::Ical.Net;
 using global::Ical.Net.CalendarComponents;
@@ -58,16 +57,20 @@ public class GroupEventController : ControllerBase
             .Select(e => new CalendarEvent()
             {
                 Start = new CalDateTime(e.EventStarts.UtcDateTime, "UTC"),
-                End = new CalDateTime(e.EventEnds.UtcDateTime, "UTC"),
+                End = e.IsDateTimeDetailed ? new CalDateTime(e.EventEnds.UtcDateTime, "UTC") : null,
+                IsAllDay = !e.IsDateTimeDetailed,
                 Name = e.EventName,
                 Description = e.EventDescription,
                 Location = e.EventPlace,
             });
 
         var calendar = new Calendar();
+
+        // カレンダーのタイムゾーンはUTCであることを明示的に指定する
+        calendar.AddTimeZone("UTC");
+
         calendar.Name = group.GroupName;
         calendarEvents.ToList().ForEach(v => calendar.Events.Add(v));
-        calendar.AddTimeZone("UTC");
 
         var serializer = new CalendarSerializer();
         var serializedCalendar = serializer.SerializeToString(calendar);
