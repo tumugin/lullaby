@@ -59,7 +59,7 @@ public class GroupEventController : ControllerBase
                 Start = new CalDateTime(e.EventStarts.UtcDateTime, "UTC"),
                 End = e.IsDateTimeDetailed ? new CalDateTime(e.EventEnds.UtcDateTime, "UTC") : null,
                 IsAllDay = !e.IsDateTimeDetailed,
-                Name = e.EventName,
+                Summary = e.EventName,
                 Description = e.EventDescription,
                 Location = e.EventPlace,
             });
