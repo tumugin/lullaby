@@ -69,7 +69,6 @@ public class GroupEventController : ControllerBase
         // カレンダーのタイムゾーンはUTCであることを明示的に指定する
         calendar.AddTimeZone("UTC");
 
-        calendar.Name = group.GroupName;
         calendarEvents.ToList().ForEach(v => calendar.Events.Add(v));
 
         var serializer = new CalendarSerializer();
