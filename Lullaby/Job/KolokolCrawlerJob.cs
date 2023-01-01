@@ -1,13 +1,14 @@
 namespace Lullaby.Job;
 
 using Crawler.Groups;
-using Quartz;
 using RestSharp;
 using Services.Event;
 
 public class KolokolCrawlerJob : BaseCrawlerJob
 {
     public const string JobKey = "KolokolCrawlerJob";
+
+    protected override BaseGroup TargetGroup => new Kolokol();
 
     public KolokolCrawlerJob(
         AddEventByGroupEventService addEventByGroupEventService,
@@ -21,16 +22,5 @@ public class KolokolCrawlerJob : BaseCrawlerJob
         restClient
     )
     {
-    }
-
-    public override async Task Execute(IJobExecutionContext context)
-    {
-        var kolokol = new Kolokol();
-        await kolokol.GetAndUpdateSavedEvents(
-            this.AddEventByGroupEventService,
-            this.FindDuplicateEventService,
-            this.UpdateEventByGroupEventService,
-            this.RestClient
-        );
     }
 }

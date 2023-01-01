@@ -1,13 +1,14 @@
 namespace Lullaby.Job;
 
 using Crawler.Groups;
-using Quartz;
 using RestSharp;
 using Services.Event;
 
 public class AosekaCrawlerJob : BaseCrawlerJob
 {
     public const string JobKey = "AosekaCrawlerJob";
+
+    protected override BaseGroup TargetGroup => new Aoseka();
 
     public AosekaCrawlerJob(
         AddEventByGroupEventService addEventByGroupEventService,
@@ -21,16 +22,5 @@ public class AosekaCrawlerJob : BaseCrawlerJob
         restClient
     )
     {
-    }
-
-    public override async Task Execute(IJobExecutionContext context)
-    {
-        var aoseka = new Aoseka();
-        await aoseka.GetAndUpdateSavedEvents(
-            this.AddEventByGroupEventService,
-            this.FindDuplicateEventService,
-            this.UpdateEventByGroupEventService,
-            this.RestClient
-        );
     }
 }
