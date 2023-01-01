@@ -1,5 +1,6 @@
 namespace Lullaby.Job;
 
+using Crawler.Groups;
 using Quartz;
 using RestSharp;
 using Services.Event;
@@ -11,7 +12,9 @@ public abstract class BaseCrawlerJob : IJob
     protected UpdateEventByGroupEventService UpdateEventByGroupEventService { get; }
     protected RestClient RestClient { get; }
 
-    public BaseCrawlerJob(
+    protected abstract BaseGroup TargetGroup { get; }
+
+    protected BaseCrawlerJob(
         AddEventByGroupEventService addEventByGroupEventService,
         FindDuplicateEventService findDuplicateEventService,
         UpdateEventByGroupEventService updateEventByGroupEventService,
@@ -23,5 +26,11 @@ public abstract class BaseCrawlerJob : IJob
         this.RestClient = restClient;
     }
 
-    public abstract Task Execute(IJobExecutionContext context);
+    public virtual async Task Execute(IJobExecutionContext context) =>
+        await this.TargetGroup.GetAndUpdateSavedEvents(
+            this.AddEventByGroupEventService,
+            this.FindDuplicateEventService,
+            this.UpdateEventByGroupEventService,
+            this.RestClient
+        );
 }
