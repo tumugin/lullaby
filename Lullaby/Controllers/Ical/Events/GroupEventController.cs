@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Requests.Ical.Events;
 using Services.Event;
 using Swashbuckle.AspNetCore.Annotations;
+using TimeZoneConverter;
 
 [Controller]
 [Produces("text/calendar")]
@@ -53,11 +54,20 @@ public class GroupEventController : ControllerBase
             )
         };
 
+        var asiaTokyoTimezone = TZConvert.GetTimeZoneInfo("Asia/Tokyo");
         var calendarEvents = events
             .Select(e => new CalendarEvent()
             {
-                Start = new CalDateTime(e.EventStarts.UtcDateTime, "UTC"),
-                End = e.IsDateTimeDetailed ? new CalDateTime(e.EventEnds.UtcDateTime, "UTC") : null,
+                Start = new CalDateTime(
+                    TimeZoneInfo.ConvertTime(e.EventStarts, asiaTokyoTimezone).DateTime,
+                    "Asia/Tokyo"
+                ),
+                End = e.IsDateTimeDetailed
+                    ? new CalDateTime(
+                        TimeZoneInfo.ConvertTime(e.EventEnds, asiaTokyoTimezone).DateTime,
+                        "Asia/Tokyo"
+                    )
+                    : null,
                 IsAllDay = !e.IsDateTimeDetailed,
                 Summary = e.EventName,
                 Description = e.EventDescription,
@@ -66,8 +76,10 @@ public class GroupEventController : ControllerBase
 
         var calendar = new Calendar();
 
-        // カレンダーのタイムゾーンはUTCであることを明示的に指定する
-        calendar.AddTimeZone("UTC");
+        // カレンダーのタイムゾーンはAsia/Tokyoであることを明示的に指定する
+        // NOTE: iCalはAllDayなEventにおいて正しくタイムゾーンを扱えないため、UTC時間における日付としてカレンダーに追加されてしまう
+        // FIXME: タイムゾーンがAsia/Tokyo以外のグループを扱うことになったら対応を考える
+        calendar.AddTimeZone("Asia/Tokyo");
 
         calendarEvents.ToList().ForEach(v => calendar.Events.Add(v));
 
