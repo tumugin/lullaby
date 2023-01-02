@@ -16,9 +16,11 @@ public partial class YosugalaSchedulePageScraper
 
     private async Task<string> DownloadDocument(int page)
     {
-        var requestUri = new Uri(QueryHelpers.AddQueryString(
-            SchedulePageUrl,
-            new Dictionary<string, string?> { { "page", $"{page}" } })
+        var requestUri = new Uri(
+            QueryHelpers.AddQueryString(
+                SchedulePageUrl,
+                new Dictionary<string, string?> { { "page", page != 1 ? $"{page}" : null } }
+            )
         );
         var request = await this.Client.GetAsync(new RestRequest(requestUri));
         return request.Content ?? throw new InvalidDataException("Response must not be null");
@@ -49,7 +51,7 @@ public partial class YosugalaSchedulePageScraper
         var pageRange = pageCount > 1 ? Enumerable.Range(2, pageCount - 1) : Array.Empty<int>();
         var pageObjects = await Task.WhenAll(
             pageRange.Select(
-                async page => await this.ScrapeRawDocument(await this.DownloadDocument(1))
+                async page => await this.ScrapeRawDocument(await this.DownloadDocument(page))
             )
         );
         var allPageSchedules =
