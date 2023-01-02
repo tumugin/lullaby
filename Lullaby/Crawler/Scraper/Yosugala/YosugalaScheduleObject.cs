@@ -29,25 +29,6 @@ public class YosugalaScheduleObject
         [JsonPropertyName("live_list")] public LiveList LiveList { get; set; } = null!;
     }
 
-    public class Image
-    {
-        [JsonPropertyName("id")] public Guid Id { get; set; }
-
-        [JsonPropertyName("url")] public Uri Url { get; set; } = null!;
-
-        [JsonPropertyName("mime_type")] public string MimeType { get; set; }
-
-        [JsonPropertyName("file_name")] public string FileName { get; set; } = null!;
-
-        [JsonPropertyName("width")] public int Width { get; set; }
-
-        [JsonPropertyName("height")] public int Height { get; set; }
-
-        [JsonPropertyName("alt_text")] public object AltText { get; set; } = null!;
-
-        [JsonPropertyName("title")] public object Title { get; set; } = null!;
-    }
-
     public class CategoryElement
     {
         [JsonPropertyName("id")] public int Id { get; set; }
@@ -72,12 +53,10 @@ public class YosugalaScheduleObject
 
         [JsonPropertyName("status")] public string Status { get; set; } = null!;
 
-        [JsonPropertyName("event_date")] public string EventDate { get; set; }
+        [JsonPropertyName("event_date")] public string EventDate { get; set; } = null!;
 
         [JsonPropertyName("event_date_status")]
         public string EventDateStatus { get; set; } = null!;
-
-        [JsonPropertyName("cover_image")] public Image CoverImage { get; set; } = null!;
 
         [JsonPropertyName("category")] public CategoryElement Category { get; set; } = null!;
 
