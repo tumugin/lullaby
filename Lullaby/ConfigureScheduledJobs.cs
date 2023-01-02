@@ -16,6 +16,7 @@ public static class ConfigureScheduledJobs
             .WithIdentity("Aoseka cron trigger")
             .WithCronSchedule(new Aoseka().CrawlCron)
         );
+
         // kolokol - Kolokol
         var kolokolJobKey = new JobKey(KolokolCrawlerJob.JobKey);
         quarts.AddJob<KolokolCrawlerJob>(o => o.WithIdentity(kolokolJobKey));
@@ -23,6 +24,15 @@ public static class ConfigureScheduledJobs
             .ForJob(kolokolJobKey)
             .WithIdentity("Kolokol cron trigger")
             .WithCronSchedule(new Kolokol().CrawlCron)
+        );
+
+        // yosugala - yosugala
+        var yosugalaJobKey = new JobKey(YosugalaCrawlerJob.JobKey);
+        quarts.AddJob<YosugalaCrawlerJob>(o => o.WithIdentity(yosugalaJobKey));
+        quarts.AddTrigger(t => t
+            .ForJob(yosugalaJobKey)
+            .WithIdentity("yosugala cron trigger")
+            .WithCronSchedule(new Yosugala().CrawlCron)
         );
     }
 }

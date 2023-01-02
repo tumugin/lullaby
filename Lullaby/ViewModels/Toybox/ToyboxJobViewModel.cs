@@ -4,5 +4,6 @@ using Job;
 
 public class ToyboxJobViewModel
 {
-    public string[] AvaliableJobs => new[] { AosekaCrawlerJob.JobKey, KolokolCrawlerJob.JobKey };
+    public string[] AvaliableJobs =>
+        new[] { AosekaCrawlerJob.JobKey, KolokolCrawlerJob.JobKey, YosugalaCrawlerJob.JobKey };
 }
