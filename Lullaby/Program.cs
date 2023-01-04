@@ -25,6 +25,12 @@ builder.Services.AddMvc(options =>
     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute())
 );
 
+builder.WebHost.UseSentry(o =>
+{
+    o.Dsn = builder.Configuration.GetSection("Sentry").GetValue<string?>("Dsn");
+    o.TracesSampleRate = builder.Configuration.GetSection("Sentry").GetValue<double?>("TracesSampleRate") ?? 1.0;
+});
+
 // CORS
 builder.Services.AddCors(options =>
 {
@@ -95,6 +101,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// Sentry
+app.UseSentryTracing();
 
 app.UseCors();
 
