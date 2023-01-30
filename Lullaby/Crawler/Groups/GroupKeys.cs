@@ -8,6 +8,7 @@ public class GroupKeys
             { } s when s == Aoseka.GroupKeyConstant => new Aoseka(),
             { } s when s == Kolokol.GroupKeyConstant => new Kolokol(),
             { } s when s == Yosugala.GroupKeyConstant => new Yosugala(),
+            { } s when s == OSS.GroupKeyConstant => new OSS(),
             _ => null
         };
 }

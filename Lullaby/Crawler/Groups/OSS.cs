@@ -2,6 +2,7 @@ namespace Lullaby.Crawler.Groups;
 
 using Events;
 using RestSharp;
+using Scraper.OSS;
 
 public class OSS : BaseGroup
 {
@@ -10,6 +11,9 @@ public class OSS : BaseGroup
     public override string GroupName => "On the treat Super Season";
     public override string CrawlCron => "0 0 * ? * * *";
 
-    public override Task<IEnumerable<GroupEvent>> GetEvents(RestClient restClient) =>
-        throw new NotImplementedException();
+    public override Task<IEnumerable<GroupEvent>> GetEvents(RestClient restClient)
+    {
+        var ossScraper = new OSSSchedulePageScraper { Client = restClient };
+        return ossScraper.ScrapeAsync();
+    }
 }
