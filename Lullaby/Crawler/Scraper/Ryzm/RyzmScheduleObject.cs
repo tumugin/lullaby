@@ -1,10 +1,10 @@
-namespace Lullaby.Crawler.Scraper.Yosugala;
+namespace Lullaby.Crawler.Scraper.Ryzm;
 
 using System.Text.Json.Serialization;
 
-public class YosugalaScheduleObject
+public class RyzmScheduleObject
 {
-    public class YosugalaSchedulePageRootObject
+    public class RyzmScheduleRootObject
     {
         [JsonPropertyName("props")] public Props Props { get; init; } = null!;
     }

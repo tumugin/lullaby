@@ -34,5 +34,14 @@ public static class ConfigureScheduledJobs
             .WithIdentity("yosugala cron trigger")
             .WithCronSchedule(new Yosugala().CrawlCron)
         );
+
+        // OSS - OSS
+        var ossJobKey = new JobKey(OSSCrawlerJob.JobKey);
+        quarts.AddJob<OSSCrawlerJob>(o => o.WithIdentity(ossJobKey));
+        quarts.AddTrigger(t => t
+            .ForJob(ossJobKey)
+            .WithIdentity("OSS cron trigger")
+            .WithCronSchedule(new OSS().CrawlCron)
+        );
     }
 }

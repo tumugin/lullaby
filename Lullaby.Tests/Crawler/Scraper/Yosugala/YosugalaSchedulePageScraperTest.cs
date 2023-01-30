@@ -13,7 +13,7 @@ public class YosugalaSchedulePageScraperTest : BaseScraperTest
         var schedulePageFileContent =
             await this.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Yosugala.yosugala-test-page.html");
         var mockHttp = new MockHttpMessageHandler();
-        mockHttp.When(YosugalaSchedulePageScraper.SchedulePageUrl)
+        mockHttp.When(YosugalaSchedulePageScraper.SchedulePageUrlConstant)
             .Respond("text/html", schedulePageFileContent);
         var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
 
