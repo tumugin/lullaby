@@ -1,5 +1,6 @@
 namespace Lullaby.Crawler.Scraper.Aoseka;
 
+using System.Collections.ObjectModel;
 using System.Text.Json;
 using AngleSharp;
 using AngleSharp.Html.Parser;
@@ -21,7 +22,7 @@ public class AosekaSchedulePageScraper
         return request.Content ?? throw new InvalidDataException("Response must not be null");
     }
 
-    private async Task<List<AosekaCalenderObject>> ScrapeRawDocument(string rawHtml)
+    private async Task<ReadOnlyCollection<AosekaCalenderObject>> ScrapeRawDocument(string rawHtml)
     {
         var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
         var document = await context.OpenAsync(req => req.Content(rawHtml));
@@ -31,7 +32,7 @@ public class AosekaSchedulePageScraper
                             throw new InvalidDataException("event attribute was not found");
         var calenderEvents = JsonSerializer.Deserialize<List<AosekaCalenderObject>>(eventsRawJson)
                              ?? throw new InvalidDataException("events cannot be null");
-        return calenderEvents;
+        return calenderEvents.AsReadOnly();
     }
 
     public async Task<IEnumerable<GroupEvent>> ScrapeAsync()
