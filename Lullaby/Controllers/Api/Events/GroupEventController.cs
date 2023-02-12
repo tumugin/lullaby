@@ -19,6 +19,12 @@ public class GroupEventController : ControllerBase
     public GroupEventController(GetEventsByGroupKeyService getEventsByGroupKeyService) =>
         this.GetEventsByGroupKeyService = getEventsByGroupKeyService;
 
+    /// <summary>
+    /// Get events of the specified group
+    /// </summary>
+    /// <param name="groupKey">The key of group(ex. aoseka)</param>
+    /// <param name="groupEventIndexParameters">Options to get events</param>
+    /// <returns></returns>
     [HttpGet]
     [SwaggerResponse(200, "The operation was succeeded", typeof(GroupEventsGetResponse))]
     [SwaggerResponse(404, "The group was not found", typeof(ProblemDetails))]
