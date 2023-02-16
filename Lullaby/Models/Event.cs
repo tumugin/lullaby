@@ -4,6 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Crawler.Events;
 using Microsoft.EntityFrameworkCore;
 
+#pragma warning disable CA1716
+
 [Index(nameof(GroupKey))]
 [Index(nameof(EventStarts))]
 [Index(nameof(EventEnds))]

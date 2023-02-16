@@ -1,8 +1,8 @@
-namespace Lullaby.Services.Event;
+namespace Lullaby.Services.Events;
 
-using Data;
+using Lullaby.Data;
+using Lullaby.Models;
 using Microsoft.EntityFrameworkCore;
-using Models;
 
 public class FindDuplicateEventService
 {
@@ -26,7 +26,7 @@ public class FindDuplicateEventService
     public Task<List<Event>> Execute(
         IEnumerable<EventSearchQueryData> eventSearchQueryData
     ) =>
-        Context
+        this.Context
             .Events
             .Where(e =>
                 eventSearchQueryData.Select(q => q.EventName).Contains(e.EventName) &&

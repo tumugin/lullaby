@@ -11,7 +11,7 @@ public class YosugalaSchedulePageScraperTest : BaseScraperTest
     public async Task ScrapeAsyncTest()
     {
         var schedulePageFileContent =
-            await this.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Yosugala.yosugala-test-page.html");
+            await GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Yosugala.yosugala-test-page.html");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(YosugalaSchedulePageScraper.SchedulePageUrlConstant)
             .Respond("text/html", schedulePageFileContent);

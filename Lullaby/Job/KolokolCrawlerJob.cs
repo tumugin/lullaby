@@ -2,7 +2,7 @@ namespace Lullaby.Job;
 
 using Crawler.Groups;
 using RestSharp;
-using Services.Event;
+using Services.Events;
 
 public class KolokolCrawlerJob : BaseCrawlerJob
 {

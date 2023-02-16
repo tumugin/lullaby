@@ -2,7 +2,7 @@ namespace Lullaby.Crawler.Groups;
 
 using Events;
 using RestSharp;
-using Services.Event;
+using Services.Events;
 
 public abstract class BaseGroup
 {

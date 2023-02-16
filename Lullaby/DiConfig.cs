@@ -1,7 +1,7 @@
 ﻿namespace Lullaby;
 
 using RestSharp;
-using Services.Event;
+using Services.Events;
 
 public static class DiConfig
 {

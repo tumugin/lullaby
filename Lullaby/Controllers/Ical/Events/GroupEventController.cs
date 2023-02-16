@@ -7,7 +7,7 @@ using global::Ical.Net.DataTypes;
 using global::Ical.Net.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Requests.Ical.Events;
-using Services.Event;
+using Services.Events;
 using Swashbuckle.AspNetCore.Annotations;
 using TimeZoneConverter;
 

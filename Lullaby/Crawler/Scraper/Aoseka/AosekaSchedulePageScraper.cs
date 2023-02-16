@@ -22,7 +22,7 @@ public class AosekaSchedulePageScraper
         return request.Content ?? throw new InvalidDataException("Response must not be null");
     }
 
-    private async Task<ReadOnlyCollection<AosekaCalenderObject>> ScrapeRawDocument(string rawHtml)
+    private static async Task<ReadOnlyCollection<AosekaCalenderObject>> ScrapeRawDocument(string rawHtml)
     {
         var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
         var document = await context.OpenAsync(req => req.Content(rawHtml));
@@ -39,7 +39,7 @@ public class AosekaSchedulePageScraper
     {
         var htmlParser = new HtmlParser();
         var downloadedDocument = await this.DownloadDocument();
-        var aosekaEvents = await this.ScrapeRawDocument(downloadedDocument);
+        var aosekaEvents = await ScrapeRawDocument(downloadedDocument);
         var convertedEvents = aosekaEvents.Select(v => new GroupEvent
         {
             EventName = v.Title.Let(s =>
@@ -52,7 +52,7 @@ public class AosekaSchedulePageScraper
             EventDateTime = v.ConvertedEventDateTime,
             EventType = v.EventType,
             EventDescription = htmlParser
-                .ParseFragment(v.Description, null)
+                .ParseFragment(v.Description, null!)
                 .Select(x => x.TextContent)
                 .Let(x => string.Join("", x)),
         });
