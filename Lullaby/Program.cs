@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Text.Json.Serialization;
 using Lullaby;
 using Lullaby.Data;
@@ -72,6 +73,12 @@ builder.Services.AddQuartzHostedService(quartz =>
 builder.Services.AddSwaggerGen(swagger =>
 {
     swagger.EnableAnnotations();
+    swagger.IncludeXmlComments(
+        Path.Combine(
+            AppContext.BaseDirectory,
+            $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"
+        )
+    );
 });
 
 builder.Services.AddProblemDetails();
