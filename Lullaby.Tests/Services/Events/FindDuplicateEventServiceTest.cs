@@ -1,4 +1,4 @@
-namespace Lullaby.Tests.Services.Event;
+namespace Lullaby.Tests.Services.Events;
 
 using System.Globalization;
 using Lullaby.Crawler.Events;

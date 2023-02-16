@@ -1,10 +1,10 @@
-namespace Lullaby.Tests.Services.Event;
+namespace Lullaby.Tests.Services.Events;
 
 using System.Globalization;
 using Lullaby.Crawler.Events;
 using Lullaby.Services.Events;
+using Lullaby.Tests.Seeder;
 using Microsoft.EntityFrameworkCore;
-using Seeder;
 
 public class UpdateEventByGroupEventServiceTest : BaseDatabaseTest
 {
