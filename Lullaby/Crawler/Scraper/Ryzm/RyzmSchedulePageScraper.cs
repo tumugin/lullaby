@@ -26,7 +26,7 @@ public abstract partial class RyzmSchedulePageScraper
         return request.Content ?? throw new InvalidDataException("Response must not be null");
     }
 
-    private async Task<RyzmScheduleObject.RyzmScheduleRootObject> ScrapeRawDocument(string rawHtml)
+    private static async Task<RyzmScheduleObject.RyzmScheduleRootObject> ScrapeRawDocument(string rawHtml)
     {
         var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
         var document = await context.OpenAsync(req => req.Content(rawHtml));
@@ -44,14 +44,14 @@ public abstract partial class RyzmSchedulePageScraper
     {
         var eventTypeDetector = new EventTypeDetector();
         // 最初のページをスクレイピングして必要なページ数をもらう
-        var firstPageObject = await this.ScrapeRawDocument(await this.DownloadDocument(1));
+        var firstPageObject = await ScrapeRawDocument(await this.DownloadDocument(1));
         var pageCount = firstPageObject.Props.PageProps.Data.FetchedData.LiveList.Meta.LastPage;
 
         // 2ページ目以降を取得する
         var pageRange = pageCount > 1 ? Enumerable.Range(2, pageCount - 1) : Array.Empty<int>();
         var pageObjects = await Task.WhenAll(
             pageRange.Select(
-                async page => await this.ScrapeRawDocument(await this.DownloadDocument(page))
+                async page => await ScrapeRawDocument(await this.DownloadDocument(page))
             )
         );
         var allPageSchedules =

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Requests.Api.Events;
 using Responses;
 using Responses.Api.Events;
-using Services.Event;
+using Services.Events;
 using Swashbuckle.AspNetCore.Annotations;
 using ViewModels;
 

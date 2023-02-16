@@ -11,7 +11,7 @@ public class OSSSchedulePageScraperTest : BaseScraperTest
     public async Task ScrapeAsyncTest()
     {
         var schedulePageFileContent =
-            await this.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.OSS.oss-test-page.html");
+            await GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.OSS.oss-test-page.html");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(OSSSchedulePageScraper.SchedulePageUrlConstant)
             .Respond("text/html", schedulePageFileContent);

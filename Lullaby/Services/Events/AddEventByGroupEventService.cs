@@ -1,8 +1,8 @@
-namespace Lullaby.Services.Event;
+namespace Lullaby.Services.Events;
 
-using Crawler.Events;
-using Data;
-using Models;
+using Lullaby.Crawler.Events;
+using Lullaby.Data;
+using Lullaby.Models;
 
 public class AddEventByGroupEventService
 {

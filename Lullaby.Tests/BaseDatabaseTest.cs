@@ -12,7 +12,8 @@ public class BaseDatabaseTest
     public BaseDatabaseTest()
     {
         var builder = WebApplication.CreateBuilder(new WebApplicationOptions { EnvironmentName = "Testing" });
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
+                               throw new InvalidOperationException("DefaultConnection should not be null.");
         this.Context = new LullabyContext(
             DatabaseConfig.CreateDbContextOptions(connectionString, new DbContextOptionsBuilder<LullabyContext>())
                 .Options

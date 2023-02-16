@@ -13,7 +13,7 @@ public class AosekaSchedulePageScraperTest : BaseScraperTest
     {
         // mock html request
         var testFileContent =
-            await this.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Aoseka.aoseka-test-page.html");
+            await GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Aoseka.aoseka-test-page.html");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp
             .When(AosekaSchedulePageScraper.SchedulePageUrl)

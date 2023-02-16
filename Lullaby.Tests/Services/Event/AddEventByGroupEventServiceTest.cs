@@ -2,7 +2,7 @@ namespace Lullaby.Tests.Services.Event;
 
 using System.Globalization;
 using Lullaby.Crawler.Events;
-using Lullaby.Services.Event;
+using Lullaby.Services.Events;
 
 public class AddEventByGroupEventServiceTest : BaseDatabaseTest
 {

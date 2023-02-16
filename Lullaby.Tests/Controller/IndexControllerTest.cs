@@ -8,7 +8,7 @@ public class IndexControllerTest : BaseWebTest
     public async Task TestIndex()
     {
         var result = await this.Client.GetAsync("/");
-        Assert.Multiple(async () =>
+        Assert.Multiple(() =>
         {
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
         });

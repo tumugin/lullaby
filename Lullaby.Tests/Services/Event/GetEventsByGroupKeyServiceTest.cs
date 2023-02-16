@@ -1,7 +1,7 @@
 namespace Lullaby.Tests.Services.Event;
 
 using System.Globalization;
-using Lullaby.Services.Event;
+using Lullaby.Services.Events;
 using Seeder;
 
 public class GetEventsByGroupKeyServiceTest : BaseDatabaseTest

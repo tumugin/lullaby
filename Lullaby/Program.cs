@@ -5,6 +5,8 @@ using Lullaby.Data;
 using Microsoft.AspNetCore.Mvc;
 using Quartz;
 
+#pragma warning disable CA1852
+
 var builder = WebApplication.CreateBuilder(args);
 
 var dbConnectionString = builder.Configuration.GetConnectionString("DefaultConnection")

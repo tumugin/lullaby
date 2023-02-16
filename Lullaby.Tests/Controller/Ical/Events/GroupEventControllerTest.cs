@@ -22,7 +22,7 @@ public class GroupEventControllerTest : BaseWebTest
         {
             Assert.That(content, Is.Not.Null);
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            Assert.That(result.Content.Headers.ContentType.MediaType, Is.EqualTo("text/calendar"));
+            Assert.That(result.Content.Headers.ContentType?.MediaType, Is.EqualTo("text/calendar"));
         });
     }
 
@@ -54,7 +54,7 @@ public class GroupEventControllerTest : BaseWebTest
         {
             Assert.That(await result.Content.ReadAsStringAsync(), Is.Not.Null);
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-            Assert.That(result.Content.Headers.ContentType.MediaType, Is.EqualTo("text/calendar"));
+            Assert.That(result.Content.Headers.ContentType?.MediaType, Is.EqualTo("text/calendar"));
         });
     }
 

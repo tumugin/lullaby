@@ -1,6 +1,6 @@
 namespace Lullaby.Tests.Crawler.Groups;
 
-using Lullaby.Services.Event;
+using Lullaby.Services.Events;
 using Microsoft.EntityFrameworkCore;
 using RestSharp;
 
