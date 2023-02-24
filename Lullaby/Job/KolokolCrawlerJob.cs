@@ -11,9 +11,9 @@ public class KolokolCrawlerJob : BaseCrawlerJob
     protected override BaseGroup TargetGroup => new Kolokol();
 
     public KolokolCrawlerJob(
-        AddEventByGroupEventService addEventByGroupEventService,
-        FindDuplicateEventService findDuplicateEventService,
-        UpdateEventByGroupEventService updateEventByGroupEventService,
+        IAddEventByGroupEventService addEventByGroupEventService,
+        IFindDuplicateEventService findDuplicateEventService,
+        IUpdateEventByGroupEventService updateEventByGroupEventService,
         RestClient restClient
     ) : base(
         addEventByGroupEventService,

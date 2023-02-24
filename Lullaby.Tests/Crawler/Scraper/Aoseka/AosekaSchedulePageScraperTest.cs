@@ -22,7 +22,7 @@ public class AosekaSchedulePageScraperTest : BaseScraperTest
 
         var scraper = new AosekaSchedulePageScraper(client);
 
-        var result = await scraper.ScrapeAsync();
+        var result = await scraper.ScrapeAsync(default);
 
         Assert.That(result.Count, Is.EqualTo(64));
 

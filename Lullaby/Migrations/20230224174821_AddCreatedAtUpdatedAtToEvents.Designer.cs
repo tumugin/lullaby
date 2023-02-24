@@ -3,6 +3,7 @@ using System;
 using Lullaby.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lullaby.Migrations
 {
     [DbContext(typeof(LullabyContext))]
-    partial class LullabyContextModelSnapshot : ModelSnapshot
+    [Migration("20230224174821_AddCreatedAtUpdatedAtToEvents")]
+    partial class AddCreatedAtUpdatedAtToEvents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

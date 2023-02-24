@@ -16,16 +16,19 @@ public class AosekaSchedulePageScraper
 
     public AosekaSchedulePageScraper(RestClient client) => this.Client = client;
 
-    private async Task<string> DownloadDocument()
+    private async Task<string> DownloadDocument(CancellationToken cancellationToken)
     {
-        var request = await this.Client.GetAsync(new RestRequest(SchedulePageUrl));
+        var request = await this.Client.GetAsync(new RestRequest(SchedulePageUrl), cancellationToken);
         return request.Content ?? throw new InvalidDataException("Response must not be null");
     }
 
-    private static async Task<ReadOnlyCollection<AosekaCalenderObject>> ScrapeRawDocument(string rawHtml)
+    private static async Task<ReadOnlyCollection<AosekaCalenderObject>> ScrapeRawDocument(
+        string rawHtml,
+        CancellationToken cancellationToken
+    )
     {
         var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
-        var document = await context.OpenAsync(req => req.Content(rawHtml));
+        var document = await context.OpenAsync(req => req.Content(rawHtml), cancellationToken);
         var element = document.QuerySelector("#eael-event-calendar-2e90714") ??
                       throw new InvalidDataException("calender element was not found");
         var eventsRawJson = element.GetAttribute("data-events") ??
@@ -35,11 +38,11 @@ public class AosekaSchedulePageScraper
         return calenderEvents.AsReadOnly();
     }
 
-    public async Task<IEnumerable<GroupEvent>> ScrapeAsync()
+    public async Task<IEnumerable<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
     {
         var htmlParser = new HtmlParser();
-        var downloadedDocument = await this.DownloadDocument();
-        var aosekaEvents = await ScrapeRawDocument(downloadedDocument);
+        var downloadedDocument = await this.DownloadDocument(cancellationToken);
+        var aosekaEvents = await ScrapeRawDocument(downloadedDocument, cancellationToken);
         var convertedEvents = aosekaEvents.Select(v => new GroupEvent
         {
             EventName = v.Title.Let(s =>

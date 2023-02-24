@@ -4,13 +4,13 @@ using Lullaby.Crawler.Events;
 using Lullaby.Data;
 using Lullaby.Models;
 
-public class AddEventByGroupEventService
+public class AddEventByGroupEventService : IAddEventByGroupEventService
 {
     private LullabyContext Context { get; }
 
     public AddEventByGroupEventService(LullabyContext context) => this.Context = context;
 
-    public async Task<Event> Execute(string groupKey, GroupEvent groupEvent)
+    public async Task<Event> Execute(string groupKey, GroupEvent groupEvent, CancellationToken cancellationToken)
     {
         var eventStarts = groupEvent.EventDateTime.EventStartDateTimeOffset;
         var eventEnds = groupEvent.EventDateTime.EventEndDateTimeOffset;
@@ -24,10 +24,12 @@ public class AddEventByGroupEventService
             EventName = groupEvent.EventName,
             EventDescription = groupEvent.EventDescription,
             EventPlace = groupEvent.EventPlace,
-            EventType = groupEvent.EventType
+            EventType = groupEvent.EventType,
+            UpdatedAt = DateTimeOffset.UtcNow,
+            CreatedAt = DateTimeOffset.UtcNow
         };
-        await this.Context.Events.AddAsync(draftEvent);
-        await this.Context.SaveChangesAsync();
+        await this.Context.Events.AddAsync(draftEvent, cancellationToken);
+        await this.Context.SaveChangesAsync(cancellationToken);
 
         return draftEvent;
     }

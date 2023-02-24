@@ -32,15 +32,15 @@ public class ToyboxJobController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> IndexPost(string jobKey)
+    public async Task<IActionResult> IndexPost(string jobKey, CancellationToken cancellationToken)
     {
         if (!this.CanShowThisPage())
         {
             return this.NotFound();
         }
 
-        var scheduler = await this.SchedulerFactory.GetScheduler();
-        await scheduler.TriggerJob(new JobKey(jobKey));
+        var scheduler = await this.SchedulerFactory.GetScheduler(cancellationToken);
+        await scheduler.TriggerJob(new JobKey(jobKey), cancellationToken);
         return this.Redirect("/toybox/job");
     }
 }

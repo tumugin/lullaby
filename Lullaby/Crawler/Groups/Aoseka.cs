@@ -15,9 +15,12 @@ public class Aoseka : BaseGroup
     // every hour
     public override string CrawlCron => "0 0 * ? * * *";
 
-    public override Task<IEnumerable<GroupEvent>> GetEvents(RestClient restClient)
+    protected override Task<IEnumerable<GroupEvent>> GetEvents(
+        RestClient restClient,
+        CancellationToken cancellationToken
+    )
     {
         var aosekaScraper = new AosekaSchedulePageScraper(restClient);
-        return aosekaScraper.ScrapeAsync();
+        return aosekaScraper.ScrapeAsync(cancellationToken);
     }
 }

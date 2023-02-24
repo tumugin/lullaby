@@ -52,7 +52,8 @@ public class UpdateEventByGroupEventServiceTest : BaseDatabaseTest
         };
         await this.UpdateEventByGroupEventService.Execute(
             seededEvent,
-            groupEvent
+            groupEvent,
+            default
         );
 
         var updatedEvent = await this.Context.Events

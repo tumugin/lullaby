@@ -15,9 +15,12 @@ public class Kolokol : BaseGroup
     // every hour
     public override string CrawlCron => "0 0 * ? * * *";
 
-    public override Task<IEnumerable<GroupEvent>> GetEvents(RestClient restClient)
+    protected override Task<IEnumerable<GroupEvent>> GetEvents(
+        RestClient restClient,
+        CancellationToken cancellationToken
+    )
     {
         var kolokolScraper = new KolokolSchedulePageScraper { Client = restClient };
-        return kolokolScraper.ScrapeAsync();
+        return kolokolScraper.ScrapeAsync(cancellationToken);
     }
 }

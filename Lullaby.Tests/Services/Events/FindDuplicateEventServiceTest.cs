@@ -38,9 +38,9 @@ public class FindDuplicateEventServiceTest : BaseDatabaseTest
                 )
             }
         };
-        await this.AddEventByGroupEventService.Execute("aoseka", groupEvent);
+        await this.AddEventByGroupEventService.Execute("aoseka", groupEvent, default);
         var result = await this.FindDuplicateEventService.Execute(
-            new List<FindDuplicateEventService.EventSearchQueryData>
+            new List<IFindDuplicateEventService.EventSearchQueryData>
             {
                 new()
                 {
@@ -49,7 +49,8 @@ public class FindDuplicateEventServiceTest : BaseDatabaseTest
                     StartDateTime = ((DetailedEventDateTime)groupEvent.EventDateTime).EventStartDateTime,
                     EndDateTime = ((DetailedEventDateTime)groupEvent.EventDateTime).EventEndDateTime,
                 }
-            }
+            },
+            default
         );
 
         Assert.That(result.FirstOrDefault(), Is.Not.Null);

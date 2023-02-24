@@ -14,9 +14,9 @@ using ViewModels;
 [Produces("application/json")]
 public class GroupEventController : ControllerBase
 {
-    private GetEventsByGroupKeyService GetEventsByGroupKeyService { get; }
+    private IGetEventsByGroupKeyService GetEventsByGroupKeyService { get; }
 
-    public GroupEventController(GetEventsByGroupKeyService getEventsByGroupKeyService) =>
+    public GroupEventController(IGetEventsByGroupKeyService getEventsByGroupKeyService) =>
         this.GetEventsByGroupKeyService = getEventsByGroupKeyService;
 
     /// <summary>
@@ -24,6 +24,7 @@ public class GroupEventController : ControllerBase
     /// </summary>
     /// <param name="groupKey">The key of group(ex. aoseka)</param>
     /// <param name="groupEventIndexParameters">Options to get events</param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet]
     [SwaggerResponse(200, "The operation was succeeded", typeof(GroupEventsGetResponse))]
@@ -31,7 +32,8 @@ public class GroupEventController : ControllerBase
     [SwaggerResponse(400, "The request was invalid", typeof(ValidationProblemDetails))]
     public async Task<IActionResult> Get(
         [FromRoute] string groupKey,
-        [FromQuery] GroupEventIndexParameters groupEventIndexParameters
+        [FromQuery] GroupEventIndexParameters groupEventIndexParameters,
+        CancellationToken cancellationToken
     )
     {
         var group = GroupKeys.GetGroupByKey(groupKey);
@@ -48,12 +50,10 @@ public class GroupEventController : ControllerBase
                     groupKey,
                     groupEventIndexParameters.EventTypes,
                     groupEventIndexParameters.EventStartsFrom.Value,
-                    groupEventIndexParameters.EventEndsAt.Value
-                ),
+                    groupEventIndexParameters.EventEndsAt.Value, cancellationToken),
             _ => await this.GetEventsByGroupKeyService.Execute(
                 groupKey,
-                groupEventIndexParameters.EventTypes
-            )
+                groupEventIndexParameters.EventTypes, cancellationToken)
         };
 
         return this.Ok(

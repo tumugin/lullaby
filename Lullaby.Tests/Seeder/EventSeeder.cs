@@ -42,7 +42,9 @@ public class EventSeeder
             EventName = eventName,
             EventDescription = eventDescription,
             EventPlace = eventPlace,
-            EventType = eventType
+            EventType = eventType,
+            UpdatedAt = DateTimeOffset.UtcNow,
+            CreatedAt = DateTimeOffset.UtcNow
         });
         await this.LullabyContext.SaveChangesAsync();
         return result.Entity;

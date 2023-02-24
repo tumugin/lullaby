@@ -1,5 +1,6 @@
 namespace Lullaby.Models;
 
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Crawler.Events;
 using Microsoft.EntityFrameworkCore;
@@ -26,6 +27,10 @@ public class Event
     public required string EventDescription { get; set; }
 
     public required string? EventPlace { get; set; }
+
+    public required DateTimeOffset CreatedAt { get; set; }
+
+    [ConcurrencyCheck] public required DateTimeOffset UpdatedAt { get; set; }
 
     [Column(TypeName = "varchar(50)")] public required EventType EventType { get; set; }
 }

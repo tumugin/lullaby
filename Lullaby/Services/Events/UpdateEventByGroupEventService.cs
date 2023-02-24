@@ -5,13 +5,13 @@ using Lullaby.Data;
 using Lullaby.Models;
 using Lullaby.Utils;
 
-public class UpdateEventByGroupEventService
+public class UpdateEventByGroupEventService : IUpdateEventByGroupEventService
 {
     private LullabyContext Context { get; }
 
     public UpdateEventByGroupEventService(LullabyContext context) => this.Context = context;
 
-    public async Task<Event> Execute(Event eventEntity, GroupEvent groupEvent)
+    public async Task<Event> Execute(Event eventEntity, GroupEvent groupEvent, CancellationToken cancellationToken)
     {
         var eventStarts = groupEvent.EventDateTime.EventStartDateTimeOffset;
         var eventEnds = groupEvent.EventDateTime.EventEndDateTimeOffset;
@@ -25,10 +25,11 @@ public class UpdateEventByGroupEventService
             entity.EventDescription = groupEvent.EventDescription;
             entity.EventPlace = groupEvent.EventPlace;
             entity.EventType = groupEvent.EventType;
+            entity.UpdatedAt = DateTimeOffset.UtcNow;
         });
 
         var updatedEntity = this.Context.Events.Update(eventEntity);
-        await this.Context.SaveChangesAsync();
+        await this.Context.SaveChangesAsync(cancellationToken);
 
         return updatedEntity.Entity;
     }

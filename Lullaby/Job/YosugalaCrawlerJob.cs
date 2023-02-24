@@ -9,9 +9,9 @@ public class YosugalaCrawlerJob : BaseCrawlerJob
     public const string JobKey = "YosugalaCrawlerJob";
 
     public YosugalaCrawlerJob(
-        AddEventByGroupEventService addEventByGroupEventService,
-        FindDuplicateEventService findDuplicateEventService,
-        UpdateEventByGroupEventService updateEventByGroupEventService,
+        IAddEventByGroupEventService addEventByGroupEventService,
+        IFindDuplicateEventService findDuplicateEventService,
+        IUpdateEventByGroupEventService updateEventByGroupEventService,
         RestClient restClient
     ) : base(
         addEventByGroupEventService,

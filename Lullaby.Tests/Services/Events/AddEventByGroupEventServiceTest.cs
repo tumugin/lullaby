@@ -32,7 +32,8 @@ public class AddEventByGroupEventServiceTest : BaseDatabaseTest
                         CultureInfo.InvariantCulture
                     )
                 }
-            }
+            },
+            default
         );
         Assert.Multiple(() =>
         {
@@ -68,7 +69,8 @@ public class AddEventByGroupEventServiceTest : BaseDatabaseTest
                         CultureInfo.InvariantCulture
                     )
                 }
-            }
+            },
+            default
         );
         Assert.Multiple(() =>
         {
