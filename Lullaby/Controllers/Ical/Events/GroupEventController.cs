@@ -16,9 +16,9 @@ using TimeZoneConverter;
 [Route("/ical/events/{groupKey}")]
 public class GroupEventController : ControllerBase
 {
-    private GetEventsByGroupKeyService GetEventsByGroupKeyService { get; }
+    private IGetEventsByGroupKeyService GetEventsByGroupKeyService { get; }
 
-    public GroupEventController(GetEventsByGroupKeyService getEventsByGroupKeyService) =>
+    public GroupEventController(IGetEventsByGroupKeyService getEventsByGroupKeyService) =>
         this.GetEventsByGroupKeyService = getEventsByGroupKeyService;
 
     /// <summary>
