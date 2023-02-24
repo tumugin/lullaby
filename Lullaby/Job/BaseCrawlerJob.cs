@@ -31,6 +31,7 @@ public abstract class BaseCrawlerJob : IJob
             this.AddEventByGroupEventService,
             this.FindDuplicateEventService,
             this.UpdateEventByGroupEventService,
-            this.RestClient
+            this.RestClient,
+            context.CancellationToken
         );
 }

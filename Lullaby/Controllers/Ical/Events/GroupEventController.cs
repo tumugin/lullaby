@@ -26,6 +26,7 @@ public class GroupEventController : ControllerBase
     /// </summary>
     /// <param name="groupKey">The key of group(ex. aoseka)</param>
     /// <param name="groupEventIndexParameters">Options to get events</param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet]
     [SwaggerResponse(200, "The operation was succeeded")]
@@ -33,7 +34,8 @@ public class GroupEventController : ControllerBase
     [SwaggerResponse(400, "The request was invalid")]
     public async Task<IActionResult> Get(
         [FromRoute] string groupKey,
-        [FromQuery] GroupEventIndexParameters groupEventIndexParameters
+        [FromQuery] GroupEventIndexParameters groupEventIndexParameters,
+        CancellationToken cancellationToken
     )
     {
         var group = GroupKeys.GetGroupByKey(groupKey);
@@ -52,11 +54,13 @@ public class GroupEventController : ControllerBase
                     groupKey,
                     groupEventIndexParameters.EventTypes,
                     groupEventIndexParameters.EventStartsFrom.Value,
-                    groupEventIndexParameters.EventEndsAt.Value
+                    groupEventIndexParameters.EventEndsAt.Value,
+                    cancellationToken
                 ),
             _ => await this.GetEventsByGroupKeyService.Execute(
                 groupKey,
-                groupEventIndexParameters.EventTypes
+                groupEventIndexParameters.EventTypes,
+                cancellationToken
             )
         };
 

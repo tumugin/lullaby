@@ -4,9 +4,8 @@ using Models;
 
 public interface IFindDuplicateEventService
 {
-    public Task<List<Event>> Execute(
-        IEnumerable<EventSearchQueryData> eventSearchQueryData
-    );
+    public Task<List<Event>> Execute(IEnumerable<EventSearchQueryData> eventSearchQueryData,
+        CancellationToken cancellationToken);
 
     public class EventSearchQueryData
     {

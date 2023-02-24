@@ -19,13 +19,13 @@ public partial class KolokolSchedulePageScraper
 
     public required RestClient Client { get; init; }
 
-    private async Task<string[]> DownloadDocuments()
+    private async Task<string[]> DownloadDocuments(CancellationToken cancellationToken)
     {
         // 全部基本的には同じフォーマットで作られているのでまとめて落としてきてまとめて処理する
         var asyncDocuments = SchedulePageUrls.Select(
             schedulePageUrl => Task.Run(async () =>
             {
-                var request = await this.Client.GetAsync(new RestRequest(schedulePageUrl));
+                var request = await this.Client.GetAsync(new RestRequest(schedulePageUrl), cancellationToken);
                 return request.Content ?? throw new InvalidDataException("Response must not be null");
             })
         );
@@ -47,11 +47,11 @@ public partial class KolokolSchedulePageScraper
     [GeneratedRegex("^ ", RegexOptions.Multiline)]
     private static partial Regex StartOfLineAndSpace();
 
-    private async Task<IEnumerable<GroupEvent>> ParseDocument(string rawHtml)
+    private static async Task<IEnumerable<GroupEvent>> ParseDocument(string rawHtml, CancellationToken cancellationToken)
     {
         var eventTypeDetector = new EventTypeDetector();
         var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
-        var document = await context.OpenAsync(req => req.Content(rawHtml));
+        var document = await context.OpenAsync(req => req.Content(rawHtml), cancellationToken);
         var scheduleElements = document.QuerySelectorAll(".scdBox");
         return scheduleElements.Select(
             scheduleElement =>
@@ -144,10 +144,10 @@ public partial class KolokolSchedulePageScraper
         );
     }
 
-    public async Task<IEnumerable<GroupEvent>> ScrapeAsync()
+    public async Task<IEnumerable<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
     {
-        var allDocuments = await this.DownloadDocuments();
-        var allEvents = allDocuments.Select(this.ParseDocument);
+        var allDocuments = await this.DownloadDocuments(cancellationToken);
+        var allEvents = allDocuments.Select(rawHtml => ParseDocument(rawHtml, cancellationToken));
         return (await Task.WhenAll(allEvents)).SelectMany(e => e);
     }
 }

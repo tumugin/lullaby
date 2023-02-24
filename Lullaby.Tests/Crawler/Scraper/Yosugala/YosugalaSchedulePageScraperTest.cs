@@ -18,7 +18,7 @@ public class YosugalaSchedulePageScraperTest : BaseScraperTest
         var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
 
         var scraper = new YosugalaSchedulePageScraper { Client = client };
-        var result = await scraper.ScrapeAsync();
+        var result = await scraper.ScrapeAsync(default);
 
         Assert.That(result.Count, Is.EqualTo(9));
 

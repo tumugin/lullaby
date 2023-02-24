@@ -11,7 +11,7 @@ public class UpdateEventByGroupEventService : IUpdateEventByGroupEventService
 
     public UpdateEventByGroupEventService(LullabyContext context) => this.Context = context;
 
-    public async Task<Event> Execute(Event eventEntity, GroupEvent groupEvent)
+    public async Task<Event> Execute(Event eventEntity, GroupEvent groupEvent, CancellationToken cancellationToken)
     {
         var eventStarts = groupEvent.EventDateTime.EventStartDateTimeOffset;
         var eventEnds = groupEvent.EventDateTime.EventEndDateTimeOffset;
@@ -29,7 +29,7 @@ public class UpdateEventByGroupEventService : IUpdateEventByGroupEventService
         });
 
         var updatedEntity = this.Context.Events.Update(eventEntity);
-        await this.Context.SaveChangesAsync();
+        await this.Context.SaveChangesAsync(cancellationToken);
 
         return updatedEntity.Entity;
     }

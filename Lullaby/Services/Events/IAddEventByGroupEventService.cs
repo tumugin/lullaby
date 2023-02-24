@@ -5,5 +5,5 @@ using Models;
 
 public interface IAddEventByGroupEventService
 {
-    public Task<Event> Execute(string groupKey, GroupEvent groupEvent);
+    public Task<Event> Execute(string groupKey, GroupEvent groupEvent, CancellationToken cancellationToken);
 }

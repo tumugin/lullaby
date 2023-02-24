@@ -5,5 +5,5 @@ using Models;
 
 public interface IUpdateEventByGroupEventService
 {
-    public Task<Event> Execute(Event eventEntity, GroupEvent groupEvent);
+    public Task<Event> Execute(Event eventEntity, GroupEvent groupEvent, CancellationToken cancellationToken);
 }

@@ -35,7 +35,7 @@ public class KolokolSchedulePageScraperTest : BaseScraperTest
         var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
 
         var scraper = new KolokolSchedulePageScraper { Client = client };
-        var result = await scraper.ScrapeAsync();
+        var result = await scraper.ScrapeAsync(default);
 
         Assert.That(result.Count, Is.EqualTo(48));
         var kinoSaki = result.FirstOrDefault(e => e.EventName == "きのさき生誕2023");

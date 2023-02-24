@@ -14,16 +14,20 @@ public abstract class BaseGroup
     // see: https://www.quartz-scheduler.net/documentation/quartz-3.x/tutorial/crontriggers.html
     public abstract string CrawlCron { get; }
 
-    public abstract Task<IEnumerable<GroupEvent>> GetEvents(RestClient restClient);
+    protected abstract Task<IEnumerable<GroupEvent>> GetEvents(
+        RestClient restClient,
+        CancellationToken cancellationToken
+    );
 
     public async Task GetAndUpdateSavedEvents(
         IAddEventByGroupEventService addEventByGroupEventService,
         IFindDuplicateEventService findDuplicateEventService,
         IUpdateEventByGroupEventService updateEventByGroupEventService,
-        RestClient restClient
+        RestClient restClient,
+        CancellationToken cancellationToken
     )
     {
-        var groupEvents = await this.GetEvents(restClient);
+        var groupEvents = await this.GetEvents(restClient, cancellationToken);
         var findDuplicateEventsQuery = groupEvents
             .Select(v =>
                 new IFindDuplicateEventService.EventSearchQueryData()
@@ -36,7 +40,7 @@ public abstract class BaseGroup
             );
 
         var duplicateEvents = await findDuplicateEventService
-            .Execute(findDuplicateEventsQuery);
+            .Execute(findDuplicateEventsQuery, cancellationToken);
 
         foreach (var groupEvent in groupEvents)
         {
@@ -48,11 +52,11 @@ public abstract class BaseGroup
             );
             if (duplicateEvent != null)
             {
-                await updateEventByGroupEventService.Execute(duplicateEvent, groupEvent);
+                await updateEventByGroupEventService.Execute(duplicateEvent, groupEvent, cancellationToken);
             }
             else
             {
-                await addEventByGroupEventService.Execute(this.GroupKey, groupEvent);
+                await addEventByGroupEventService.Execute(this.GroupKey, groupEvent, cancellationToken);
             }
         }
     }

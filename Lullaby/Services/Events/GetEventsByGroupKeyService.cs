@@ -11,11 +11,11 @@ public class GetEventsByGroupKeyService : IGetEventsByGroupKeyService
 
     public GetEventsByGroupKeyService(LullabyContext context) => this.LullabyContext = context;
 
-    public async Task<IEnumerable<Event>> Execute(
-        string groupKey,
+    public async Task<IEnumerable<Event>> Execute(string groupKey,
         EventType[] eventTypes,
         DateTimeOffset startDateTimeStartRange,
-        DateTimeOffset startDateTimeEndRange
+        DateTimeOffset startDateTimeEndRange,
+        CancellationToken cancellationToken
     )
     {
         var result = await this.LullabyContext.Events.Where(e =>
@@ -24,17 +24,21 @@ public class GetEventsByGroupKeyService : IGetEventsByGroupKeyService
                 e.EventStarts >= startDateTimeStartRange &&
                 e.EventStarts <= startDateTimeEndRange
             )
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
         return result;
     }
 
-    public async Task<IEnumerable<Event>> Execute(string groupKey, EventType[] eventTypes)
+    public async Task<IEnumerable<Event>> Execute(
+        string groupKey,
+        EventType[] eventTypes,
+        CancellationToken cancellationToken
+    )
     {
         var result = await this.LullabyContext.Events.Where(e =>
                 e.GroupKey == groupKey &&
                 eventTypes.Contains(e.EventType)
             )
-            .ToListAsync();
+            .ToListAsync(cancellationToken);
         return result;
     }
 }

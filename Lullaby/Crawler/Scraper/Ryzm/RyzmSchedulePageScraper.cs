@@ -14,7 +14,7 @@ public abstract partial class RyzmSchedulePageScraper
 
     public required RestClient Client { get; init; }
 
-    private async Task<string> DownloadDocument(int page)
+    private async Task<string> DownloadDocument(int page, CancellationToken cancellationToken)
     {
         var requestUri = new Uri(
             QueryHelpers.AddQueryString(
@@ -22,14 +22,17 @@ public abstract partial class RyzmSchedulePageScraper
                 new Dictionary<string, string?> { { "page", page != 1 ? $"{page}" : null } }
             )
         );
-        var request = await this.Client.GetAsync(new RestRequest(requestUri));
+        var request = await this.Client.GetAsync(new RestRequest(requestUri), cancellationToken);
         return request.Content ?? throw new InvalidDataException("Response must not be null");
     }
 
-    private static async Task<RyzmScheduleObject.RyzmScheduleRootObject> ScrapeRawDocument(string rawHtml)
+    private static async Task<RyzmScheduleObject.RyzmScheduleRootObject> ScrapeRawDocument(
+        string rawHtml,
+        CancellationToken cancellationToken
+    )
     {
         var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
-        var document = await context.OpenAsync(req => req.Content(rawHtml));
+        var document = await context.OpenAsync(req => req.Content(rawHtml), cancellationToken);
         var element = document.QuerySelector("#__NEXT_DATA__") ??
                       throw new InvalidDataException("data element was not found");
         var ryzmSchedulePageObject =
@@ -40,18 +43,20 @@ public abstract partial class RyzmSchedulePageScraper
     [GeneratedRegex("(\\d+):(\\d+)")]
     private static partial Regex DoorTimeRegex();
 
-    public async Task<IEnumerable<GroupEvent>> ScrapeAsync()
+    public async Task<IEnumerable<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
     {
         var eventTypeDetector = new EventTypeDetector();
         // 最初のページをスクレイピングして必要なページ数をもらう
-        var firstPageObject = await ScrapeRawDocument(await this.DownloadDocument(1));
+        var firstPageObject =
+            await ScrapeRawDocument(await this.DownloadDocument(1, cancellationToken), cancellationToken);
         var pageCount = firstPageObject.Props.PageProps.Data.FetchedData.LiveList.Meta.LastPage;
 
         // 2ページ目以降を取得する
         var pageRange = pageCount > 1 ? Enumerable.Range(2, pageCount - 1) : Array.Empty<int>();
         var pageObjects = await Task.WhenAll(
             pageRange.Select(
-                async page => await ScrapeRawDocument(await this.DownloadDocument(page))
+                async page =>
+                    await ScrapeRawDocument(await this.DownloadDocument(page, cancellationToken), cancellationToken)
             )
         );
         var allPageSchedules =
