@@ -17,9 +17,9 @@ public abstract class BaseGroup
     public abstract Task<IEnumerable<GroupEvent>> GetEvents(RestClient restClient);
 
     public async Task GetAndUpdateSavedEvents(
-        AddEventByGroupEventService addEventByGroupEventService,
-        FindDuplicateEventService findDuplicateEventService,
-        UpdateEventByGroupEventService updateEventByGroupEventService,
+        IAddEventByGroupEventService addEventByGroupEventService,
+        IFindDuplicateEventService findDuplicateEventService,
+        IUpdateEventByGroupEventService updateEventByGroupEventService,
         RestClient restClient
     )
     {

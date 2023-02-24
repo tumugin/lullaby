@@ -7,17 +7,17 @@ using Services.Events;
 
 public abstract class BaseCrawlerJob : IJob
 {
-    protected AddEventByGroupEventService AddEventByGroupEventService { get; }
-    protected FindDuplicateEventService FindDuplicateEventService { get; }
-    protected UpdateEventByGroupEventService UpdateEventByGroupEventService { get; }
-    protected RestClient RestClient { get; }
+    private IAddEventByGroupEventService AddEventByGroupEventService { get; }
+    private IFindDuplicateEventService FindDuplicateEventService { get; }
+    private IUpdateEventByGroupEventService UpdateEventByGroupEventService { get; }
+    private RestClient RestClient { get; }
 
     protected abstract BaseGroup TargetGroup { get; }
 
     protected BaseCrawlerJob(
-        AddEventByGroupEventService addEventByGroupEventService,
-        FindDuplicateEventService findDuplicateEventService,
-        UpdateEventByGroupEventService updateEventByGroupEventService,
+        IAddEventByGroupEventService addEventByGroupEventService,
+        IFindDuplicateEventService findDuplicateEventService,
+        IUpdateEventByGroupEventService updateEventByGroupEventService,
         RestClient restClient)
     {
         this.AddEventByGroupEventService = addEventByGroupEventService;

@@ -5,7 +5,7 @@ using Lullaby.Data;
 using Lullaby.Models;
 using Lullaby.Utils;
 
-public class UpdateEventByGroupEventService
+public class UpdateEventByGroupEventService : IUpdateEventByGroupEventService
 {
     private LullabyContext Context { get; }
 

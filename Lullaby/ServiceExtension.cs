@@ -12,10 +12,10 @@ public static class ServiceExtension
 {
     private static IServiceCollection AddLullabyServices(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddScoped<GetEventsByGroupKeyService, GetEventsByGroupKeyService>();
-        serviceCollection.AddScoped<AddEventByGroupEventService, AddEventByGroupEventService>();
-        serviceCollection.AddScoped<FindDuplicateEventService, FindDuplicateEventService>();
-        serviceCollection.AddScoped<UpdateEventByGroupEventService, UpdateEventByGroupEventService>();
+        serviceCollection.AddScoped<IGetEventsByGroupKeyService, GetEventsByGroupKeyService>();
+        serviceCollection.AddScoped<IAddEventByGroupEventService, AddEventByGroupEventService>();
+        serviceCollection.AddScoped<IFindDuplicateEventService, FindDuplicateEventService>();
+        serviceCollection.AddScoped<IUpdateEventByGroupEventService, UpdateEventByGroupEventService>();
         serviceCollection.AddHttpClient();
         serviceCollection.AddScoped<RestClient, RestClient>((p) => new RestClient(p.GetRequiredService<HttpClient>()));
         return serviceCollection;

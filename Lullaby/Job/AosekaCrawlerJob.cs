@@ -11,9 +11,9 @@ public class AosekaCrawlerJob : BaseCrawlerJob
     protected override BaseGroup TargetGroup => new Aoseka();
 
     public AosekaCrawlerJob(
-        AddEventByGroupEventService addEventByGroupEventService,
-        FindDuplicateEventService findDuplicateEventService,
-        UpdateEventByGroupEventService updateEventByGroupEventService,
+        IAddEventByGroupEventService addEventByGroupEventService,
+        IFindDuplicateEventService findDuplicateEventService,
+        IUpdateEventByGroupEventService updateEventByGroupEventService,
         RestClient restClient
     ) : base(
         addEventByGroupEventService,
