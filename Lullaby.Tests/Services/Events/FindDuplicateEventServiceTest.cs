@@ -40,7 +40,7 @@ public class FindDuplicateEventServiceTest : BaseDatabaseTest
         };
         await this.AddEventByGroupEventService.Execute("aoseka", groupEvent);
         var result = await this.FindDuplicateEventService.Execute(
-            new List<FindDuplicateEventService.EventSearchQueryData>
+            new List<IFindDuplicateEventService.EventSearchQueryData>
             {
                 new()
                 {

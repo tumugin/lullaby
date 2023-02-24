@@ -26,7 +26,7 @@ public abstract class BaseGroup
         var groupEvents = await this.GetEvents(restClient);
         var findDuplicateEventsQuery = groupEvents
             .Select(v =>
-                new FindDuplicateEventService.EventSearchQueryData()
+                new IFindDuplicateEventService.EventSearchQueryData()
                 {
                     GroupKey = this.GroupKey,
                     EventName = v.EventName,

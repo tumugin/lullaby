@@ -25,6 +25,7 @@ public class UpdateEventByGroupEventService
             entity.EventDescription = groupEvent.EventDescription;
             entity.EventPlace = groupEvent.EventPlace;
             entity.EventType = groupEvent.EventType;
+            entity.UpdatedAt = DateTimeOffset.UtcNow;
         });
 
         var updatedEntity = this.Context.Events.Update(eventEntity);

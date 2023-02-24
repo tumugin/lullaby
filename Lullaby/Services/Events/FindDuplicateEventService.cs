@@ -4,19 +4,11 @@ using Lullaby.Data;
 using Lullaby.Models;
 using Microsoft.EntityFrameworkCore;
 
-public class FindDuplicateEventService
+public class FindDuplicateEventService : IFindDuplicateEventService
 {
     private LullabyContext Context { get; }
 
     public FindDuplicateEventService(LullabyContext context) => this.Context = context;
-
-    public class EventSearchQueryData
-    {
-        public required string GroupKey { get; init; }
-        public required string EventName { get; init; }
-        public required DateTimeOffset StartDateTime { get; init; }
-        public required DateTimeOffset EndDateTime { get; init; }
-    }
 
     /**
      * 既にDBに保存された重複するイベントを検索する
@@ -24,7 +16,7 @@ public class FindDuplicateEventService
      * (タイトルのみだとTOKYO IDOL FESTIVALのような複数日出演するイベントで壊れる)
      */
     public Task<List<Event>> Execute(
-        IEnumerable<EventSearchQueryData> eventSearchQueryData
+        IEnumerable<IFindDuplicateEventService.EventSearchQueryData> eventSearchQueryData
     ) =>
         this.Context
             .Events

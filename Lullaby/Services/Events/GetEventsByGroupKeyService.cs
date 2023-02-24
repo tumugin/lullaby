@@ -5,7 +5,7 @@ using Lullaby.Data;
 using Lullaby.Models;
 using Microsoft.EntityFrameworkCore;
 
-public class GetEventsByGroupKeyService
+public class GetEventsByGroupKeyService : IGetEventsByGroupKeyService
 {
     private LullabyContext LullabyContext { get; }
 
