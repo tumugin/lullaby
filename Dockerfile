@@ -1,5 +1,5 @@
 # see: https://hub.docker.com/_/microsoft-dotnet-sdk/
-FROM mcr.microsoft.com/dotnet/sdk:7.0.103 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:7.0.201 AS build-env
 
 WORKDIR /App
 
