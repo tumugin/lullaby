@@ -67,7 +67,7 @@ public class GetEventsByGroupKeyServiceTest : BaseDatabaseTest
 
         Assert.Multiple(() =>
         {
-            Assert.That(results.Count(), Is.EqualTo(1));
+            Assert.That(results, Has.Count.EqualTo(1));
             Assert.That(results.FirstOrDefault(), Is.EqualTo(expectedEvent));
         });
     }

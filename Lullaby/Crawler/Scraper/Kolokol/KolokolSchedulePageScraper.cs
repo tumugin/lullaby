@@ -10,16 +10,17 @@ using Utils;
 public partial class KolokolSchedulePageScraper
 {
     // サイトのレスポンスがそんなに速くないので、一旦最新1ページ+過去4ページ分だけ決め打ちで取ってくる
-    public static readonly string[] SchedulePageUrls =
-    {
-        "https://kolokol-official.com/schedule/", "https://kolokol-official.com/schedule/past/",
-        "https://kolokol-official.com/schedule/past/num/10", "https://kolokol-official.com/schedule/past/num/20",
-        "https://kolokol-official.com/schedule/past/num/30"
-    };
+    public static readonly IReadOnlyList<string> SchedulePageUrls =
+        new[]
+        {
+            "https://kolokol-official.com/schedule/", "https://kolokol-official.com/schedule/past/",
+            "https://kolokol-official.com/schedule/past/num/10",
+            "https://kolokol-official.com/schedule/past/num/20", "https://kolokol-official.com/schedule/past/num/30"
+        };
 
     public required RestClient Client { get; init; }
 
-    private async Task<string[]> DownloadDocuments(CancellationToken cancellationToken)
+    private async Task<IReadOnlyList<string>> DownloadDocuments(CancellationToken cancellationToken)
     {
         // 全部基本的には同じフォーマットで作られているのでまとめて落としてきてまとめて処理する
         var asyncDocuments = SchedulePageUrls.Select(
@@ -47,7 +48,10 @@ public partial class KolokolSchedulePageScraper
     [GeneratedRegex("^ ", RegexOptions.Multiline)]
     private static partial Regex StartOfLineAndSpace();
 
-    private static async Task<IEnumerable<GroupEvent>> ParseDocument(string rawHtml, CancellationToken cancellationToken)
+    private static async Task<IEnumerable<GroupEvent>> ParseDocument(
+        string rawHtml,
+        CancellationToken cancellationToken
+    )
     {
         var eventTypeDetector = new EventTypeDetector();
         var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader());

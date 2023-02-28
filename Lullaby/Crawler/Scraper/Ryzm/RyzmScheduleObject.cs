@@ -42,7 +42,7 @@ public class RyzmScheduleObject
 
     public class LiveList
     {
-        [JsonPropertyName("data")] public LiveListDatum[] Data { get; init; } = null!;
+        [JsonPropertyName("data")] public IReadOnlyList<LiveListDatum> Data { get; init; } = null!;
 
         [JsonPropertyName("meta")] public LiveListMeta Meta { get; init; } = null!;
     }
@@ -96,7 +96,7 @@ public class RyzmScheduleObject
         [JsonPropertyName("web_reservation_max_quantity_per_person")]
         public object WebReservationMaxQuantityPerPerson { get; init; } = null!;
 
-        [JsonPropertyName("platforms")] public Platform[] Platforms { get; init; } = null!;
+        [JsonPropertyName("platforms")] public IReadOnlyList<Platform> Platforms { get; init; } = null!;
     }
 
     public class Platform
@@ -114,7 +114,7 @@ public class RyzmScheduleObject
 
         [JsonPropertyName("last_page")] public int LastPage { get; init; }
 
-        [JsonPropertyName("links")] public Link[] Links { get; init; } = null!;
+        [JsonPropertyName("links")] public IReadOnlyList<Link> Links { get; init; } = null!;
 
         [JsonPropertyName("path")] public Uri Path { get; init; } = null!;
 

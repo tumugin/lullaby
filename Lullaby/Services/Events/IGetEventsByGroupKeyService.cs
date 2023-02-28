@@ -5,11 +5,11 @@ using Models;
 
 public interface IGetEventsByGroupKeyService
 {
-    public Task<IEnumerable<Event>> Execute(string groupKey,
-        EventType[] eventTypes,
+    public Task<IList<Event>> Execute(string groupKey,
+        IEnumerable<EventType> eventTypes,
         DateTimeOffset startDateTimeStartRange,
         DateTimeOffset startDateTimeEndRange, CancellationToken cancellationToken);
 
-    public Task<IEnumerable<Event>> Execute(string groupKey, EventType[] eventTypes,
+    public Task<IList<Event>> Execute(string groupKey, IEnumerable<EventType> eventTypes,
         CancellationToken cancellationToken);
 }
