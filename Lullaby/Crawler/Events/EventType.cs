@@ -33,7 +33,7 @@ public enum EventType
 
 public static class EventTypeExt
 {
-    public static EventType[] AllTypes() => new[]
+    public static IEnumerable<EventType> AllTypes() => new[]
     {
         EventType.Unknown, EventType.OneMan, EventType.Battle, EventType.Fes, EventType.BattleOrFes,
     };

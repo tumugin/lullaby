@@ -14,5 +14,5 @@ public class GroupEventsGetResponse
     /// <summary>
     /// Events of the specified group
     /// </summary>
-    public required IEnumerable<EventViewModel> Events { get; set; }
+    public required IList<EventViewModel> Events { get; set; }
 }

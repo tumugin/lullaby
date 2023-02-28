@@ -2,16 +2,15 @@ namespace Lullaby.Crawler.Events;
 
 public class EventTypeDetector
 {
-    private readonly string[] battleEventNames =
-    {
-        "HYPE", "Funpal", "MAWA LOOP", "アイドルアラモード", "MARQUEE祭", "dot yell", "TOKYO GIRLS GIRLS"
-    };
+    private readonly IEnumerable<string> battleEventNames =
+        new[] { "HYPE", "Funpal", "MAWA LOOP", "アイドルアラモード", "MARQUEE祭", "dot yell", "TOKYO GIRLS GIRLS" };
 
-    private readonly string[] fesEventNames =
-    {
-        "LEADING PREMIUM", "TIF", "TOKYO IDOL FESTIVAL", "NATSUZOME", "エンドレスサマー", "@JAM", "SEKIGAHARA IDOL WARS",
-        "関ケ原唄姫合戦", "SPARK", "IDORISE"
-    };
+    private readonly IEnumerable<string> fesEventNames =
+        new[]
+        {
+            "LEADING PREMIUM", "TIF", "TOKYO IDOL FESTIVAL", "NATSUZOME", "エンドレスサマー", "@JAM",
+            "SEKIGAHARA IDOL WARS", "関ケ原唄姫合戦", "SPARK", "IDORISE"
+        };
 
     public EventType DetectEventTypeByTitle(string eventTitle) =>
         eventTitle switch

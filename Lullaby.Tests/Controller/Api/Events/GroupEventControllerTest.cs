@@ -20,7 +20,7 @@ public class GroupEventControllerTest : BaseWebTest
                 $"api/events/{Aoseka.GroupKeyConstant}"
             );
         Assert.That(result, Is.Not.Null);
-        Assert.That(result!.Events.Count, Is.EqualTo(1));
+        Assert.That(result!.Events, Has.Count.EqualTo(1));
     }
 
     [Test]
@@ -48,7 +48,7 @@ public class GroupEventControllerTest : BaseWebTest
         var result =
             await this.Client.GetFromJsonAsync<GroupEventsGetResponse>(requestUri);
         Assert.That(result, Is.Not.Null);
-        Assert.That(result!.Events.Count, Is.EqualTo(0));
+        Assert.That(result!.Events, Is.Empty);
     }
 
     [Test]
