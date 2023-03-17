@@ -24,7 +24,7 @@ public class AosekaSchedulePageScraperTest : BaseScraperTest
 
         var result = await scraper.ScrapeAsync(default);
 
-        Assert.That(result.Count, Is.EqualTo(64));
+        Assert.That(result, Has.Count.EqualTo(64));
 
         // TOKYO IDOL FESTIVAL 2022 supported byにしたんクリニック
         var tif = result

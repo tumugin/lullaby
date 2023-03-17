@@ -20,7 +20,7 @@ public class OSSSchedulePageScraperTest : BaseScraperTest
         var scraper = new OSSSchedulePageScraper { Client = client };
         var result = await scraper.ScrapeAsync(default);
 
-        Assert.That(result.Count, Is.EqualTo(8));
+        Assert.That(result, Has.Count.EqualTo(8));
 
         // 【海老原天生誕祭】暴飲暴食
         var testEvent = result.First(v => v.EventName == "【海老原天生誕祭】暴飲暴食");

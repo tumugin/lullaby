@@ -2,10 +2,10 @@ namespace Lullaby.Crawler.Events;
 
 public class EventTypeDetector
 {
-    private readonly IEnumerable<string> battleEventNames =
+    private readonly IReadOnlyCollection<string> battleEventNames =
         new[] { "HYPE", "Funpal", "MAWA LOOP", "アイドルアラモード", "MARQUEE祭", "dot yell", "TOKYO GIRLS GIRLS" };
 
-    private readonly IEnumerable<string> fesEventNames =
+    private readonly IReadOnlyCollection<string> fesEventNames =
         new[]
         {
             "LEADING PREMIUM", "TIF", "TOKYO IDOL FESTIVAL", "NATSUZOME", "エンドレスサマー", "@JAM",

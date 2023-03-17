@@ -15,7 +15,7 @@ public class FindDuplicateEventService : IFindDuplicateEventService
      * サイト上には基本的にIDはないので、イベント名と開始終了時刻での検索を行う
      * (タイトルのみだとTOKYO IDOL FESTIVALのような複数日出演するイベントで壊れる)
      */
-    public async Task<IList<Event>> Execute(IEnumerable<IFindDuplicateEventService.EventSearchQueryData> eventSearchQueryData,
+    public async Task<IReadOnlyList<Event>> Execute(IEnumerable<IFindDuplicateEventService.EventSearchQueryData> eventSearchQueryData,
         CancellationToken cancellationToken) =>
         await this.Context
             .Events
@@ -25,5 +25,5 @@ public class FindDuplicateEventService : IFindDuplicateEventService
                 eventSearchQueryData.Select(q => q.StartDateTime).Contains(e.EventStarts) &&
                 eventSearchQueryData.Select(q => q.EndDateTime).Contains(e.EventEnds)
             )
-            .ToListAsync(cancellationToken);
+            .ToArrayAsync(cancellationToken);
 }

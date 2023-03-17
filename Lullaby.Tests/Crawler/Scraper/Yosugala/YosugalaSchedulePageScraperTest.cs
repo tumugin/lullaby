@@ -20,7 +20,7 @@ public class YosugalaSchedulePageScraperTest : BaseScraperTest
         var scraper = new YosugalaSchedulePageScraper { Client = client };
         var result = await scraper.ScrapeAsync(default);
 
-        Assert.That(result.Count, Is.EqualTo(9));
+        Assert.That(result, Has.Count.EqualTo(9));
 
         // 【yosugalaワンマンライヴ】「1 coin plus 1drink」
         var testEvent = result.First(v => v.EventName == "【yosugalaワンマンライヴ】「1 coin plus 1drink」");

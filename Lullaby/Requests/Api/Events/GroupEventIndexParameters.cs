@@ -17,5 +17,5 @@ public class GroupEventIndexParameters
     /// <summary>
     /// Event types to be searched
     /// </summary>
-    public IEnumerable<EventType> EventTypes { get; set; } = EventTypeExt.AllTypes();
+    public IReadOnlyCollection<EventType> EventTypes { get; set; } = EventTypeExt.AllTypes();
 }
