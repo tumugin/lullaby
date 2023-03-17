@@ -1,30 +1,23 @@
 namespace Lullaby.Tests;
 
 using Data;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 
 public class BaseDatabaseTest
 {
     protected LullabyContext Context { get; }
 
-    public BaseDatabaseTest()
-    {
-        var builder = WebApplication.CreateBuilder(new WebApplicationOptions { EnvironmentName = "Testing" });
-        var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ??
-                               throw new InvalidOperationException("DefaultConnection should not be null.");
+    public BaseDatabaseTest() =>
         this.Context = new LullabyContext(
-            DatabaseConfig.CreateDbContextOptions(connectionString, new DbContextOptionsBuilder<LullabyContext>())
+            new DbContextOptionsBuilder<LullabyContext>()
+                .UseInMemoryDatabase(nameof(BaseDatabaseTest))
                 .Options
         );
-    }
 
-    [SetUp]
-    public void PrepareDatabase()
+    [TearDown]
+    public void Cleanup()
     {
-        this.Context.ChangeTracker.Clear();
         this.Context.Database.EnsureDeleted();
-        this.Context.Database.EnsureCreated();
+        this.Context.Dispose();
     }
 }
