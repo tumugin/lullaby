@@ -11,7 +11,7 @@ public class GetEventsByGroupKeyService : IGetEventsByGroupKeyService
 
     public GetEventsByGroupKeyService(LullabyContext context) => this.LullabyContext = context;
 
-    public async Task<IList<Event>> Execute(string groupKey,
+    public async Task<IReadOnlyList<Event>> Execute(string groupKey,
         IEnumerable<EventType> eventTypes,
         DateTimeOffset startDateTimeStartRange,
         DateTimeOffset startDateTimeEndRange,
@@ -27,7 +27,7 @@ public class GetEventsByGroupKeyService : IGetEventsByGroupKeyService
         return result;
     }
 
-    public async Task<IList<Event>> Execute(string groupKey,
+    public async Task<IReadOnlyList<Event>> Execute(string groupKey,
         IEnumerable<EventType> eventTypes,
         CancellationToken cancellationToken)
     {

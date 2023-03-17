@@ -37,7 +37,7 @@ public class KolokolSchedulePageScraperTest : BaseScraperTest
         var scraper = new KolokolSchedulePageScraper { Client = client };
         var result = await scraper.ScrapeAsync(default);
 
-        Assert.That(result.Count, Is.EqualTo(48));
+        Assert.That(result, Has.Count.EqualTo(48));
         var kinoSaki = result.FirstOrDefault(e => e.EventName == "きのさき生誕2023");
         Assert.Multiple(() =>
         {

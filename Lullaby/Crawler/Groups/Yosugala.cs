@@ -14,10 +14,8 @@ public class Yosugala : BaseGroup
     // every hour
     public override string CrawlCron => "0 0 * ? * * *";
 
-    protected override Task<IEnumerable<GroupEvent>> GetEvents(
-        RestClient restClient,
-        CancellationToken cancellationToken
-    )
+    protected override Task<IReadOnlyList<GroupEvent>> GetEvents(RestClient restClient,
+        CancellationToken cancellationToken)
     {
         var yosugalaScraper = new YosugalaSchedulePageScraper { Client = restClient };
         return yosugalaScraper.ScrapeAsync(cancellationToken);

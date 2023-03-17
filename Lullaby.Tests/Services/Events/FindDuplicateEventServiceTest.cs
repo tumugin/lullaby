@@ -53,6 +53,6 @@ public class FindDuplicateEventServiceTest : BaseDatabaseTest
             default
         );
 
-        Assert.That(result.FirstOrDefault(), Is.Not.Null);
+        Assert.That(result[0], Is.Not.Null);
     }
 }

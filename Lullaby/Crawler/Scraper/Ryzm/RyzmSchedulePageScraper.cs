@@ -43,7 +43,7 @@ public abstract partial class RyzmSchedulePageScraper
     [GeneratedRegex("(\\d+):(\\d+)")]
     private static partial Regex DoorTimeRegex();
 
-    public async Task<IEnumerable<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
     {
         var eventTypeDetector = new EventTypeDetector();
         // 最初のページをスクレイピングして必要なページ数をもらう
@@ -65,52 +65,54 @@ public abstract partial class RyzmSchedulePageScraper
                     pageObjects.SelectMany(page => page.Props.PageProps.Data.FetchedData.LiveList.Data)
                 );
 
-        return allPageSchedules.Select(rawSchedule =>
-        {
-            // JSTを基準とした日付が入っているのでそれを使用する
-            var eventStartDate = DateTimeOffset
-                .Parse($"{rawSchedule.EventDate} 00:00:00+09:00", CultureInfo.InvariantCulture);
-            var parsedDoorTime = DoorTimeRegex().Matches(rawSchedule.DoorsStartsTime);
-            DateTimeOffset? detailedOpenTime = parsedDoorTime is { Count: 2 }
-                ? new DateTimeOffset(
-                    eventStartDate.Year,
-                    eventStartDate.Month,
-                    eventStartDate.Day,
-                    int.Parse(parsedDoorTime[0].Groups[1].Value, CultureInfo.InvariantCulture),
-                    int.Parse(parsedDoorTime[0].Groups[2].Value, CultureInfo.InvariantCulture),
-                    0,
-                    eventStartDate.Offset
-                )
-                : null;
-            IEventDateTime eventDateTime = detailedOpenTime switch
+        return allPageSchedules
+            .Select(rawSchedule =>
             {
-                { } => new DetailedEventDateTime
+                // JSTを基準とした日付が入っているのでそれを使用する
+                var eventStartDate = DateTimeOffset
+                    .Parse($"{rawSchedule.EventDate} 00:00:00+09:00", CultureInfo.InvariantCulture);
+                var parsedDoorTime = DoorTimeRegex().Matches(rawSchedule.DoorsStartsTime);
+                DateTimeOffset? detailedOpenTime = parsedDoorTime is { Count: 2 }
+                    ? new DateTimeOffset(
+                        eventStartDate.Year,
+                        eventStartDate.Month,
+                        eventStartDate.Day,
+                        int.Parse(parsedDoorTime[0].Groups[1].Value, CultureInfo.InvariantCulture),
+                        int.Parse(parsedDoorTime[0].Groups[2].Value, CultureInfo.InvariantCulture),
+                        0,
+                        eventStartDate.Offset
+                    )
+                    : null;
+                IEventDateTime eventDateTime = detailedOpenTime switch
                 {
-                    EventStartDateTime = detailedOpenTime.Value,
-                    // 閉場時間は分からないので一旦開場時間の4時間後にしておく
-                    // だいたい入場0.5~1h + ライブ1h~2h + 特典会2hなので4hくらいで十分だと思われる
-                    EventEndDateTime = detailedOpenTime.Value.AddHours(4)
-                },
-                _ => new UnDetailedEventDateTime
+                    { } => new DetailedEventDateTime
+                    {
+                        EventStartDateTime = detailedOpenTime.Value,
+                        // 閉場時間は分からないので一旦開場時間の4時間後にしておく
+                        // だいたい入場0.5~1h + ライブ1h~2h + 特典会2hなので4hくらいで十分だと思われる
+                        EventEndDateTime = detailedOpenTime.Value.AddHours(4)
+                    },
+                    _ => new UnDetailedEventDateTime
+                    {
+                        EventStartDate = eventStartDate, EventEndDate = eventStartDate.AddDays(1)
+                    }
+                };
+
+                var ticketUrls = rawSchedule
+                    .ReservationSetting
+                    .Platforms
+                    .Select(v => v.Url.ToString());
+                var joinedTicketUrls = string.Join("\n", ticketUrls);
+
+                return new GroupEvent
                 {
-                    EventStartDate = eventStartDate, EventEndDate = eventStartDate.AddDays(1)
-                }
-            };
-
-            var ticketUrls = rawSchedule
-                .ReservationSetting
-                .Platforms
-                .Select(v => v.Url.ToString());
-            var joinedTicketUrls = string.Join("\n", ticketUrls);
-
-            return new GroupEvent
-            {
-                EventName = rawSchedule.Title,
-                EventPlace = rawSchedule.Venue,
-                EventDateTime = eventDateTime,
-                EventType = eventTypeDetector.DetectEventTypeByTitle(rawSchedule.Title),
-                EventDescription = $"チケット代: {rawSchedule.Price}\n出演: {rawSchedule.Artist}\n\n{joinedTicketUrls}"
-            };
-        });
+                    EventName = rawSchedule.Title,
+                    EventPlace = rawSchedule.Venue,
+                    EventDateTime = eventDateTime,
+                    EventType = eventTypeDetector.DetectEventTypeByTitle(rawSchedule.Title),
+                    EventDescription = $"チケット代: {rawSchedule.Price}\n出演: {rawSchedule.Artist}\n\n{joinedTicketUrls}"
+                };
+            })
+            .ToArray();
     }
 }

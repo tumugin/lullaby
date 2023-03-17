@@ -11,10 +11,8 @@ public class OSS : BaseGroup
     public override string GroupName => "On the treat Super Season";
     public override string CrawlCron => "0 0 * ? * * *";
 
-    protected override Task<IEnumerable<GroupEvent>> GetEvents(
-        RestClient restClient,
-        CancellationToken cancellationToken
-    )
+    protected override Task<IReadOnlyList<GroupEvent>> GetEvents(RestClient restClient,
+        CancellationToken cancellationToken)
     {
         var ossScraper = new OSSSchedulePageScraper { Client = restClient };
         return ossScraper.ScrapeAsync(cancellationToken);

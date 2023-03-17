@@ -37,27 +37,29 @@ public class AosekaSchedulePageScraper
         return calenderEvents.ToArray();
     }
 
-    public async Task<IEnumerable<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
+    public async Task<IReadOnlyList<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
     {
         var htmlParser = new HtmlParser();
         var downloadedDocument = await this.DownloadDocument(cancellationToken);
         var aosekaEvents = await ScrapeRawDocument(downloadedDocument, cancellationToken);
-        var convertedEvents = aosekaEvents.Select(v => new GroupEvent
-        {
-            EventName = v.Title.Let(s =>
-                s.Replace("【LIVE】", "")
-                    .Replace("【配信】", "")
-                    .Replace("【イベント】", "")
-                    .Trim()
-            ),
-            EventPlace = null,
-            EventDateTime = v.ConvertedEventDateTime,
-            EventType = v.EventType,
-            EventDescription = htmlParser
-                .ParseFragment(v.Description, null!)
-                .Select(x => x.TextContent)
-                .Let(x => string.Join("", x)),
-        });
+        var convertedEvents = aosekaEvents
+            .Select(v => new GroupEvent
+            {
+                EventName = v.Title.Let(s =>
+                    s.Replace("【LIVE】", "")
+                        .Replace("【配信】", "")
+                        .Replace("【イベント】", "")
+                        .Trim()
+                ),
+                EventPlace = null,
+                EventDateTime = v.ConvertedEventDateTime,
+                EventType = v.EventType,
+                EventDescription = htmlParser
+                    .ParseFragment(v.Description, null!)
+                    .Select(x => x.TextContent)
+                    .Let(x => string.Join("", x)),
+            })
+            .ToArray();
         return convertedEvents;
     }
 }

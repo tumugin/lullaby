@@ -14,10 +14,8 @@ public abstract class BaseGroup
     // see: https://www.quartz-scheduler.net/documentation/quartz-3.x/tutorial/crontriggers.html
     public abstract string CrawlCron { get; }
 
-    protected abstract Task<IEnumerable<GroupEvent>> GetEvents(
-        RestClient restClient,
-        CancellationToken cancellationToken
-    );
+    protected abstract Task<IReadOnlyList<GroupEvent>> GetEvents(RestClient restClient,
+        CancellationToken cancellationToken);
 
     public async Task GetAndUpdateSavedEvents(
         IAddEventByGroupEventService addEventByGroupEventService,
