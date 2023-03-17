@@ -11,7 +11,7 @@ public class BaseDatabaseTest
     public void Initialize() =>
         this.Context = new LullabyContext(
             new DbContextOptionsBuilder<LullabyContext>()
-                .UseInMemoryDatabase(nameof(BaseDatabaseTest))
+                .UseInMemoryDatabase(TestingConstant.InMemoryTestingDatabaseName)
                 .Options
         );
 
