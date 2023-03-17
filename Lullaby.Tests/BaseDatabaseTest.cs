@@ -5,9 +5,10 @@ using Microsoft.EntityFrameworkCore;
 
 public class BaseDatabaseTest
 {
-    protected LullabyContext Context { get; }
+    protected LullabyContext Context { get; private set; } = null!;
 
-    public BaseDatabaseTest() =>
+    [SetUp]
+    public void Initialize() =>
         this.Context = new LullabyContext(
             new DbContextOptionsBuilder<LullabyContext>()
                 .UseInMemoryDatabase(nameof(BaseDatabaseTest))
