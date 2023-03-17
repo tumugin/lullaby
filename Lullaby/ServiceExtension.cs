@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 using Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Quartz;
 using RestSharp;
 using Services.Events;
@@ -35,7 +36,7 @@ public static class ServiceExtension
         var dbConnectionString = webApplicationBuilder.Configuration.GetConnectionString("DefaultConnection")
                                  ?? throw new InvalidOperationException("DB ConnectionString must not be null.");
         webApplicationBuilder.Services.AddDbContext<LullabyContext>(options =>
-            DatabaseConfig.CreateDbContextOptions(dbConnectionString, options)
+            options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString))
         );
 
         webApplicationBuilder.Services.AddDatabaseDeveloperPageExceptionFilter();

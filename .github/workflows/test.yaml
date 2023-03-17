@@ -13,30 +13,6 @@ jobs:
   tests:
     name: "tests"
     runs-on: ubuntu-latest
-    services:
-      db:
-        image: mariadb:10.11.2
-        ports:
-          - 3306:3306
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: lullaby_test
-          MYSQL_USER: lullaby
-          MYSQL_PASSWORD: lullaby
-        options: >-
-          --health-cmd "mysqladmin ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-      redis:
-        image: redis:7.0.9
-        ports:
-          - 6379:6379
-        options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     steps:
       - uses: actions/checkout@v3
       - name: Setup .NET Core SDK 7.0
