@@ -33,15 +33,6 @@ public class TestingWebApplicationFactory : WebApplicationFactory<Program>
             );
         });
 
-        // Cleanup the in-memory database
-        var context = new LullabyContext(
-            new DbContextOptionsBuilder<LullabyContext>()
-                .UseInMemoryDatabase(TestingConstant.InMemoryTestingDatabaseName)
-                .Options
-        );
-        context.Database.EnsureDeleted();
-        context.Database.EnsureCreated();
-
         builder.UseEnvironment(this.EnvironmentName);
     }
 }
