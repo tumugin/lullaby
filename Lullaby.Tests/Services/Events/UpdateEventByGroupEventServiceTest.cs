@@ -3,7 +3,7 @@ namespace Lullaby.Tests.Services.Events;
 using System.Globalization;
 using Lullaby.Crawler.Events;
 using Lullaby.Services.Events;
-using Lullaby.Tests.Seeder;
+using Seeder;
 using Microsoft.EntityFrameworkCore;
 
 public class UpdateEventByGroupEventServiceTest : BaseDatabaseTest

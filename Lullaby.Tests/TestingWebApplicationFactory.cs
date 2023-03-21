@@ -10,10 +10,7 @@ public class TestingWebApplicationFactory : WebApplicationFactory<Program>
 {
     private string EnvironmentName { get; }
 
-    public TestingWebApplicationFactory(string environmentName)
-    {
-        this.EnvironmentName = environmentName;
-    }
+    public TestingWebApplicationFactory(string environmentName) => this.EnvironmentName = environmentName;
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {

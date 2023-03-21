@@ -1,7 +1,5 @@
 namespace Lullaby.Responses.Api.Events;
 
-using Crawler.Groups;
-using Models;
 using ViewModels;
 
 public class GroupEventsGetResponse

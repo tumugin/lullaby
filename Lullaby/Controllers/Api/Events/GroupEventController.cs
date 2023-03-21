@@ -3,7 +3,6 @@ namespace Lullaby.Controllers.Api.Events;
 using Crawler.Groups;
 using Microsoft.AspNetCore.Mvc;
 using Requests.Api.Events;
-using Responses;
 using Responses.Api.Events;
 using Services.Events;
 using Swashbuckle.AspNetCore.Annotations;

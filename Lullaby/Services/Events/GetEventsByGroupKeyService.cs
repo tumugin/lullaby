@@ -1,8 +1,8 @@
 namespace Lullaby.Services.Events;
 
 using Lullaby.Crawler.Events;
-using Lullaby.Data;
-using Lullaby.Models;
+using Data;
+using Models;
 using Microsoft.EntityFrameworkCore;
 
 public class GetEventsByGroupKeyService : IGetEventsByGroupKeyService
