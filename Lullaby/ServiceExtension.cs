@@ -39,8 +39,10 @@ public static class ServiceExtension
             options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString))
         );
 
-        webApplicationBuilder.Services.AddDatabaseDeveloperPageExceptionFilter();
-        webApplicationBuilder.Services.AddLullabyServices();
+        webApplicationBuilder
+            .Services
+            .AddDatabaseDeveloperPageExceptionFilter()
+            .AddLullabyServices();
 
         webApplicationBuilder.Services.AddControllersWithViews().AddJsonOptions(options =>
         {

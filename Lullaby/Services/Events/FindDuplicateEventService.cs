@@ -1,7 +1,7 @@
 namespace Lullaby.Services.Events;
 
-using Lullaby.Data;
-using Lullaby.Models;
+using Data;
+using Models;
 using Microsoft.EntityFrameworkCore;
 
 public class FindDuplicateEventService : IFindDuplicateEventService
@@ -15,15 +15,19 @@ public class FindDuplicateEventService : IFindDuplicateEventService
      * サイト上には基本的にIDはないので、イベント名と開始終了時刻での検索を行う
      * (タイトルのみだとTOKYO IDOL FESTIVALのような複数日出演するイベントで壊れる)
      */
-    public async Task<IReadOnlyList<Event>> Execute(IEnumerable<IFindDuplicateEventService.EventSearchQueryData> eventSearchQueryData,
-        CancellationToken cancellationToken) =>
-        await this.Context
+    public async Task<IReadOnlyList<Event>> Execute(
+        IEnumerable<IFindDuplicateEventService.EventSearchQueryData> eventSearchQueryData,
+        CancellationToken cancellationToken)
+    {
+        var query = eventSearchQueryData.ToArray();
+        return await this.Context
             .Events
             .Where(e =>
-                eventSearchQueryData.Select(q => q.EventName).Contains(e.EventName) &&
-                eventSearchQueryData.Select(q => q.GroupKey).Contains(e.GroupKey) &&
-                eventSearchQueryData.Select(q => q.StartDateTime).Contains(e.EventStarts) &&
-                eventSearchQueryData.Select(q => q.EndDateTime).Contains(e.EventEnds)
+                query.Select(q => q.EventName).Contains(e.EventName) &&
+                query.Select(q => q.GroupKey).Contains(e.GroupKey) &&
+                query.Select(q => q.StartDateTime).Contains(e.EventStarts) &&
+                query.Select(q => q.EndDateTime).Contains(e.EventEnds)
             )
             .ToArrayAsync(cancellationToken);
+    }
 }

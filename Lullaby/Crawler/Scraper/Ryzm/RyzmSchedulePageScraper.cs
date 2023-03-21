@@ -18,7 +18,7 @@ public abstract partial class RyzmSchedulePageScraper
     {
         var requestUri = new Uri(
             QueryHelpers.AddQueryString(
-                SchedulePageUrl,
+                this.SchedulePageUrl,
                 new Dictionary<string, string?> { { "page", page != 1 ? $"{page}" : null } }
             )
         );
