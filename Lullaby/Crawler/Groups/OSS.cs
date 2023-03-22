@@ -1,20 +1,20 @@
 namespace Lullaby.Crawler.Groups;
 
 using Events;
-using RestSharp;
 using Scraper.OSS;
 
-public class OSS : BaseGroup
+public class Oss : BaseGroup
 {
     public const string GroupKeyConstant = "oss";
+    public const string CrawlCronConstant = "0 0 * ? * * *";
     public override string GroupKey => GroupKeyConstant;
     public override string GroupName => "On the treat Super Season";
-    public override string CrawlCron => "0 0 * ? * * *";
+    public override string CrawlCron => CrawlCronConstant;
 
-    protected override Task<IReadOnlyList<GroupEvent>> GetEvents(RestClient restClient,
-        CancellationToken cancellationToken)
-    {
-        var ossScraper = new OSSSchedulePageScraper { Client = restClient };
-        return ossScraper.ScrapeAsync(cancellationToken);
-    }
+    private readonly OssSchedulePageScraper ossSchedulePageScraper;
+
+    public Oss(OssSchedulePageScraper ossSchedulePageScraper) => this.ossSchedulePageScraper = ossSchedulePageScraper;
+
+    protected override Task<IReadOnlyList<GroupEvent>> GetEvents(CancellationToken cancellationToken) =>
+        this.ossSchedulePageScraper.ScrapeAsync(cancellationToken);
 }

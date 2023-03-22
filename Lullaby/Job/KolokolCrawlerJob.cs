@@ -1,26 +1,25 @@
 namespace Lullaby.Job;
 
 using Crawler.Groups;
-using RestSharp;
 using Services.Events;
 
 public class KolokolCrawlerJob : BaseCrawlerJob
 {
     public const string JobKey = "KolokolCrawlerJob";
 
-    protected override BaseGroup TargetGroup => new Kolokol();
+    protected override BaseGroup TargetGroup => this.kolokol;
+
+    private readonly Kolokol kolokol;
 
     public KolokolCrawlerJob(
         IAddEventByGroupEventService addEventByGroupEventService,
         IFindDuplicateEventService findDuplicateEventService,
         IUpdateEventByGroupEventService updateEventByGroupEventService,
-        RestClient restClient
+        Kolokol kolokol
     ) : base(
         addEventByGroupEventService,
         findDuplicateEventService,
-        updateEventByGroupEventService,
-        restClient
-    )
-    {
-    }
+        updateEventByGroupEventService
+    ) =>
+        this.kolokol = kolokol;
 }

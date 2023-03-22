@@ -5,7 +5,7 @@ using Lullaby.Crawler.Scraper.OSS;
 using RestSharp;
 using RichardSzalay.MockHttp;
 
-public class OSSSchedulePageScraperTest : BaseScraperTest
+public class OssSchedulePageScraperTest : BaseScraperTest
 {
     [Test]
     public async Task ScrapeAsyncTest()
@@ -13,11 +13,11 @@ public class OSSSchedulePageScraperTest : BaseScraperTest
         var schedulePageFileContent =
             await GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.OSS.oss-test-page.html");
         var mockHttp = new MockHttpMessageHandler();
-        mockHttp.When(OSSSchedulePageScraper.SchedulePageUrlConstant)
+        mockHttp.When(OssSchedulePageScraper.SchedulePageUrlConstant)
             .Respond("text/html", schedulePageFileContent);
         var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
 
-        var scraper = new OSSSchedulePageScraper { Client = client };
+        var scraper = new OssSchedulePageScraper(client);
         var result = await scraper.ScrapeAsync(default);
 
         Assert.That(result, Has.Count.EqualTo(8));

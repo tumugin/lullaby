@@ -3,7 +3,6 @@ namespace Lullaby.Tests.Crawler.Groups;
 using System.Globalization;
 using Lullaby.Crawler.Events;
 using Lullaby.Crawler.Groups;
-using RestSharp;
 
 public class TestGroup : BaseGroup
 {
@@ -11,8 +10,7 @@ public class TestGroup : BaseGroup
     public override string GroupName => "テスト";
     public override string CrawlCron => "0 0 * ? * * *";
 
-    protected override async Task<IReadOnlyList<GroupEvent>> GetEvents(RestClient restClient,
-        CancellationToken cancellationToken) =>
+    protected override async Task<IReadOnlyList<GroupEvent>> GetEvents(CancellationToken cancellationToken) =>
         await Task.Run(() => new List<GroupEvent>
         {
             new()

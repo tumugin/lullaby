@@ -19,22 +19,13 @@ public class KolokolSchedulePageScraperTest : BaseScraperTest
         var mockHttp = new MockHttpMessageHandler();
         KolokolSchedulePageScraper.SchedulePageUrls.ToList().ForEach(pageUrl =>
         {
-            if (pageUrl.Contains("/past/"))
-            {
-                mockHttp
-                    .When(pageUrl)
-                    .Respond("text/html", testPastFileContent);
-            }
-            else
-            {
-                mockHttp
-                    .When(pageUrl)
-                    .Respond("text/html", testFutureFileContent);
-            }
+            mockHttp
+                .When(pageUrl)
+                .Respond("text/html", pageUrl.Contains("/past/") ? testPastFileContent : testFutureFileContent);
         });
         var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
 
-        var scraper = new KolokolSchedulePageScraper { Client = client };
+        var scraper = new KolokolSchedulePageScraper(client);
         var result = await scraper.ScrapeAsync(default);
 
         Assert.That(result, Has.Count.EqualTo(48));

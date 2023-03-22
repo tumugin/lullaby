@@ -1,24 +1,25 @@
 namespace Lullaby.Crawler.Groups;
 
 using Events;
-using RestSharp;
 using Scraper.Aoseka;
 
 public class Aoseka : BaseGroup
 {
     public const string GroupKeyConstant = "aoseka";
+    public const string CrawlCronConstant = "0 0 * ? * * *";
 
     public override string GroupKey => GroupKeyConstant;
 
     public override string GroupName => "群青の世界";
 
     // every hour
-    public override string CrawlCron => "0 0 * ? * * *";
+    public override string CrawlCron => CrawlCronConstant;
 
-    protected override Task<IReadOnlyList<GroupEvent>> GetEvents(RestClient restClient,
-        CancellationToken cancellationToken)
-    {
-        var aosekaScraper = new AosekaSchedulePageScraper(restClient);
-        return aosekaScraper.ScrapeAsync(cancellationToken);
-    }
+    private readonly AosekaSchedulePageScraper aosekaSchedulePageScraper;
+
+    public Aoseka(AosekaSchedulePageScraper aosekaSchedulePageScraper) =>
+        this.aosekaSchedulePageScraper = aosekaSchedulePageScraper;
+
+    protected override Task<IReadOnlyList<GroupEvent>> GetEvents(CancellationToken cancellationToken) =>
+        this.aosekaSchedulePageScraper.ScrapeAsync(cancellationToken);
 }
