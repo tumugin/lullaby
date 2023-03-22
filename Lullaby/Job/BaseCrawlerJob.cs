@@ -2,7 +2,6 @@ namespace Lullaby.Job;
 
 using Crawler.Groups;
 using Quartz;
-using RestSharp;
 using Services.Events;
 
 public abstract class BaseCrawlerJob : IJob

@@ -1,7 +1,6 @@
 namespace Lullaby.Job;
 
 using Crawler.Groups;
-using RestSharp;
 using Services.Events;
 
 public class OSSCrawlerJob : BaseCrawlerJob

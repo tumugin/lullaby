@@ -3,7 +3,6 @@ namespace Lullaby.Tests.Crawler.Groups;
 using System.Globalization;
 using Lullaby.Crawler.Events;
 using Lullaby.Crawler.Groups;
-using RestSharp;
 
 public class TestGroup : BaseGroup
 {

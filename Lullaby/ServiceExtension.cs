@@ -2,6 +2,7 @@ namespace Lullaby;
 
 using System.Reflection;
 using System.Text.Json.Serialization;
+using Crawler;
 using Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,12 +14,13 @@ public static class ServiceExtension
 {
     private static IServiceCollection AddLullabyServices(this IServiceCollection serviceCollection)
     {
+        serviceCollection.AddCrawlers();
         serviceCollection.AddScoped<IGetEventsByGroupKeyService, GetEventsByGroupKeyService>();
         serviceCollection.AddScoped<IAddEventByGroupEventService, AddEventByGroupEventService>();
         serviceCollection.AddScoped<IFindDuplicateEventService, FindDuplicateEventService>();
         serviceCollection.AddScoped<IUpdateEventByGroupEventService, UpdateEventByGroupEventService>();
         serviceCollection.AddHttpClient();
-        serviceCollection.AddScoped<RestClient, RestClient>((p) => new RestClient(p.GetRequiredService<HttpClient>()));
+        serviceCollection.AddScoped<RestClient, RestClient>(p => new RestClient(p.GetRequiredService<HttpClient>()));
         return serviceCollection;
     }
 
@@ -41,8 +43,8 @@ public static class ServiceExtension
 
         webApplicationBuilder
             .Services
-            .AddDatabaseDeveloperPageExceptionFilter()
-            .AddLullabyServices();
+            .AddLullabyServices()
+            .AddDatabaseDeveloperPageExceptionFilter();
 
         webApplicationBuilder.Services.AddControllersWithViews().AddJsonOptions(options =>
         {
