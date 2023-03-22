@@ -36,12 +36,12 @@ public static class ConfigureScheduledJobs
         );
 
         // OSS - OSS
-        var ossJobKey = new JobKey(OSSCrawlerJob.JobKey);
-        quarts.AddJob<OSSCrawlerJob>(o => o.WithIdentity(ossJobKey));
+        var ossJobKey = new JobKey(OssCrawlerJob.JobKey);
+        quarts.AddJob<OssCrawlerJob>(o => o.WithIdentity(ossJobKey));
         quarts.AddTrigger(t => t
             .ForJob(ossJobKey)
             .WithIdentity("OSS cron trigger")
-            .WithCronSchedule(OSS.CrawlCronConstant)
+            .WithCronSchedule(Oss.CrawlCronConstant)
         );
     }
 }

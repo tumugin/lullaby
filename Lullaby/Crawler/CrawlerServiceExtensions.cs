@@ -16,8 +16,8 @@ public static class CrawlerServiceExtensions
         serviceCollection.AddScoped<Kolokol, Kolokol>();
         serviceCollection.AddScoped<KolokolSchedulePageScraper, KolokolSchedulePageScraper>();
 
-        serviceCollection.AddScoped<OSS, OSS>();
-        serviceCollection.AddScoped<OSSSchedulePageScraper, OSSSchedulePageScraper>();
+        serviceCollection.AddScoped<Oss, Oss>();
+        serviceCollection.AddScoped<OssSchedulePageScraper, OssSchedulePageScraper>();
 
         serviceCollection.AddScoped<Yosugala, Yosugala>();
         serviceCollection.AddScoped<YosugalaSchedulePageScraper, YosugalaSchedulePageScraper>();

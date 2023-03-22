@@ -3,7 +3,7 @@ namespace Lullaby.Crawler.Groups;
 using Events;
 using Scraper.OSS;
 
-public class OSS : BaseGroup
+public class Oss : BaseGroup
 {
     public const string GroupKeyConstant = "oss";
     public const string CrawlCronConstant = "0 0 * ? * * *";
@@ -11,9 +11,9 @@ public class OSS : BaseGroup
     public override string GroupName => "On the treat Super Season";
     public override string CrawlCron => CrawlCronConstant;
 
-    private readonly OSSSchedulePageScraper ossSchedulePageScraper;
+    private readonly OssSchedulePageScraper ossSchedulePageScraper;
 
-    public OSS(OSSSchedulePageScraper ossSchedulePageScraper) => this.ossSchedulePageScraper = ossSchedulePageScraper;
+    public Oss(OssSchedulePageScraper ossSchedulePageScraper) => this.ossSchedulePageScraper = ossSchedulePageScraper;
 
     protected override Task<IReadOnlyList<GroupEvent>> GetEvents(CancellationToken cancellationToken) =>
         this.ossSchedulePageScraper.ScrapeAsync(cancellationToken);
