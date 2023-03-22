@@ -19,18 +19,9 @@ public class KolokolSchedulePageScraperTest : BaseScraperTest
         var mockHttp = new MockHttpMessageHandler();
         KolokolSchedulePageScraper.SchedulePageUrls.ToList().ForEach(pageUrl =>
         {
-            if (pageUrl.Contains("/past/"))
-            {
-                mockHttp
-                    .When(pageUrl)
-                    .Respond("text/html", testPastFileContent);
-            }
-            else
-            {
-                mockHttp
-                    .When(pageUrl)
-                    .Respond("text/html", testFutureFileContent);
-            }
+            mockHttp
+                .When(pageUrl)
+                .Respond("text/html", pageUrl.Contains("/past/") ? testPastFileContent : testFutureFileContent);
         });
         var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
 
