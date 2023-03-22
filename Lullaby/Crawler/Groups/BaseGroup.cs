@@ -1,7 +1,6 @@
 namespace Lullaby.Crawler.Groups;
 
 using Events;
-using RestSharp;
 using Services.Events;
 
 public abstract class BaseGroup
@@ -14,18 +13,16 @@ public abstract class BaseGroup
     // see: https://www.quartz-scheduler.net/documentation/quartz-3.x/tutorial/crontriggers.html
     public abstract string CrawlCron { get; }
 
-    protected abstract Task<IReadOnlyList<GroupEvent>> GetEvents(RestClient restClient,
-        CancellationToken cancellationToken);
+    protected abstract Task<IReadOnlyList<GroupEvent>> GetEvents(CancellationToken cancellationToken);
 
     public async Task GetAndUpdateSavedEvents(
         IAddEventByGroupEventService addEventByGroupEventService,
         IFindDuplicateEventService findDuplicateEventService,
         IUpdateEventByGroupEventService updateEventByGroupEventService,
-        RestClient restClient,
         CancellationToken cancellationToken
     )
     {
-        var groupEvents = await this.GetEvents(restClient, cancellationToken);
+        var groupEvents = await this.GetEvents(cancellationToken);
         var findDuplicateEventsQuery = groupEvents
             .Select(v =>
                 new IFindDuplicateEventService.EventSearchQueryData()

@@ -8,19 +8,19 @@ public class AosekaCrawlerJob : BaseCrawlerJob
 {
     public const string JobKey = "AosekaCrawlerJob";
 
-    protected override BaseGroup TargetGroup => new Aoseka();
+    protected override BaseGroup TargetGroup => this.aoseka;
+
+    private readonly Aoseka aoseka;
 
     public AosekaCrawlerJob(
         IAddEventByGroupEventService addEventByGroupEventService,
         IFindDuplicateEventService findDuplicateEventService,
         IUpdateEventByGroupEventService updateEventByGroupEventService,
-        RestClient restClient
+        Aoseka aoseka
     ) : base(
         addEventByGroupEventService,
         findDuplicateEventService,
-        updateEventByGroupEventService,
-        restClient
-    )
-    {
-    }
+        updateEventByGroupEventService
+    ) =>
+        this.aoseka = aoseka;
 }

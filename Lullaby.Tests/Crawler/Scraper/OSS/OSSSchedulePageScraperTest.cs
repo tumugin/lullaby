@@ -17,7 +17,7 @@ public class OSSSchedulePageScraperTest : BaseScraperTest
             .Respond("text/html", schedulePageFileContent);
         var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
 
-        var scraper = new OSSSchedulePageScraper { Client = client };
+        var scraper = new OSSSchedulePageScraper(client);
         var result = await scraper.ScrapeAsync(default);
 
         Assert.That(result, Has.Count.EqualTo(8));

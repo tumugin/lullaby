@@ -23,6 +23,7 @@ public class GroupEventController : ControllerBase
     /// </summary>
     /// <param name="groupKey">The key of group(ex. aoseka)</param>
     /// <param name="groupEventIndexParameters">Options to get events</param>
+    /// <param name="groupKeys">Instance of <see cref="GroupKeys"/></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet]
@@ -32,10 +33,11 @@ public class GroupEventController : ControllerBase
     public async Task<IActionResult> Get(
         [FromRoute] string groupKey,
         [FromQuery] GroupEventIndexParameters groupEventIndexParameters,
+        [FromServices] GroupKeys groupKeys,
         CancellationToken cancellationToken
     )
     {
-        var group = GroupKeys.GetGroupByKey(groupKey);
+        var group = groupKeys.GetGroupByKey(groupKey);
 
         if (group == null)
         {

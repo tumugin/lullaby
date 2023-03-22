@@ -34,7 +34,7 @@ public class KolokolSchedulePageScraperTest : BaseScraperTest
         });
         var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
 
-        var scraper = new KolokolSchedulePageScraper { Client = client };
+        var scraper = new KolokolSchedulePageScraper(client);
         var result = await scraper.ScrapeAsync(default);
 
         Assert.That(result, Has.Count.EqualTo(48));

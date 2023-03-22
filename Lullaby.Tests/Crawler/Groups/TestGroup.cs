@@ -11,8 +11,7 @@ public class TestGroup : BaseGroup
     public override string GroupName => "テスト";
     public override string CrawlCron => "0 0 * ? * * *";
 
-    protected override async Task<IReadOnlyList<GroupEvent>> GetEvents(RestClient restClient,
-        CancellationToken cancellationToken) =>
+    protected override async Task<IReadOnlyList<GroupEvent>> GetEvents(CancellationToken cancellationToken) =>
         await Task.Run(() => new List<GroupEvent>
         {
             new()

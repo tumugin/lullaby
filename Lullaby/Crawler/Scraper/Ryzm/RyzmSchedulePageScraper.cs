@@ -12,7 +12,9 @@ public abstract partial class RyzmSchedulePageScraper
 {
     public abstract string SchedulePageUrl { get; }
 
-    public required RestClient Client { get; init; }
+    private RestClient Client { get; }
+
+    protected RyzmSchedulePageScraper(RestClient client) => this.Client = client;
 
     private async Task<string> DownloadDocument(int page, CancellationToken cancellationToken)
     {

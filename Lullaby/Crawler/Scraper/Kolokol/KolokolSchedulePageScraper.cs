@@ -18,7 +18,9 @@ public partial class KolokolSchedulePageScraper
             "https://kolokol-official.com/schedule/past/num/20", "https://kolokol-official.com/schedule/past/num/30"
         };
 
-    public required RestClient Client { get; init; }
+    private RestClient Client { get; }
+
+    public KolokolSchedulePageScraper(RestClient client) => this.Client = client;
 
     private async Task<IReadOnlyList<string>> DownloadDocuments(CancellationToken cancellationToken)
     {

@@ -2,13 +2,26 @@ namespace Lullaby.Crawler.Groups;
 
 public class GroupKeys
 {
-    public static BaseGroup? GetGroupByKey(string groupKey) =>
+    private readonly Aoseka aoseka;
+    private readonly Kolokol kolokol;
+    private readonly Yosugala yosugala;
+    private readonly OSS oss;
+
+    public GroupKeys(Aoseka aoseka, Kolokol kolokol, Yosugala yosugala, OSS oss)
+    {
+        this.aoseka = aoseka;
+        this.kolokol = kolokol;
+        this.yosugala = yosugala;
+        this.oss = oss;
+    }
+
+    public BaseGroup? GetGroupByKey(string groupKey) =>
         groupKey switch
         {
-            { } s when s == Aoseka.GroupKeyConstant => new Aoseka(),
-            { } s when s == Kolokol.GroupKeyConstant => new Kolokol(),
-            { } s when s == Yosugala.GroupKeyConstant => new Yosugala(),
-            { } s when s == OSS.GroupKeyConstant => new OSS(),
+            { } s when s == Aoseka.GroupKeyConstant => this.aoseka,
+            { } s when s == Kolokol.GroupKeyConstant => this.kolokol,
+            { } s when s == Yosugala.GroupKeyConstant => this.yosugala,
+            { } s when s == OSS.GroupKeyConstant => this.oss,
             _ => null
         };
 }

@@ -28,7 +28,6 @@ public class BaseGroupTest : BaseDatabaseTest
             this.AddEventByGroupEventService,
             this.FindDuplicateEventService,
             this.UpdateEventByGroupEventService,
-            this.RestClient,
             default
         );
 
@@ -49,14 +48,12 @@ public class BaseGroupTest : BaseDatabaseTest
             this.AddEventByGroupEventService,
             this.FindDuplicateEventService,
             this.UpdateEventByGroupEventService,
-            this.RestClient,
             default
         );
         await testGroup.GetAndUpdateSavedEvents(
             this.AddEventByGroupEventService,
             this.FindDuplicateEventService,
             this.UpdateEventByGroupEventService,
-            this.RestClient,
             default
         );
 

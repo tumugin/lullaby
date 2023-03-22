@@ -8,15 +8,16 @@ public class OSSCrawlerJob : BaseCrawlerJob
 {
     public const string JobKey = "OSSCrawlerJob";
 
+    private readonly OSS oss;
+
     public OSSCrawlerJob(
         IAddEventByGroupEventService addEventByGroupEventService,
         IFindDuplicateEventService findDuplicateEventService,
-        IUpdateEventByGroupEventService updateEventByGroupEventService,
-        RestClient restClient
+        IUpdateEventByGroupEventService updateEventByGroupEventService, OSS oss
     ) : base(
-        addEventByGroupEventService, findDuplicateEventService, updateEventByGroupEventService, restClient)
-    {
-    }
+        addEventByGroupEventService, findDuplicateEventService, updateEventByGroupEventService
+    ) =>
+        this.oss = oss;
 
-    protected override BaseGroup TargetGroup => new OSS();
+    protected override BaseGroup TargetGroup => this.oss;
 }
