@@ -100,9 +100,9 @@ public abstract partial class RyzmSchedulePageScraper
                     }
                 };
 
-                var ticketUrls = rawSchedule
-                    .ReservationSetting
-                    .Platforms
+                var ticketUrls = (rawSchedule
+                        .ReservationSetting
+                        .Platforms ?? Array.Empty<RyzmScheduleObject.Platform>())
                     .Select(v => v.Url.ToString());
                 var joinedTicketUrls = string.Join("\n", ticketUrls);
 

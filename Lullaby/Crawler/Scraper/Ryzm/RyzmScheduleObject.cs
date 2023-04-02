@@ -96,7 +96,7 @@ public class RyzmScheduleObject
         [JsonPropertyName("web_reservation_max_quantity_per_person")]
         public object WebReservationMaxQuantityPerPerson { get; init; } = null!;
 
-        [JsonPropertyName("platforms")] public IReadOnlyList<Platform> Platforms { get; init; } = null!;
+        [JsonPropertyName("platforms")] public IReadOnlyList<Platform>? Platforms { get; init; } = null!;
     }
 
     public class Platform
