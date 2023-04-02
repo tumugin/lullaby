@@ -3,16 +3,17 @@ namespace Lullaby.Job;
 using Crawler.Groups;
 using Services.Events;
 
-public abstract class OssCrawlerJob : BaseCrawlerJob
+public class OssCrawlerJob : BaseCrawlerJob
 {
     public const string JobKey = "OSSCrawlerJob";
 
     private readonly Oss oss;
 
-    protected OssCrawlerJob(
+    public OssCrawlerJob(
         IAddEventByGroupEventService addEventByGroupEventService,
         IFindDuplicateEventService findDuplicateEventService,
-        IUpdateEventByGroupEventService updateEventByGroupEventService, Oss oss
+        IUpdateEventByGroupEventService updateEventByGroupEventService,
+        Oss oss
     ) : base(
         addEventByGroupEventService, findDuplicateEventService, updateEventByGroupEventService
     ) =>
