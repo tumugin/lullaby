@@ -25,7 +25,7 @@
     <PackageReference Include="Quartz" Version="3.6.2" />
     <PackageReference Include="Quartz.AspNetCore" Version="3.6.2" />
     <PackageReference Include="Quartz.Serialization.Json" Version="3.6.2" />
-    <PackageReference Include="RestSharp" Version="109.0.1" />
+    <PackageReference Include="RestSharp" Version="110.1.0" />
     <PackageReference Include="Sentry.AspNetCore" Version="3.29.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
