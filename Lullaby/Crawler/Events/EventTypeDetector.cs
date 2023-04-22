@@ -1,6 +1,6 @@
 namespace Lullaby.Crawler.Events;
 
-public class EventTypeDetector
+public class EventTypeDetector : IEventTypeDetector
 {
     private readonly IReadOnlyCollection<string> battleEventNames =
         new[] { "HYPE", "Funpal", "MAWA LOOP", "アイドルアラモード", "MARQUEE祭", "dot yell", "TOKYO GIRLS GIRLS" };
