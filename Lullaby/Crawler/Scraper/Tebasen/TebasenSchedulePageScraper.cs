@@ -63,7 +63,7 @@ public partial class TebasenSchedulePageScraper
         };
     }
 
-    private class ParseSchedulePageResult
+    private sealed class ParseSchedulePageResult
     {
         public required IReadOnlyList<string> SchedulePageDetailUrls { get; init; }
 
