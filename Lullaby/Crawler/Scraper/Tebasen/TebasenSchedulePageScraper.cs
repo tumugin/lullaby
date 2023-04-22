@@ -132,9 +132,8 @@ public partial class TebasenSchedulePageScraper
             _ => new UnDetailedEventDateTime { EventStartDate = parsedDate, EventEndDate = parsedDate.AddDays(1) }
         };
 
-        // Event title
-        var eventTitle = document.QuerySelector(".title")?.TextContent
-                         ?? throw new InvalidDataException("title must not be null");
+        // Event title(it seems that it has no title sometimes)
+        var eventTitle = document.QuerySelector(".title")?.TextContent ?? "無題のイベント";
 
         // Info text
         var infoText = document.QuerySelector(".info")?.TextContent

@@ -12,9 +12,20 @@ public abstract partial class RyzmSchedulePageScraper
 {
     public abstract string SchedulePageUrl { get; }
 
-    private RestClient Client { get; }
+    private readonly RestClient client;
+    private readonly IBrowsingContext browsingContext;
+    private readonly IEventTypeDetector eventTypeDetector;
 
-    protected RyzmSchedulePageScraper(RestClient client) => this.Client = client;
+    protected RyzmSchedulePageScraper(
+        RestClient client,
+        IBrowsingContext browsingContext,
+        IEventTypeDetector eventTypeDetector
+    )
+    {
+        this.client = client;
+        this.browsingContext = browsingContext;
+        this.eventTypeDetector = eventTypeDetector;
+    }
 
     private async Task<string> DownloadDocument(int page, CancellationToken cancellationToken)
     {
@@ -24,17 +35,16 @@ public abstract partial class RyzmSchedulePageScraper
                 new Dictionary<string, string?> { { "page", page != 1 ? $"{page}" : null } }
             )
         );
-        var request = await this.Client.GetAsync(new RestRequest(requestUri), cancellationToken);
+        var request = await this.client.GetAsync(new RestRequest(requestUri), cancellationToken);
         return request.Content ?? throw new InvalidDataException("Response must not be null");
     }
 
-    private static async Task<RyzmScheduleObject.RyzmScheduleRootObject> ScrapeRawDocument(
+    private async Task<RyzmScheduleObject.RyzmScheduleRootObject> ScrapeRawDocument(
         string rawHtml,
         CancellationToken cancellationToken
     )
     {
-        var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
-        var document = await context.OpenAsync(req => req.Content(rawHtml), cancellationToken);
+        var document = await this.browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken);
         var element = document.QuerySelector("#__NEXT_DATA__") ??
                       throw new InvalidDataException("data element was not found");
         var ryzmSchedulePageObject =
@@ -47,10 +57,9 @@ public abstract partial class RyzmSchedulePageScraper
 
     public async Task<IReadOnlyList<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
     {
-        var eventTypeDetector = new EventTypeDetector();
         // 最初のページをスクレイピングして必要なページ数をもらう
         var firstPageObject =
-            await ScrapeRawDocument(await this.DownloadDocument(1, cancellationToken), cancellationToken);
+            await this.ScrapeRawDocument(await this.DownloadDocument(1, cancellationToken), cancellationToken);
         var pageCount = firstPageObject.Props.PageProps.Data.FetchedData.LiveList.Meta.LastPage;
 
         // 2ページ目以降を取得する
@@ -58,7 +67,7 @@ public abstract partial class RyzmSchedulePageScraper
         var pageObjects = await Task.WhenAll(
             pageRange.Select(
                 async page =>
-                    await ScrapeRawDocument(await this.DownloadDocument(page, cancellationToken), cancellationToken)
+                    await this.ScrapeRawDocument(await this.DownloadDocument(page, cancellationToken), cancellationToken)
             )
         );
         var allPageSchedules =
@@ -73,7 +82,9 @@ public abstract partial class RyzmSchedulePageScraper
                 // JSTを基準とした日付が入っているのでそれを使用する
                 var eventStartDate = DateTimeOffset
                     .Parse($"{rawSchedule.EventDate} 00:00:00+09:00", CultureInfo.InvariantCulture);
-                var parsedDoorTime = DoorTimeRegex().Matches(rawSchedule.DoorsStartsTime);
+                var parsedDoorTime = rawSchedule.DoorsStartsTime != null
+                    ? DoorTimeRegex().Matches(rawSchedule.DoorsStartsTime)
+                    : null;
                 DateTimeOffset? detailedOpenTime = parsedDoorTime is { Count: 2 }
                     ? new DateTimeOffset(
                         eventStartDate.Year,
@@ -111,7 +122,7 @@ public abstract partial class RyzmSchedulePageScraper
                     EventName = rawSchedule.Title,
                     EventPlace = rawSchedule.Venue,
                     EventDateTime = eventDateTime,
-                    EventType = eventTypeDetector.DetectEventTypeByTitle(rawSchedule.Title),
+                    EventType = this.eventTypeDetector.DetectEventTypeByTitle(rawSchedule.Title),
                     EventDescription = $"チケット代: {rawSchedule.Price}\n出演: {rawSchedule.Artist}\n\n{joinedTicketUrls}"
                 };
             })

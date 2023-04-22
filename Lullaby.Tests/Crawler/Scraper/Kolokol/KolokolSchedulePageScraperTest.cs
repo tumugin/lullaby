@@ -1,6 +1,7 @@
 ﻿namespace Lullaby.Tests.Crawler.Scraper.Kolokol;
 
 using System.Globalization;
+using AngleSharp;
 using Lullaby.Crawler.Events;
 using Lullaby.Crawler.Scraper.Kolokol;
 using RestSharp;
@@ -25,7 +26,11 @@ public class KolokolSchedulePageScraperTest : BaseScraperTest
         });
         var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
 
-        var scraper = new KolokolSchedulePageScraper(client);
+        var scraper = new KolokolSchedulePageScraper(
+            client,
+            BrowsingContext.New(Configuration.Default.WithDefaultLoader()),
+            new EventTypeDetector()
+        );
         var result = await scraper.ScrapeAsync(default);
 
         Assert.That(result, Has.Count.EqualTo(48));
