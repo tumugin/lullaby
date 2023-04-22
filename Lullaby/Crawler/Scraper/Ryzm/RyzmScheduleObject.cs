@@ -67,7 +67,7 @@ public class RyzmScheduleObject
         [JsonPropertyName("artist")] public string Artist { get; init; } = null!;
 
         [JsonPropertyName("doors_starts_time")]
-        public string DoorsStartsTime { get; init; } = null!;
+        public string? DoorsStartsTime { get; init; }
 
         [JsonPropertyName("price")] public string Price { get; init; } = null!;
 

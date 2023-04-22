@@ -11,23 +11,30 @@ public class AosekaSchedulePageScraper
 {
     public const string SchedulePageUrl = "https://gunjonosekai.com/schedule/";
 
-    private RestClient Client { get; }
+    private readonly RestClient client;
+    private readonly IBrowsingContext browsingContext;
 
-    public AosekaSchedulePageScraper(RestClient client) => this.Client = client;
+    public AosekaSchedulePageScraper(
+        RestClient client,
+        IBrowsingContext browsingContext
+    )
+    {
+        this.client = client;
+        this.browsingContext = browsingContext;
+    }
 
     private async Task<string> DownloadDocument(CancellationToken cancellationToken)
     {
-        var request = await this.Client.GetAsync(new RestRequest(SchedulePageUrl), cancellationToken);
+        var request = await this.client.GetAsync(new RestRequest(SchedulePageUrl), cancellationToken);
         return request.Content ?? throw new InvalidDataException("Response must not be null");
     }
 
-    private static async Task<IReadOnlyCollection<AosekaCalenderObject>> ScrapeRawDocument(
+    private async Task<IReadOnlyCollection<AosekaCalenderObject>> ScrapeRawDocument(
         string rawHtml,
         CancellationToken cancellationToken
     )
     {
-        var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
-        var document = await context.OpenAsync(req => req.Content(rawHtml), cancellationToken);
+        var document = await this.browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken);
         var element = document.QuerySelector("#eael-event-calendar-2e90714") ??
                       throw new InvalidDataException("calender element was not found");
         var eventsRawJson = element.GetAttribute("data-events") ??
@@ -41,7 +48,7 @@ public class AosekaSchedulePageScraper
     {
         var htmlParser = new HtmlParser();
         var downloadedDocument = await this.DownloadDocument(cancellationToken);
-        var aosekaEvents = await ScrapeRawDocument(downloadedDocument, cancellationToken);
+        var aosekaEvents = await this.ScrapeRawDocument(downloadedDocument, cancellationToken);
         var convertedEvents = aosekaEvents
             .Select(v => new GroupEvent
             {

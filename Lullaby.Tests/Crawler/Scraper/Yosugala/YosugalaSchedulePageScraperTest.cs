@@ -1,6 +1,8 @@
 namespace Lullaby.Tests.Crawler.Scraper.Yosugala;
 
 using System.Globalization;
+using AngleSharp;
+using Lullaby.Crawler.Events;
 using Lullaby.Crawler.Scraper.Yosugala;
 using RestSharp;
 using RichardSzalay.MockHttp;
@@ -17,7 +19,11 @@ public class YosugalaSchedulePageScraperTest : BaseScraperTest
             .Respond("text/html", schedulePageFileContent);
         var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
 
-        var scraper = new YosugalaSchedulePageScraper(client);
+        var scraper = new YosugalaSchedulePageScraper(
+            client,
+            BrowsingContext.New(Configuration.Default.WithDefaultLoader()),
+            new EventTypeDetector()
+        );
         var result = await scraper.ScrapeAsync(default);
 
         Assert.That(result, Has.Count.EqualTo(9));

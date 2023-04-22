@@ -1,7 +1,6 @@
-namespace Lullaby;
+namespace Lullaby.Job;
 
 using Crawler.Groups;
-using Job;
 using Quartz;
 
 public static class ConfigureScheduledJobs

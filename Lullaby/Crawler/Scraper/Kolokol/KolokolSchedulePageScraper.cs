@@ -18,9 +18,16 @@ public partial class KolokolSchedulePageScraper
             "https://kolokol-official.com/schedule/past/num/20", "https://kolokol-official.com/schedule/past/num/30"
         };
 
-    private RestClient Client { get; }
+    private readonly RestClient client;
+    private readonly IBrowsingContext browsingContext;
+    private readonly IEventTypeDetector eventTypeDetector;
 
-    public KolokolSchedulePageScraper(RestClient client) => this.Client = client;
+    public KolokolSchedulePageScraper(RestClient client, IBrowsingContext browsingContext, IEventTypeDetector eventTypeDetector)
+    {
+        this.client = client;
+        this.browsingContext = browsingContext;
+        this.eventTypeDetector = eventTypeDetector;
+    }
 
     private async Task<IReadOnlyList<string>> DownloadDocuments(CancellationToken cancellationToken)
     {
@@ -28,7 +35,7 @@ public partial class KolokolSchedulePageScraper
         var asyncDocuments = SchedulePageUrls.Select(
             schedulePageUrl => Task.Run(async () =>
             {
-                var request = await this.Client.GetAsync(new RestRequest(schedulePageUrl), cancellationToken);
+                var request = await this.client.GetAsync(new RestRequest(schedulePageUrl), cancellationToken);
                 return request.Content ?? throw new InvalidDataException("Response must not be null");
             })
         );
@@ -50,14 +57,12 @@ public partial class KolokolSchedulePageScraper
     [GeneratedRegex("^ ", RegexOptions.Multiline)]
     private static partial Regex StartOfLineAndSpace();
 
-    private static async Task<IReadOnlyList<GroupEvent>> ParseDocument(
+    private async Task<IReadOnlyList<GroupEvent>> ParseDocument(
         string rawHtml,
         CancellationToken cancellationToken
     )
     {
-        var eventTypeDetector = new EventTypeDetector();
-        var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
-        var document = await context.OpenAsync(req => req.Content(rawHtml), cancellationToken);
+        var document = await this.browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken);
         var scheduleElements = document.QuerySelectorAll(".scdBox");
         return scheduleElements
             .Select(
@@ -145,7 +150,7 @@ public partial class KolokolSchedulePageScraper
                         EventPlace = venueText,
                         EventDateTime = eventDateTime,
                         EventDescription = descriptionText ?? "",
-                        EventType = eventTypeDetector.DetectEventTypeByTitle(titleText)
+                        EventType = this.eventTypeDetector.DetectEventTypeByTitle(titleText)
                     };
                 }
             )
@@ -155,7 +160,7 @@ public partial class KolokolSchedulePageScraper
     public async Task<IReadOnlyList<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
     {
         var allDocuments = await this.DownloadDocuments(cancellationToken);
-        var allEvents = allDocuments.Select(rawHtml => ParseDocument(rawHtml, cancellationToken));
+        var allEvents = allDocuments.Select(rawHtml => this.ParseDocument(rawHtml, cancellationToken));
         return (await Task.WhenAll(allEvents))
             .SelectMany(e => e)
             .ToArray();

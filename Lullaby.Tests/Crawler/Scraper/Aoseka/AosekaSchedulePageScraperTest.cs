@@ -1,6 +1,7 @@
 namespace Lullaby.Tests.Crawler.Scraper.Aoseka;
 
 using System.Globalization;
+using AngleSharp;
 using Lullaby.Crawler.Events;
 using Lullaby.Crawler.Scraper.Aoseka;
 using RestSharp;
@@ -20,7 +21,7 @@ public class AosekaSchedulePageScraperTest : BaseScraperTest
             .Respond("text/html", testFileContent);
         var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
 
-        var scraper = new AosekaSchedulePageScraper(client);
+        var scraper = new AosekaSchedulePageScraper(client, BrowsingContext.New(Configuration.Default.WithDefaultLoader()));
 
         var result = await scraper.ScrapeAsync(default);
 
