@@ -43,5 +43,14 @@ public static class ConfigureScheduledJobs
             .WithIdentity("OSS cron trigger")
             .WithCronSchedule(Oss.CrawlCronConstant)
         );
+
+        // 手羽先センセーション - tebasen
+        var tebasenJobKey = new JobKey(TebasenCrawlerJob.JobKey);
+        quarts.AddJob<TebasenCrawlerJob>(o => o.WithIdentity(tebasenJobKey));
+        quarts.AddTrigger(t => t
+            .ForJob(tebasenJobKey)
+            .WithIdentity("tebasen cron trigger")
+            .WithCronSchedule(Tebasen.CrawlCronConstant)
+        );
     }
 }
