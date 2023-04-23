@@ -1,14 +1,13 @@
-namespace Lullaby.Services.Events;
+namespace Lullaby.Db;
 
-using Lullaby.Crawler.Events;
-using Data;
+using Crawler.Events;
 using Models;
+using Services.Events;
 
 public class AddEventByGroupEventService : IAddEventByGroupEventService
 {
-    private LullabyContext Context { get; }
-
     public AddEventByGroupEventService(LullabyContext context) => this.Context = context;
+    private LullabyContext Context { get; }
 
     public async Task<Event> Execute(string groupKey, GroupEvent groupEvent, CancellationToken cancellationToken)
     {

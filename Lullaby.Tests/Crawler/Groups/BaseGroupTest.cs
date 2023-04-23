@@ -1,6 +1,6 @@
 namespace Lullaby.Tests.Crawler.Groups;
 
-using Lullaby.Services.Events;
+using Lullaby.Db;
 using Microsoft.EntityFrameworkCore;
 
 public class BaseGroupTest : BaseDatabaseTest

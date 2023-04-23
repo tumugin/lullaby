@@ -1,8 +1,8 @@
-namespace Lullaby.Tests.Services.Events;
+namespace Lullaby.Tests.Db;
 
 using System.Globalization;
 using Lullaby.Crawler.Events;
-using Lullaby.Services.Events;
+using Lullaby.Db;
 using Seeder;
 using Microsoft.EntityFrameworkCore;
 
@@ -56,8 +56,7 @@ public class UpdateEventByGroupEventServiceTest : BaseDatabaseTest
             default
         );
 
-        var updatedEvent = await this.Context.Events
-            .Where(v => v.Id == seededEvent.Id)
+        var updatedEvent = await this.Context.Events.Where(v => v.Id == seededEvent.Id)
             .FirstAsync();
 
         Assert.That(updatedEvent.EventName, Is.EqualTo("【LIVE】群青の世界×MARQUEE 定期公演 青の記録vol.12"));

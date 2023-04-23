@@ -3,7 +3,7 @@ namespace Lullaby;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using Crawler;
-using Data;
+using Db;
 using Job;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
