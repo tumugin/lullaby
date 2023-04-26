@@ -2,6 +2,8 @@
     ViewData["Title"] = "Home";
     Layout = "_Layout";
 }
+@model Lullaby.ViewModels.Index.IndexViewModel
+
 <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
     <h1>Welcome to Lullaby server!</h1>
 </header>
@@ -19,75 +21,26 @@
     </p>
     <h2>対応グループ</h2>
     <div class="d-grid gap-3">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">群青の世界</h5>
-                <div class="card-text">
-                    <ul>
-                        <li>取得元: <a href="https://gunjonosekai.com/schedule/" target="_blank" rel="noopener noreferrer">https://gunjonosekai.com/schedule/</a></li>
-                        <li>取得頻度: 毎時間</li>
-                        <li>キー: <code>aoseka</code></li>
-                        <li>iCal: <a href="/ical/events/aoseka" target="_blank" rel="noopener noreferrer">/ical/events/aoseka</a></li>
-                        <li>JSON: <a href="/api/events/aoseka" target="_blank" rel="noopener noreferrer">/api/events/aoseka</a></li>
-                    </ul>
+        @foreach (var group in Model.AvailableGroups)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@group.GroupName</h5>
+                    <div class="card-text">
+                        <ul>
+                            <li>
+                                キー: <code>@group.GroupKey</code>
+                            </li>
+                            <li>
+                                iCal: <a href="/ical/events/@group.GroupKey" target="_blank" rel="noopener noreferrer">/ical/events/@group.GroupKey</a>
+                            </li>
+                            <li>
+                                JSON: <a href="/api/events/@group.GroupKey" target="_blank" rel="noopener noreferrer">/api/events/@group.GroupKey</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Kolokol</h5>
-                <div class="card-text">
-                    <ul>
-                        <li>取得元: <a href="https://kolokol-official.com/schedule/" target="_blank" rel="noopener noreferrer">https://kolokol-official.com/schedule/</a></li>
-                        <li>取得頻度: 毎時間</li>
-                        <li>キー: <code>kolokol</code></li>
-                        <li>iCal: <a href="/ical/events/kolokol" target="_blank" rel="noopener noreferrer">/ical/events/kolokol</a></li>
-                        <li>JSON: <a href="/api/events/kolokol" target="_blank" rel="noopener noreferrer">/api/events/kolokol</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">yosugala</h5>
-                <div class="card-text">
-                    <ul>
-                        <li>取得元: <a href="https://yosugala2022.ryzm.jp/live" target="_blank" rel="noopener noreferrer">https://yosugala2022.ryzm.jp/live</a></li>
-                        <li>取得頻度: 毎時間</li>
-                        <li>キー: <code>yosugala</code></li>
-                        <li>iCal: <a href="/ical/events/yosugala" target="_blank" rel="noopener noreferrer">/ical/events/yosugala</a></li>
-                        <li>JSON: <a href="/api/events/yosugala" target="_blank" rel="noopener noreferrer">/api/events/yosugala</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">On the treat Super Season</h5>
-                <div class="card-text">
-                    <ul>
-                        <li>取得元: <a href="https://onthetreatsuperseason.com/live" target="_blank" rel="noopener noreferrer">https://onthetreatsuperseason.com/live</a></li>
-                        <li>取得頻度: 毎時間</li>
-                        <li>キー: <code>oss</code></li>
-                        <li>iCal: <a href="/ical/events/oss" target="_blank" rel="noopener noreferrer">/ical/events/oss</a></li>
-                        <li>JSON: <a href="/api/events/oss" target="_blank" rel="noopener noreferrer">/api/events/oss</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">手羽先センセーション</h5>
-                <div class="card-text">
-                    <ul>
-                        <li>取得元: <a href="https://tebasen.com/schedule/" target="_blank" rel="noopener noreferrer">https://tebasen.com/schedule/</a></li>
-                        <li>取得頻度: 毎時間</li>
-                        <li>キー: <code>oss</code></li>
-                        <li>iCal: <a href="/ical/events/tebasen" target="_blank" rel="noopener noreferrer">/ical/events/tebasen</a></li>
-                        <li>JSON: <a href="/api/events/tebasen" target="_blank" rel="noopener noreferrer">/api/events/tebasen</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </main>
