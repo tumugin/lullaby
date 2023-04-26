@@ -1,15 +1,19 @@
 namespace Lullaby.ViewModels;
 
-using Crawler.Groups;
+using Groups;
 
 public class GroupViewModel
 {
+    /// <summary>
+    /// The group key
+    /// </summary>
     public required string GroupKey { get; init; }
 
+    /// <summary>
+    /// The group name
+    /// </summary>
     public required string GroupName { get; init; }
 
-    public required string CrawlCron { get; init; }
-
-    public static GroupViewModel FromGroup(BaseGroup baseGroup) =>
-        new() { GroupKey = baseGroup.GroupKey, GroupName = baseGroup.GroupName, CrawlCron = baseGroup.CrawlCron };
+    public static GroupViewModel FromGroup(IGroup group) =>
+        new() { GroupKey = group.GroupKey, GroupName = group.GroupName };
 }

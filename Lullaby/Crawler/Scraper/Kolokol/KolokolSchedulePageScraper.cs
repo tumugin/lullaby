@@ -4,10 +4,11 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using AngleSharp;
 using Events;
+using Groups;
 using RestSharp;
 using Utils;
 
-public partial class KolokolSchedulePageScraper
+public partial class KolokolSchedulePageScraper : ISchedulePageScraper
 {
     // サイトのレスポンスがそんなに速くないので、一旦最新1ページ+過去4ページ分だけ決め打ちで取ってくる
     public static readonly IReadOnlyList<string> SchedulePageUrls =
@@ -18,15 +19,28 @@ public partial class KolokolSchedulePageScraper
             "https://kolokol-official.com/schedule/past/num/20", "https://kolokol-official.com/schedule/past/num/30"
         };
 
-    private readonly RestClient client;
     private readonly IBrowsingContext browsingContext;
+
+    private readonly RestClient client;
     private readonly IEventTypeDetector eventTypeDetector;
 
-    public KolokolSchedulePageScraper(RestClient client, IBrowsingContext browsingContext, IEventTypeDetector eventTypeDetector)
+    public KolokolSchedulePageScraper(RestClient client, IBrowsingContext browsingContext,
+        IEventTypeDetector eventTypeDetector)
     {
         this.client = client;
         this.browsingContext = browsingContext;
         this.eventTypeDetector = eventTypeDetector;
+    }
+
+    public Type TargetGroup => typeof(Kolokol);
+
+    public async Task<IReadOnlyList<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
+    {
+        var allDocuments = await this.DownloadDocuments(cancellationToken);
+        var allEvents = allDocuments.Select(rawHtml => this.ParseDocument(rawHtml, cancellationToken));
+        return (await Task.WhenAll(allEvents))
+            .SelectMany(e => e)
+            .ToArray();
     }
 
     private async Task<IReadOnlyList<string>> DownloadDocuments(CancellationToken cancellationToken)
@@ -92,9 +106,9 @@ public partial class KolokolSchedulePageScraper
                         ?.TextContent;
                     var titleText = (titleTextOfFutureSchedule, titleTextOfPastSchedule) switch
                     {
-                        ({ }, { }) => titleTextOfFutureSchedule,
-                        ({ }, null) => titleTextOfFutureSchedule,
-                        (null, { }) => titleTextOfPastSchedule,
+                        (not null, not null) => titleTextOfFutureSchedule,
+                        (not null, null) => titleTextOfFutureSchedule,
+                        (null, not null) => titleTextOfPastSchedule,
                         _ => throw new InvalidDataException("Title must not be null")
                     };
 
@@ -131,7 +145,7 @@ public partial class KolokolSchedulePageScraper
 
                     IEventDateTime eventDateTime = detailedOpenTime switch
                     {
-                        { } => new DetailedEventDateTime
+                        not null => new DetailedEventDateTime
                         {
                             EventStartDateTime = detailedOpenTime.Value,
                             // 閉場時間は分からないので一旦開場時間の4時間後にしておく
@@ -154,15 +168,6 @@ public partial class KolokolSchedulePageScraper
                     };
                 }
             )
-            .ToArray();
-    }
-
-    public async Task<IReadOnlyList<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
-    {
-        var allDocuments = await this.DownloadDocuments(cancellationToken);
-        var allEvents = allDocuments.Select(rawHtml => this.ParseDocument(rawHtml, cancellationToken));
-        return (await Task.WhenAll(allEvents))
-            .SelectMany(e => e)
             .ToArray();
     }
 }

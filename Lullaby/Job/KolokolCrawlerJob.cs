@@ -1,25 +1,19 @@
 namespace Lullaby.Job;
 
-using Crawler.Groups;
-using Services.Events;
+using Crawler;
+using Groups;
 
 public class KolokolCrawlerJob : BaseCrawlerJob
 {
     public const string JobKey = "KolokolCrawlerJob";
 
-    protected override BaseGroup TargetGroup => this.kolokol;
-
     private readonly Kolokol kolokol;
 
     public KolokolCrawlerJob(
-        IAddEventByGroupEventService addEventByGroupEventService,
-        IFindDuplicateEventService findDuplicateEventService,
-        IUpdateEventByGroupEventService updateEventByGroupEventService,
+        IGroupCrawler groupCrawler,
         Kolokol kolokol
-    ) : base(
-        addEventByGroupEventService,
-        findDuplicateEventService,
-        updateEventByGroupEventService
-    ) =>
+    ) : base(groupCrawler) =>
         this.kolokol = kolokol;
+
+    protected override IGroup TargetGroup => this.kolokol;
 }

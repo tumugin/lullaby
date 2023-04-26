@@ -2,7 +2,7 @@ namespace Lullaby.Crawler;
 
 using AngleSharp;
 using Events;
-using Groups;
+using Scraper;
 using Scraper.Aoseka;
 using Scraper.Kolokol;
 using Scraper.OSS;
@@ -18,22 +18,14 @@ public static class CrawlerServiceExtensions
         );
         serviceCollection.AddScoped<IEventTypeDetector, EventTypeDetector>();
 
-        serviceCollection.AddScoped<Aoseka, Aoseka>();
-        serviceCollection.AddScoped<AosekaSchedulePageScraper, AosekaSchedulePageScraper>();
+        serviceCollection
+            .AddScoped<ISchedulePageScraper, AosekaSchedulePageScraper>()
+            .AddScoped<ISchedulePageScraper, KolokolSchedulePageScraper>()
+            .AddScoped<ISchedulePageScraper, OssSchedulePageScraper>()
+            .AddScoped<ISchedulePageScraper, YosugalaSchedulePageScraper>()
+            .AddScoped<ISchedulePageScraper, TebasenSchedulePageScraper>();
 
-        serviceCollection.AddScoped<Kolokol, Kolokol>();
-        serviceCollection.AddScoped<KolokolSchedulePageScraper, KolokolSchedulePageScraper>();
-
-        serviceCollection.AddScoped<Oss, Oss>();
-        serviceCollection.AddScoped<OssSchedulePageScraper, OssSchedulePageScraper>();
-
-        serviceCollection.AddScoped<Yosugala, Yosugala>();
-        serviceCollection.AddScoped<YosugalaSchedulePageScraper, YosugalaSchedulePageScraper>();
-
-        serviceCollection.AddScoped<Tebasen, Tebasen>();
-        serviceCollection.AddScoped<TebasenSchedulePageScraper, TebasenSchedulePageScraper>();
-
-        serviceCollection.AddScoped<GroupKeys, GroupKeys>();
+        serviceCollection.AddScoped<IGroupCrawler, GroupCrawler>();
 
         return serviceCollection;
     }

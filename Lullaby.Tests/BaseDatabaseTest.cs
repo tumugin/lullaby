@@ -1,6 +1,6 @@
 namespace Lullaby.Tests;
 
-using Data;
+using Lullaby.Db;
 using Microsoft.EntityFrameworkCore;
 
 public class BaseDatabaseTest

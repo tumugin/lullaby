@@ -5,21 +5,16 @@ using System.Globalization;
 using System.Text.RegularExpressions;
 using AngleSharp;
 using Events;
+using Groups;
 using RestSharp;
 
-public partial class TebasenSchedulePageScraper
+public partial class TebasenSchedulePageScraper : ISchedulePageScraper
 {
     public static readonly string SchedulePageUrl = "https://tebasen.com/schedule/";
-
-    private readonly RestClient restClient;
     private readonly IBrowsingContext browsingContext;
     private readonly IEventTypeDetector eventTypeDetector;
 
-    [GeneratedRegex("^(\\d+)\\.(\\d+)\\.(\\d+)")]
-    private static partial Regex DatePatternRegex();
-
-    [GeneratedRegex("^開場 / (\\d+):(\\d+)")]
-    private static partial Regex OpenTimePattenRegex();
+    private readonly RestClient restClient;
 
     public TebasenSchedulePageScraper(
         RestClient restClient,
@@ -31,6 +26,49 @@ public partial class TebasenSchedulePageScraper
         this.browsingContext = browsingContext;
         this.eventTypeDetector = eventTypeDetector;
     }
+
+    public Type TargetGroup => typeof(Tebasen);
+
+    public async Task<IReadOnlyList<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
+    {
+        // Get all schedule detail page urls
+        var schedulePageDetailUrls = new List<string>();
+        // Get from first page
+        var firstPageResult = await this.DownloadAndParseSchedulePageAsync(SchedulePageUrl, cancellationToken);
+        schedulePageDetailUrls.AddRange(firstPageResult.SchedulePageDetailUrls);
+        // Loop and get from next pages
+        if (firstPageResult.HasNextPage)
+        {
+            var shouldContinue = true;
+            var nextPageUrl = firstPageResult.NextPageUrl;
+            while (shouldContinue)
+            {
+                var nextPageResult = await this.DownloadAndParseSchedulePageAsync(nextPageUrl, cancellationToken);
+                schedulePageDetailUrls.AddRange(nextPageResult.SchedulePageDetailUrls);
+                shouldContinue = nextPageResult.HasNextPage;
+                if (nextPageResult.HasNextPage)
+                {
+                    nextPageUrl = nextPageResult.NextPageUrl;
+                }
+            }
+        }
+
+        // Parse all details pages(it's many so not use parallel)
+        var events = new List<GroupEvent>();
+        foreach (var schedulePageDetailUrl in schedulePageDetailUrls)
+        {
+            var result = await this.DownloadAndParseScheduleDetailPageAsync(schedulePageDetailUrl, cancellationToken);
+            events.Add(result);
+        }
+
+        return events;
+    }
+
+    [GeneratedRegex("^(\\d+)\\.(\\d+)\\.(\\d+)")]
+    private static partial Regex DatePatternRegex();
+
+    [GeneratedRegex("^開場 / (\\d+):(\\d+)")]
+    private static partial Regex OpenTimePattenRegex();
 
     private async Task<ParseSchedulePageResult> DownloadAndParseSchedulePageAsync(
         string pageUrl,
@@ -61,16 +99,6 @@ public partial class TebasenSchedulePageScraper
             HasNextPage = nextSchedulePageUrl != null,
             NextPageUrl = nextSchedulePageUrl
         };
-    }
-
-    private sealed class ParseSchedulePageResult
-    {
-        public required IReadOnlyList<string> SchedulePageDetailUrls { get; init; }
-
-        [MemberNotNullWhen(true, nameof(NextPageUrl))]
-        public required bool HasNextPage { get; init; }
-
-        public string? NextPageUrl { get; init; }
     }
 
     private async Task<GroupEvent> DownloadAndParseScheduleDetailPageAsync(
@@ -149,38 +177,13 @@ public partial class TebasenSchedulePageScraper
         };
     }
 
-    public async Task<IReadOnlyList<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
+    private sealed class ParseSchedulePageResult
     {
-        // Get all schedule detail page urls
-        var schedulePageDetailUrls = new List<string>();
-        // Get from first page
-        var firstPageResult = await this.DownloadAndParseSchedulePageAsync(SchedulePageUrl, cancellationToken);
-        schedulePageDetailUrls.AddRange(firstPageResult.SchedulePageDetailUrls);
-        // Loop and get from next pages
-        if (firstPageResult.HasNextPage)
-        {
-            var shouldContinue = true;
-            var nextPageUrl = firstPageResult.NextPageUrl;
-            while (shouldContinue)
-            {
-                var nextPageResult = await this.DownloadAndParseSchedulePageAsync(nextPageUrl, cancellationToken);
-                schedulePageDetailUrls.AddRange(nextPageResult.SchedulePageDetailUrls);
-                shouldContinue = nextPageResult.HasNextPage;
-                if (nextPageResult.HasNextPage)
-                {
-                    nextPageUrl = nextPageResult.NextPageUrl;
-                }
-            }
-        }
+        public required IReadOnlyList<string> SchedulePageDetailUrls { get; init; }
 
-        // Parse all details pages(it's many so not use parallel)
-        var events = new List<GroupEvent>();
-        foreach (var schedulePageDetailUrl in schedulePageDetailUrls)
-        {
-            var result = await this.DownloadAndParseScheduleDetailPageAsync(schedulePageDetailUrl, cancellationToken);
-            events.Add(result);
-        }
+        [MemberNotNullWhen(true, nameof(NextPageUrl))]
+        public required bool HasNextPage { get; init; }
 
-        return events;
+        public string? NextPageUrl { get; init; }
     }
 }

@@ -3,7 +3,6 @@ namespace Lullaby.Tests.Controller.Api.Events;
 using System.Globalization;
 using System.Net;
 using System.Net.Http.Json;
-using Lullaby.Crawler.Groups;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
 using Responses.Api.Events;
@@ -17,7 +16,7 @@ public class GroupEventControllerTest : BaseWebTest
         await new EventSeeder(this.Context).SeedEvent(null, null);
         var result =
             await this.Client.GetFromJsonAsync<GroupEventsGetResponse>(
-                $"api/events/{Aoseka.GroupKeyConstant}"
+                $"api/events/aoseka"
             );
         Assert.That(result, Is.Not.Null);
         Assert.That(result!.Events, Has.Count.EqualTo(1));
@@ -37,7 +36,7 @@ public class GroupEventControllerTest : BaseWebTest
             )
         );
         var requestUri = QueryHelpers.AddQueryString(
-            $"api/events/{Aoseka.GroupKeyConstant}",
+            $"api/events/aoseka",
             new Dictionary<string, StringValues>
             {
                 { "eventTypes", new StringValues(new[] { "Fes", "Battle", "BattleOrFes" }) },

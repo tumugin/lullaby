@@ -1,6 +1,6 @@
 namespace Lullaby.Controllers.Api.Events;
 
-using Crawler.Groups;
+using Groups;
 using Microsoft.AspNetCore.Mvc;
 using Requests.Api.Events;
 using Responses.Api.Events;
@@ -13,17 +13,17 @@ using ViewModels;
 [Produces("application/json")]
 public class GroupEventController : ControllerBase
 {
-    private IGetEventsByGroupKeyService GetEventsByGroupKeyService { get; }
-
     public GroupEventController(IGetEventsByGroupKeyService getEventsByGroupKeyService) =>
         this.GetEventsByGroupKeyService = getEventsByGroupKeyService;
 
+    private IGetEventsByGroupKeyService GetEventsByGroupKeyService { get; }
+
     /// <summary>
-    /// Get events of the specified group
+    ///     Get events of the specified group
     /// </summary>
     /// <param name="groupKey">The key of group(ex. aoseka)</param>
     /// <param name="groupEventIndexParameters">Options to get events</param>
-    /// <param name="groupKeys">Instance of <see cref="GroupKeys"/></param>
+    /// <param name="groupKeys">Instance of <see cref="IGroupKeys" /></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet]
@@ -33,7 +33,7 @@ public class GroupEventController : ControllerBase
     public async Task<IActionResult> Get(
         [FromRoute] string groupKey,
         [FromQuery] GroupEventIndexParameters groupEventIndexParameters,
-        [FromServices] GroupKeys groupKeys,
+        [FromServices] IGroupKeys groupKeys,
         CancellationToken cancellationToken
     )
     {
@@ -46,7 +46,7 @@ public class GroupEventController : ControllerBase
 
         var events = groupEventIndexParameters switch
         {
-            { EventEndsAt: { }, EventStartsFrom: { } } =>
+            { EventEndsAt: not null, EventStartsFrom: not null } =>
                 await this.GetEventsByGroupKeyService.Execute(
                     groupKey,
                     groupEventIndexParameters.EventTypes,

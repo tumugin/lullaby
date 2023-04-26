@@ -1,32 +1,16 @@
 namespace Lullaby.Job;
 
-using Crawler.Groups;
+using Crawler;
+using Groups;
 using Quartz;
-using Services.Events;
 
 public abstract class BaseCrawlerJob : IJob
 {
-    private IAddEventByGroupEventService AddEventByGroupEventService { get; }
-    private IFindDuplicateEventService FindDuplicateEventService { get; }
-    private IUpdateEventByGroupEventService UpdateEventByGroupEventService { get; }
-    protected abstract BaseGroup TargetGroup { get; }
+    private readonly IGroupCrawler groupCrawler;
 
-    protected BaseCrawlerJob(
-        IAddEventByGroupEventService addEventByGroupEventService,
-        IFindDuplicateEventService findDuplicateEventService,
-        IUpdateEventByGroupEventService updateEventByGroupEventService
-    )
-    {
-        this.AddEventByGroupEventService = addEventByGroupEventService;
-        this.FindDuplicateEventService = findDuplicateEventService;
-        this.UpdateEventByGroupEventService = updateEventByGroupEventService;
-    }
+    protected BaseCrawlerJob(IGroupCrawler groupCrawler) => this.groupCrawler = groupCrawler;
+    protected abstract IGroup TargetGroup { get; }
 
     public virtual async Task Execute(IJobExecutionContext context) =>
-        await this.TargetGroup.GetAndUpdateSavedEvents(
-            this.AddEventByGroupEventService,
-            this.FindDuplicateEventService,
-            this.UpdateEventByGroupEventService,
-            context.CancellationToken
-        );
+        await this.groupCrawler.GetAndUpdateSavedEvents(this.TargetGroup, context.CancellationToken);
 }

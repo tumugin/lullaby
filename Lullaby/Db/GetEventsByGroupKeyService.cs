@@ -1,15 +1,14 @@
-namespace Lullaby.Services.Events;
+namespace Lullaby.Db;
 
-using Lullaby.Crawler.Events;
-using Data;
-using Models;
+using Crawler.Events;
 using Microsoft.EntityFrameworkCore;
+using Models;
+using Services.Events;
 
 public class GetEventsByGroupKeyService : IGetEventsByGroupKeyService
 {
-    private LullabyContext LullabyContext { get; }
-
     public GetEventsByGroupKeyService(LullabyContext context) => this.LullabyContext = context;
+    private LullabyContext LullabyContext { get; }
 
     public async Task<IReadOnlyList<Event>> Execute(string groupKey,
         IEnumerable<EventType> eventTypes,

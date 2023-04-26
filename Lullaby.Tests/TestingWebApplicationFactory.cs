@@ -1,6 +1,6 @@
 namespace Lullaby.Tests;
 
-using Data;
+using Lullaby.Db;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;

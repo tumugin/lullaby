@@ -1,14 +1,13 @@
-namespace Lullaby.Services.Events;
+namespace Lullaby.Db;
 
-using Data;
-using Models;
 using Microsoft.EntityFrameworkCore;
+using Models;
+using Services.Events;
 
 public class FindDuplicateEventService : IFindDuplicateEventService
 {
-    private LullabyContext Context { get; }
-
     public FindDuplicateEventService(LullabyContext context) => this.Context = context;
+    private LullabyContext Context { get; }
 
     /**
      * 既にDBに保存された重複するイベントを検索する

@@ -1,6 +1,5 @@
 namespace Lullaby.Job;
 
-using Crawler.Groups;
 using Quartz;
 
 public static class ConfigureScheduledJobs
@@ -13,7 +12,7 @@ public static class ConfigureScheduledJobs
         quarts.AddTrigger(t => t
             .ForJob(aosekaJobKey)
             .WithIdentity("Aoseka cron trigger")
-            .WithCronSchedule(Aoseka.CrawlCronConstant)
+            .WithCronSchedule("0 0 * ? * * *")
         );
 
         // kolokol - Kolokol
@@ -22,7 +21,7 @@ public static class ConfigureScheduledJobs
         quarts.AddTrigger(t => t
             .ForJob(kolokolJobKey)
             .WithIdentity("Kolokol cron trigger")
-            .WithCronSchedule(Kolokol.CrawlCronConstant)
+            .WithCronSchedule("0 0 * ? * * *")
         );
 
         // yosugala - yosugala
@@ -31,7 +30,7 @@ public static class ConfigureScheduledJobs
         quarts.AddTrigger(t => t
             .ForJob(yosugalaJobKey)
             .WithIdentity("yosugala cron trigger")
-            .WithCronSchedule(Yosugala.CrawlCronConstant)
+            .WithCronSchedule("0 0 * ? * * *")
         );
 
         // OSS - OSS
@@ -40,7 +39,7 @@ public static class ConfigureScheduledJobs
         quarts.AddTrigger(t => t
             .ForJob(ossJobKey)
             .WithIdentity("OSS cron trigger")
-            .WithCronSchedule(Oss.CrawlCronConstant)
+            .WithCronSchedule("0 0 * ? * * *")
         );
 
         // 手羽先センセーション - tebasen
@@ -49,7 +48,7 @@ public static class ConfigureScheduledJobs
         quarts.AddTrigger(t => t
             .ForJob(tebasenJobKey)
             .WithIdentity("tebasen cron trigger")
-            .WithCronSchedule(Tebasen.CrawlCronConstant)
+            .WithCronSchedule("0 0 * ? * * *")
         );
     }
 }

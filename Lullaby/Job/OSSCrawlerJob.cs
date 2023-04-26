@@ -1,7 +1,7 @@
 namespace Lullaby.Job;
 
-using Crawler.Groups;
-using Services.Events;
+using Crawler;
+using Groups;
 
 public class OssCrawlerJob : BaseCrawlerJob
 {
@@ -10,14 +10,10 @@ public class OssCrawlerJob : BaseCrawlerJob
     private readonly Oss oss;
 
     public OssCrawlerJob(
-        IAddEventByGroupEventService addEventByGroupEventService,
-        IFindDuplicateEventService findDuplicateEventService,
-        IUpdateEventByGroupEventService updateEventByGroupEventService,
+        IGroupCrawler groupCrawler,
         Oss oss
-    ) : base(
-        addEventByGroupEventService, findDuplicateEventService, updateEventByGroupEventService
-    ) =>
+    ) : base(groupCrawler) =>
         this.oss = oss;
 
-    protected override BaseGroup TargetGroup => this.oss;
+    protected override IGroup TargetGroup => this.oss;
 }

@@ -1,8 +1,8 @@
 namespace Lullaby.Tests.Seeder;
 
 using System.Globalization;
-using Data;
 using Lullaby.Crawler.Events;
+using Lullaby.Db;
 using Models;
 
 public class EventSeeder

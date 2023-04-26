@@ -2,7 +2,6 @@
 
 using System.Globalization;
 using System.Net;
-using Lullaby.Crawler.Groups;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Primitives;
 using Seeder;
@@ -15,7 +14,7 @@ public class GroupEventControllerTest : BaseWebTest
         await new EventSeeder(this.Context).SeedEvent(null, null);
         var result =
             await this.Client.GetAsync(
-                $"ical/events/{Aoseka.GroupKeyConstant}"
+                $"ical/events/aoseka"
             );
         var content = await result.Content.ReadAsStringAsync();
         Assert.Multiple(() =>
@@ -40,7 +39,7 @@ public class GroupEventControllerTest : BaseWebTest
             )
         );
         var requestUri = QueryHelpers.AddQueryString(
-            $"ical/events/{Aoseka.GroupKeyConstant}",
+            $"ical/events/aoseka",
             new Dictionary<string, StringValues>
             {
                 { "eventTypes", new StringValues(new[] { "Fes", "Battle", "BattleOrFes" }) },

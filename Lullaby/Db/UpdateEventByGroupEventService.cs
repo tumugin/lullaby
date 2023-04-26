@@ -1,15 +1,14 @@
-namespace Lullaby.Services.Events;
+namespace Lullaby.Db;
 
-using Lullaby.Crawler.Events;
-using Data;
+using Crawler.Events;
 using Models;
+using Services.Events;
 using Utils;
 
 public class UpdateEventByGroupEventService : IUpdateEventByGroupEventService
 {
-    private LullabyContext Context { get; }
-
     public UpdateEventByGroupEventService(LullabyContext context) => this.Context = context;
+    private LullabyContext Context { get; }
 
     public async Task<Event> Execute(Event eventEntity, GroupEvent groupEvent, CancellationToken cancellationToken)
     {
