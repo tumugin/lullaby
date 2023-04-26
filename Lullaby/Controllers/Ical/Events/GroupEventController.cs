@@ -1,10 +1,10 @@
 namespace Lullaby.Controllers.Ical.Events;
 
-using Crawler.Groups;
 using global::Ical.Net;
 using global::Ical.Net.CalendarComponents;
 using global::Ical.Net.DataTypes;
 using global::Ical.Net.Serialization;
+using Groups;
 using Microsoft.AspNetCore.Mvc;
 using Requests.Ical.Events;
 using Services.Events;
@@ -16,17 +16,17 @@ using TimeZoneConverter;
 [Route("/ical/events/{groupKey}")]
 public class GroupEventController : ControllerBase
 {
-    private IGetEventsByGroupKeyService GetEventsByGroupKeyService { get; }
-
     public GroupEventController(IGetEventsByGroupKeyService getEventsByGroupKeyService) =>
         this.GetEventsByGroupKeyService = getEventsByGroupKeyService;
 
+    private IGetEventsByGroupKeyService GetEventsByGroupKeyService { get; }
+
     /// <summary>
-    /// Get events of the specified group in iCal format
+    ///     Get events of the specified group in iCal format
     /// </summary>
     /// <param name="groupKey">The key of group(ex. aoseka)</param>
     /// <param name="groupEventIndexParameters">Options to get events</param>
-    /// <param name="groupKeys">Instance of <see cref="GroupKeys"/></param>
+    /// <param name="groupKeys">Instance of <see cref="IGroupKeys" /></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet]
@@ -36,7 +36,7 @@ public class GroupEventController : ControllerBase
     public async Task<IActionResult> Get(
         [FromRoute] string groupKey,
         [FromQuery] GroupEventIndexParameters groupEventIndexParameters,
-        [FromServices] GroupKeys groupKeys,
+        [FromServices] IGroupKeys groupKeys,
         CancellationToken cancellationToken
     )
     {
@@ -51,7 +51,7 @@ public class GroupEventController : ControllerBase
 
         var events = groupEventIndexParameters switch
         {
-            { EventEndsAt: { }, EventStartsFrom: { } } =>
+            { EventEndsAt: not null, EventStartsFrom: not null } =>
                 await this.GetEventsByGroupKeyService.Execute(
                     groupKey,
                     groupEventIndexParameters.EventTypes,
@@ -68,7 +68,7 @@ public class GroupEventController : ControllerBase
 
         var asiaTokyoTimezone = TZConvert.GetTimeZoneInfo("Asia/Tokyo");
         var calendarEvents = events
-            .Select(e => new CalendarEvent()
+            .Select(e => new CalendarEvent
             {
                 Start = new CalDateTime(
                     TimeZoneInfo.ConvertTime(e.EventStarts, asiaTokyoTimezone).DateTime,
@@ -83,7 +83,7 @@ public class GroupEventController : ControllerBase
                 IsAllDay = !e.IsDateTimeDetailed,
                 Summary = e.EventName,
                 Description = e.EventDescription,
-                Location = e.EventPlace,
+                Location = e.EventPlace
             });
 
         var calendar = new Calendar();

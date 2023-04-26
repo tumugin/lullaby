@@ -1,7 +1,7 @@
 namespace Lullaby.Job;
 
-using Crawler.Groups;
-using Services.Events;
+using Crawler;
+using Groups;
 
 public class TebasenCrawlerJob : BaseCrawlerJob
 {
@@ -9,12 +9,11 @@ public class TebasenCrawlerJob : BaseCrawlerJob
 
     private readonly Tebasen tebasen;
 
-    public TebasenCrawlerJob(IAddEventByGroupEventService addEventByGroupEventService,
-        IFindDuplicateEventService findDuplicateEventService,
-        IUpdateEventByGroupEventService updateEventByGroupEventService,
-        Tebasen tebasen) : base(addEventByGroupEventService,
-        findDuplicateEventService, updateEventByGroupEventService) =>
+    public TebasenCrawlerJob(
+        IGroupCrawler groupCrawler,
+        Tebasen tebasen
+    ) : base(groupCrawler) =>
         this.tebasen = tebasen;
 
-    protected override BaseGroup TargetGroup => this.tebasen;
+    protected override IGroup TargetGroup => this.tebasen;
 }

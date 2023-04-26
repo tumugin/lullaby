@@ -28,13 +28,13 @@ public enum EventType
     /**
      * 対バンもしくはフェス
      */
-    BattleOrFes,
+    BattleOrFes
 }
 
 public static class EventTypeExt
 {
     public static IReadOnlyCollection<EventType> AllTypes() => new[]
     {
-        EventType.Unknown, EventType.OneMan, EventType.Battle, EventType.Fes, EventType.BattleOrFes,
+        EventType.Unknown, EventType.OneMan, EventType.Battle, EventType.Fes, EventType.BattleOrFes
     };
 }

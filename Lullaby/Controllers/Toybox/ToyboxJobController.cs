@@ -8,14 +8,14 @@ using ViewModels.Toybox;
 [ApiExplorerSettings(IgnoreApi = true)]
 public class ToyboxJobController : Controller
 {
-    private ISchedulerFactory SchedulerFactory { get; }
-    private IWebHostEnvironment WebHostEnvironment { get; }
-
     public ToyboxJobController(ISchedulerFactory schedulerFactory, IWebHostEnvironment webHostEnvironment)
     {
         this.SchedulerFactory = schedulerFactory;
         this.WebHostEnvironment = webHostEnvironment;
     }
+
+    private ISchedulerFactory SchedulerFactory { get; }
+    private IWebHostEnvironment WebHostEnvironment { get; }
 
     private bool CanShowThisPage()
         => this.WebHostEnvironment.IsDevelopment() || this.WebHostEnvironment.EnvironmentName == "Testing";

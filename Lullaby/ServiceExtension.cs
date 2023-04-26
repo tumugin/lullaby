@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 using Crawler;
 using Db;
+using Groups;
 using Job;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,9 @@ public static class ServiceExtension
 {
     private static IServiceCollection AddLullabyServices(this IServiceCollection serviceCollection)
     {
-        serviceCollection.AddCrawlers();
+        serviceCollection
+            .AddCrawlers()
+            .AddGroups();
         serviceCollection.AddScoped<IGetEventsByGroupKeyService, GetEventsByGroupKeyService>();
         serviceCollection.AddScoped<IAddEventByGroupEventService, AddEventByGroupEventService>();
         serviceCollection.AddScoped<IFindDuplicateEventService, FindDuplicateEventService>();
@@ -80,7 +83,7 @@ public static class ServiceExtension
                     store.UseJsonSerializer();
                     store.UseProperties = true;
                     store.UseClustering();
-                    store.UseMySqlConnector((c) =>
+                    store.UseMySqlConnector(c =>
                     {
                         c.ConnectionString = dbConnectionString;
                     });

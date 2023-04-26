@@ -4,15 +4,16 @@ using System.Text.Json;
 using AngleSharp;
 using AngleSharp.Html.Parser;
 using Events;
+using Groups;
 using RestSharp;
 using Utils;
 
-public class AosekaSchedulePageScraper
+public class AosekaSchedulePageScraper : ISchedulePageScraper
 {
     public const string SchedulePageUrl = "https://gunjonosekai.com/schedule/";
+    private readonly IBrowsingContext browsingContext;
 
     private readonly RestClient client;
-    private readonly IBrowsingContext browsingContext;
 
     public AosekaSchedulePageScraper(
         RestClient client,
@@ -23,26 +24,7 @@ public class AosekaSchedulePageScraper
         this.browsingContext = browsingContext;
     }
 
-    private async Task<string> DownloadDocument(CancellationToken cancellationToken)
-    {
-        var request = await this.client.GetAsync(new RestRequest(SchedulePageUrl), cancellationToken);
-        return request.Content ?? throw new InvalidDataException("Response must not be null");
-    }
-
-    private async Task<IReadOnlyCollection<AosekaCalenderObject>> ScrapeRawDocument(
-        string rawHtml,
-        CancellationToken cancellationToken
-    )
-    {
-        var document = await this.browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken);
-        var element = document.QuerySelector("#eael-event-calendar-2e90714") ??
-                      throw new InvalidDataException("calender element was not found");
-        var eventsRawJson = element.GetAttribute("data-events") ??
-                            throw new InvalidDataException("event attribute was not found");
-        var calenderEvents = JsonSerializer.Deserialize<List<AosekaCalenderObject>>(eventsRawJson)
-                             ?? throw new InvalidDataException("events cannot be null");
-        return calenderEvents.ToArray();
-    }
+    public Type TargetGroup => typeof(Aoseka);
 
     public async Task<IReadOnlyList<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
     {
@@ -64,9 +46,30 @@ public class AosekaSchedulePageScraper
                 EventDescription = htmlParser
                     .ParseFragment(v.Description, null!)
                     .Select(x => x.TextContent)
-                    .Let(x => string.Join("", x)),
+                    .Let(x => string.Join("", x))
             })
             .ToArray();
         return convertedEvents;
+    }
+
+    private async Task<string> DownloadDocument(CancellationToken cancellationToken)
+    {
+        var request = await this.client.GetAsync(new RestRequest(SchedulePageUrl), cancellationToken);
+        return request.Content ?? throw new InvalidDataException("Response must not be null");
+    }
+
+    private async Task<IReadOnlyCollection<AosekaCalenderObject>> ScrapeRawDocument(
+        string rawHtml,
+        CancellationToken cancellationToken
+    )
+    {
+        var document = await this.browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken);
+        var element = document.QuerySelector("#eael-event-calendar-2e90714") ??
+                      throw new InvalidDataException("calender element was not found");
+        var eventsRawJson = element.GetAttribute("data-events") ??
+                            throw new InvalidDataException("event attribute was not found");
+        var calenderEvents = JsonSerializer.Deserialize<List<AosekaCalenderObject>>(eventsRawJson)
+                             ?? throw new InvalidDataException("events cannot be null");
+        return calenderEvents.ToArray();
     }
 }

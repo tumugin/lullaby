@@ -11,7 +11,7 @@ public class AosekaCalenderObject
     [JsonPropertyName("start")] public required string Start { get; init; }
 
     [JsonIgnore]
-    public UnDetailedEventDateTime ConvertedEventDateTime => new UnDetailedEventDateTime
+    public UnDetailedEventDateTime ConvertedEventDateTime => new()
     {
         // YYYY-MM-DDの形式で入っているので、末尾に時刻とJSTのタイムゾーンを付ける
         EventStartDate = DateTimeOffset

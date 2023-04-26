@@ -10,10 +10,9 @@ using RestSharp;
 
 public abstract partial class RyzmSchedulePageScraper
 {
-    public abstract string SchedulePageUrl { get; }
+    private readonly IBrowsingContext browsingContext;
 
     private readonly RestClient client;
-    private readonly IBrowsingContext browsingContext;
     private readonly IEventTypeDetector eventTypeDetector;
 
     protected RyzmSchedulePageScraper(
@@ -26,6 +25,8 @@ public abstract partial class RyzmSchedulePageScraper
         this.browsingContext = browsingContext;
         this.eventTypeDetector = eventTypeDetector;
     }
+
+    public abstract string SchedulePageUrl { get; }
 
     private async Task<string> DownloadDocument(int page, CancellationToken cancellationToken)
     {
@@ -67,7 +68,8 @@ public abstract partial class RyzmSchedulePageScraper
         var pageObjects = await Task.WhenAll(
             pageRange.Select(
                 async page =>
-                    await this.ScrapeRawDocument(await this.DownloadDocument(page, cancellationToken), cancellationToken)
+                    await this.ScrapeRawDocument(await this.DownloadDocument(page, cancellationToken),
+                        cancellationToken)
             )
         );
         var allPageSchedules =
@@ -98,7 +100,7 @@ public abstract partial class RyzmSchedulePageScraper
                     : null;
                 IEventDateTime eventDateTime = detailedOpenTime switch
                 {
-                    { } => new DetailedEventDateTime
+                    not null => new DetailedEventDateTime
                     {
                         EventStartDateTime = detailedOpenTime.Value,
                         // 閉場時間は分からないので一旦開場時間の4時間後にしておく
