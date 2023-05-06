@@ -50,5 +50,14 @@ public static class ConfigureScheduledJobs
             .WithIdentity("tebasen cron trigger")
             .WithCronSchedule("0 0 * ? * * *")
         );
+
+        // Axelight - axelight
+        var axelightJobKey = new JobKey(AxelightCrawlerJob.JobKey);
+        quarts.AddJob<AxelightCrawlerJob>(o => o.WithIdentity(axelightJobKey));
+        quarts.AddTrigger(t => t
+            .ForJob(axelightJobKey)
+            .WithIdentity("axelight cron trigger")
+            .WithCronSchedule("0 0 * ? * * *")
+        );
     }
 }

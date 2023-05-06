@@ -4,6 +4,7 @@ using AngleSharp;
 using Events;
 using Scraper;
 using Scraper.Aoseka;
+using Scraper.Axelight;
 using Scraper.Kolokol;
 using Scraper.OSS;
 using Scraper.Tebasen;
@@ -23,7 +24,8 @@ public static class CrawlerServiceExtensions
             .AddScoped<ISchedulePageScraper, KolokolSchedulePageScraper>()
             .AddScoped<ISchedulePageScraper, OssSchedulePageScraper>()
             .AddScoped<ISchedulePageScraper, YosugalaSchedulePageScraper>()
-            .AddScoped<ISchedulePageScraper, TebasenSchedulePageScraper>();
+            .AddScoped<ISchedulePageScraper, TebasenSchedulePageScraper>()
+            .AddScoped<ISchedulePageScraper, AxelightSchedulePageScraper>();
 
         serviceCollection.AddScoped<IGroupCrawler, GroupCrawler>();
 
