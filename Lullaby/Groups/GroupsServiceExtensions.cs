@@ -14,5 +14,7 @@ public static class GroupsServiceExtensions
             .AddScoped<Tebasen, Tebasen>()
             .AddScoped<IGroup, Yosugala>()
             .AddScoped<Yosugala, Yosugala>()
+            .AddScoped<Axelight, Axelight>()
+            .AddScoped<IGroup, Axelight>()
             .AddScoped<IGroupKeys, GroupKeys>();
 }

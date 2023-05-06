@@ -1,4 +1,4 @@
-namespace Lullaby.Crawler.Scraper.Tebasen;
+namespace Lullaby.Crawler.Scraper.Axelight;
 
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -8,15 +8,15 @@ using Events;
 using Groups;
 using RestSharp;
 
-public partial class TebasenSchedulePageScraper : ISchedulePageScraper
+public partial class AxelightSchedulePageScraper : ISchedulePageScraper
 {
-    private static readonly string SchedulePageUrl = "https://tebasen.com/schedule/";
+    private static readonly string SchedulePageUrl = "https://axelight-official.com/schedule/";
     private readonly IBrowsingContext browsingContext;
     private readonly IEventTypeDetector eventTypeDetector;
 
     private readonly RestClient restClient;
 
-    public TebasenSchedulePageScraper(
+    public AxelightSchedulePageScraper(
         RestClient restClient,
         IBrowsingContext browsingContext,
         IEventTypeDetector eventTypeDetector
@@ -27,7 +27,7 @@ public partial class TebasenSchedulePageScraper : ISchedulePageScraper
         this.eventTypeDetector = eventTypeDetector;
     }
 
-    public Type TargetGroup => typeof(Tebasen);
+    public Type TargetGroup => typeof(Axelight);
 
     public async Task<IReadOnlyList<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
     {

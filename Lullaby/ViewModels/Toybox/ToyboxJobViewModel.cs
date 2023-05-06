@@ -4,10 +4,10 @@ using Job;
 
 public class ToyboxJobViewModel
 {
-    public IReadOnlyList<string> AvaliableJobs =>
+    public IReadOnlyList<string> AvailableJobs =>
         new[]
         {
             AosekaCrawlerJob.JobKey, KolokolCrawlerJob.JobKey, YosugalaCrawlerJob.JobKey, OssCrawlerJob.JobKey,
-            TebasenCrawlerJob.JobKey
+            TebasenCrawlerJob.JobKey, AxelightCrawlerJob.JobKey
         };
 }

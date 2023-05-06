@@ -8,7 +8,7 @@
     <h1>ジョブをデバッグする</h1>
 </header>
 <main>
-    @foreach (var job in Model.AvaliableJobs)
+    @foreach (var job in Model.AvailableJobs)
     {
         <h2>@job</h2>
         <form asp-action="IndexPost" asp-controller="ToyboxJob" method="post">
