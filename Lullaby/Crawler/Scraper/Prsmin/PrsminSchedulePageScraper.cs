@@ -8,6 +8,9 @@ using Ryzm;
 
 public class PrsminSchedulePageScraper : RyzmSchedulePageScraper, ISchedulePageScraper
 {
+    public override string SchedulePageUrl => "https://prsmin.com/live";
+    public Type TargetGroup => typeof(Prsmin);
+
     public PrsminSchedulePageScraper(
         RestClient client,
         IBrowsingContext browsingContext,
@@ -15,7 +18,4 @@ public class PrsminSchedulePageScraper : RyzmSchedulePageScraper, ISchedulePageS
     ) : base(client, browsingContext, eventTypeDetector)
     {
     }
-
-    public override string SchedulePageUrl => "https://prsmin.com/live";
-    public Type TargetGroup => typeof(Prsmin);
 }
