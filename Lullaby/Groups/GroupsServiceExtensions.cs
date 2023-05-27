@@ -16,5 +16,7 @@ public static class GroupsServiceExtensions
             .AddScoped<Yosugala, Yosugala>()
             .AddScoped<Axelight, Axelight>()
             .AddScoped<IGroup, Axelight>()
+            .AddScoped<Prsmin, Prsmin>()
+            .AddScoped<IGroup, Prsmin>()
             .AddScoped<IGroupKeys, GroupKeys>();
 }

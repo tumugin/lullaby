@@ -59,5 +59,14 @@ public static class ConfigureScheduledJobs
             .WithIdentity("axelight cron trigger")
             .WithCronSchedule("0 0 * ? * * *")
         );
+
+        // PRSMIN - prsmin
+        var prsminJobKey = new JobKey(PrsminCrawlerJob.JobKey);
+        quarts.AddJob<PrsminCrawlerJob>(o => o.WithIdentity(prsminJobKey));
+        quarts.AddTrigger(t => t
+            .ForJob(prsminJobKey)
+            .WithIdentity("prsmin cron trigger")
+            .WithCronSchedule("0 0 * ? * * *")
+        );
     }
 }
