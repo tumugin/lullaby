@@ -8,6 +8,6 @@ public class ToyboxJobViewModel
         new[]
         {
             AosekaCrawlerJob.JobKey, KolokolCrawlerJob.JobKey, YosugalaCrawlerJob.JobKey, OssCrawlerJob.JobKey,
-            TebasenCrawlerJob.JobKey, AxelightCrawlerJob.JobKey
+            TebasenCrawlerJob.JobKey, AxelightCrawlerJob.JobKey, PrsminCrawlerJob.JobKey
         };
 }
