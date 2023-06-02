@@ -2,17 +2,24 @@ namespace Lullaby.Tests;
 
 using Lullaby.Db;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 public class BaseDatabaseTest
 {
     protected LullabyContext Context { get; private set; } = null!;
 
+    protected static DbContextOptions BuildDbContextOptions(
+        DbContextOptionsBuilder builder
+    ) =>
+        builder
+            .UseInMemoryDatabase(TestingConstant.InMemoryTestingDatabaseName)
+            .ConfigureWarnings(c => c.Ignore(InMemoryEventId.TransactionIgnoredWarning))
+            .Options;
+
     [SetUp]
     public void Initialize() =>
         this.Context = new LullabyContext(
-            new DbContextOptionsBuilder<LullabyContext>()
-                .UseInMemoryDatabase(TestingConstant.InMemoryTestingDatabaseName)
-                .Options
+            BuildDbContextOptions(new DbContextOptionsBuilder<LullabyContext>())
         );
 
     [TearDown]

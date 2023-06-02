@@ -35,6 +35,7 @@ public static class ServiceExtension
         webApplicationBuilder.WebHost.UseSentry(o =>
         {
             o.Dsn = webApplicationBuilder.Configuration.GetSection("Sentry").GetValue<string?>("Dsn");
+            o.EnableTracing = true;
             o.TracesSampleRate = webApplicationBuilder.Configuration.GetSection("Sentry")
                 .GetValue<double?>("TracesSampleRate") ?? 1.0;
         });

@@ -1,5 +1,6 @@
 namespace Lullaby.Crawler;
 
+using Db;
 using Events;
 using Groups;
 using Scraper;
@@ -11,18 +12,21 @@ public class GroupCrawler : IGroupCrawler
     private readonly IFindDuplicateEventService findDuplicateEventService;
     private readonly IEnumerable<ISchedulePageScraper> schedulePageScrapers;
     private readonly IUpdateEventByGroupEventService updateEventByGroupEventService;
+    private readonly LullabyContext lullabyContext;
 
     public GroupCrawler(
         IAddEventByGroupEventService addEventByGroupEventService,
         IFindDuplicateEventService findDuplicateEventService,
         IUpdateEventByGroupEventService updateEventByGroupEventService,
-        IEnumerable<ISchedulePageScraper> schedulePageScrapers
+        IEnumerable<ISchedulePageScraper> schedulePageScrapers,
+        LullabyContext lullabyContext
     )
     {
         this.addEventByGroupEventService = addEventByGroupEventService;
         this.findDuplicateEventService = findDuplicateEventService;
         this.updateEventByGroupEventService = updateEventByGroupEventService;
         this.schedulePageScrapers = schedulePageScrapers;
+        this.lullabyContext = lullabyContext;
     }
 
     public async Task GetAndUpdateSavedEvents(
@@ -41,6 +45,8 @@ public class GroupCrawler : IGroupCrawler
                     EndDateTime = v.EventDateTime.EventEndDateTimeOffset
                 }
             );
+
+        await using var transaction = await this.lullabyContext.Database.BeginTransactionAsync(cancellationToken);
 
         var duplicateEvents = await this.findDuplicateEventService
             .Execute(findDuplicateEventsQuery, cancellationToken);
@@ -62,6 +68,8 @@ public class GroupCrawler : IGroupCrawler
                 await this.addEventByGroupEventService.Execute(group.GroupKey, groupEvent, cancellationToken);
             }
         }
+
+        await transaction.CommitAsync(cancellationToken);
     }
 
     private Task<IReadOnlyList<GroupEvent>> GetEvents(
