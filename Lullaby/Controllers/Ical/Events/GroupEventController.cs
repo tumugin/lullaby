@@ -84,7 +84,8 @@ public class GroupEventController : ControllerBase
                 Summary = e.EventName,
                 Description = e.EventDescription,
                 Location = e.EventPlace
-            });
+            })
+            .ToArray();
 
         var calendar = new Calendar();
 
@@ -93,7 +94,10 @@ public class GroupEventController : ControllerBase
         // FIXME: タイムゾーンがAsia/Tokyo以外のグループを扱うことになったら対応を考える
         calendar.AddTimeZone("Asia/Tokyo");
 
-        calendarEvents.ToList().ForEach(v => calendar.Events.Add(v));
+        foreach (var calendarEvent in calendarEvents)
+        {
+            calendar.Events.Add(calendarEvent);
+        }
 
         var serializer = new CalendarSerializer();
         var serializedCalendar = serializer.SerializeToString(calendar);

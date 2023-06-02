@@ -31,7 +31,9 @@ public class GroupCrawlerTest : BaseDatabaseTest
             this.addEventByGroupEventService,
             this.findDuplicateEventService,
             this.updateEventByGroupEventService,
-            new[] { scraper });
+            new[] { scraper },
+            this.Context
+        );
         await groupCrawler.GetAndUpdateSavedEvents(testGroup, default);
 
         var addedResult = await this.Context.Events.ToArrayAsync();
@@ -52,7 +54,9 @@ public class GroupCrawlerTest : BaseDatabaseTest
             this.addEventByGroupEventService,
             this.findDuplicateEventService,
             this.updateEventByGroupEventService,
-            new[] { scraper });
+            new[] { scraper },
+            this.Context
+        );
 
         // run it twice
         await groupCrawler.GetAndUpdateSavedEvents(testGroup, default);

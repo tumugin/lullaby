@@ -8,9 +8,14 @@ using Microsoft.Extensions.DependencyInjection;
 
 public class TestingWebApplicationFactory : WebApplicationFactory<Program>
 {
-    private string EnvironmentName { get; }
+    private readonly string environmentName;
+    private readonly Action<DbContextOptionsBuilder> dbContextOptionsBuilder;
 
-    public TestingWebApplicationFactory(string environmentName) => this.EnvironmentName = environmentName;
+    public TestingWebApplicationFactory(string environmentName, Action<DbContextOptionsBuilder> dbContextOptionsBuilder)
+    {
+        this.environmentName = environmentName;
+        this.dbContextOptionsBuilder = dbContextOptionsBuilder;
+    }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -25,11 +30,9 @@ public class TestingWebApplicationFactory : WebApplicationFactory<Program>
                 services.Remove(existingDbContextDescriptor);
             }
 
-            services.AddDbContext<LullabyContext>(options =>
-                options.UseInMemoryDatabase(TestingConstant.InMemoryTestingDatabaseName)
-            );
+            services.AddDbContext<LullabyContext>(this.dbContextOptionsBuilder);
         });
 
-        builder.UseEnvironment(this.EnvironmentName);
+        builder.UseEnvironment(this.environmentName);
     }
 }
