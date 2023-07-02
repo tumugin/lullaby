@@ -61,14 +61,22 @@ public class TimeTreeApiClient : ITimeTreeApiClient
         return ConvertRawResultToTimeTreeApiResult(rawResult);
     }
 
-    private static TimeTreeApiResult ConvertRawResultToTimeTreeApiResult(TimeTreeApiRawResult.Root root)
-    {
-        return new TimeTreeApiResult
+    private static TimeTreeApiResult ConvertRawResultToTimeTreeApiResult(TimeTreeApiRawResult.Root root) =>
+        new()
         {
             NextPageCursor = root.Paging.NextCursor,
-            HasNextPage = root.Paging.Next
+            HasNextPage = root.Paging.Next,
+            Schedules = root.PublicEvents.Select(v => new TimeTreeApiResult.TimeTreeSchedule
+            {
+                Id = v.Id,
+                Title = v.Title,
+                Overview = v.Overview,
+                ImageUrls = v.Images.Overview.Select(x => x.Url).ToArray(),
+                LocationName = v.LocationName,
+                StartAt = DateTimeOffset.FromUnixTimeMilliseconds(v.StartAt),
+                EndAt = DateTimeOffset.FromUnixTimeMilliseconds(v.EndAt)
+            }).ToArray()
         };
-    }
 
     private class TimeTreeApiRawResult
     {
@@ -138,8 +146,8 @@ public class TimeTreeApiClient : ITimeTreeApiClient
             [property: JsonPropertyName("all_day")]
             bool AllDay,
             [property: JsonPropertyName("start_at")]
-            object StartAt,
-            [property: JsonPropertyName("end_at")] object EndAt,
+            long StartAt,
+            [property: JsonPropertyName("end_at")] long EndAt,
             [property: JsonPropertyName("start_timezone")]
             string StartTimezone,
             [property: JsonPropertyName("end_timezone")]
@@ -147,7 +155,7 @@ public class TimeTreeApiClient : ITimeTreeApiClient
             [property: JsonPropertyName("recurrences")]
             object Recurrences,
             [property: JsonPropertyName("until_at")]
-            object UntilAt,
+            long UntilAt,
             [property: JsonPropertyName("region_timezone")]
             string RegionTimezone,
             [property: JsonPropertyName("period_closed")]
@@ -158,9 +166,9 @@ public class TimeTreeApiClient : ITimeTreeApiClient
             [property: JsonPropertyName("attachment")]
             Attachment Attachment,
             [property: JsonPropertyName("updated_at")]
-            object UpdatedAt,
+            long UpdatedAt,
             [property: JsonPropertyName("created_at")]
-            object CreatedAt,
+            long CreatedAt,
             [property: JsonPropertyName("summary")]
             Summary Summary
         );
