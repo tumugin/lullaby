@@ -17,8 +17,9 @@ public class TimeTreeApiResult
         public required string Title { get; init; }
         public required string Overview { get; init; }
         public required IReadOnlyList<string> ImageUrls { get; init; }
-        public required string LocationName { get; init; }
+        public required string? LocationName { get; init; }
         public required DateTimeOffset StartAt { get; init; }
         public required DateTimeOffset EndAt { get; init; }
+        public required bool IsAllDayEvent { get; init; }
     }
 }

@@ -3,6 +3,7 @@ namespace Lullaby.Crawler.Scraper.TimeTree;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Flurl;
+using TimeZoneConverter;
 
 public class TimeTreeApiClient : ITimeTreeApiClient
 {
@@ -72,11 +73,35 @@ public class TimeTreeApiClient : ITimeTreeApiClient
                 Title = v.Title,
                 Overview = v.Overview,
                 ImageUrls = v.Images.Overview.Select(x => x.Url).ToArray(),
-                LocationName = v.LocationName,
-                StartAt = DateTimeOffset.FromUnixTimeMilliseconds(v.StartAt),
-                EndAt = DateTimeOffset.FromUnixTimeMilliseconds(v.EndAt)
+                LocationName = v.LocationName != "" ? v.LocationName : null,
+                // UnixTime in milliseconds should be in UTC but it seems to be in local timezone. We have to forcibly set the timezone.
+                StartAt = ForciblySetTimeZoneToDateTimeOffset(
+                    DateTimeOffset.FromUnixTimeMilliseconds(v.StartAt),
+                    v.StartTimezone
+                ),
+                EndAt = ForciblySetTimeZoneToDateTimeOffset(
+                    DateTimeOffset.FromUnixTimeMilliseconds(v.UntilAt),
+                    v.EndTimezone
+                ),
+                IsAllDayEvent = new
+                    {
+                        StartAt = DateTimeOffset.FromUnixTimeMilliseconds(v.StartAt),
+                        EndAt = DateTimeOffset.FromUnixTimeMilliseconds(v.EndAt)
+                    } switch
+                    {
+                        {
+                            StartAt: { Hour: 0, Minute: 0, Second: 0 }, EndAt: { Hour: 0, Minute: 0, Second: 0 }
+                        } => true,
+                        _ => false
+                    }
             }).ToArray()
         };
+
+    private static DateTimeOffset ForciblySetTimeZoneToDateTimeOffset(DateTimeOffset dateTimeOffset, string timezone)
+    {
+        var timezoneInfo = TZConvert.GetTimeZoneInfo(timezone);
+        return new DateTimeOffset(dateTimeOffset.DateTime, timezoneInfo.BaseUtcOffset);
+    }
 
     private class TimeTreeApiRawResult
     {

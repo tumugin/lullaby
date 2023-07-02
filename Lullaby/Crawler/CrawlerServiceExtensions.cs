@@ -9,6 +9,7 @@ using Scraper.Kolokol;
 using Scraper.OSS;
 using Scraper.Prsmin;
 using Scraper.Tebasen;
+using Scraper.TimeTree;
 using Scraper.Yosugala;
 
 public static class CrawlerServiceExtensions
@@ -19,6 +20,8 @@ public static class CrawlerServiceExtensions
             BrowsingContext.New(Configuration.Default.WithDefaultLoader())
         );
         serviceCollection.AddScoped<IEventTypeDetector, EventTypeDetector>();
+
+        serviceCollection.AddTimeTree();
 
         serviceCollection
             .AddScoped<ISchedulePageScraper, AosekaSchedulePageScraper>()
