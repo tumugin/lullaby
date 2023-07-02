@@ -103,23 +103,23 @@ public class TimeTreeApiClient : ITimeTreeApiClient
         return new DateTimeOffset(dateTimeOffset.DateTime, timezoneInfo.BaseUtcOffset);
     }
 
-    private class TimeTreeApiRawResult
+    private sealed class TimeTreeApiRawResult
     {
-        public record Attachment;
+        public sealed record Attachment;
 
-        public record Cover(
+        public sealed record Cover(
             [property: JsonPropertyName("url")] string Url,
             [property: JsonPropertyName("thumbnail_url")]
             string ThumbnailUrl
         );
 
-        public record Images(
+        public sealed record Images(
             [property: JsonPropertyName("cover")] IReadOnlyList<Cover> Cover,
             [property: JsonPropertyName("overview")]
             IReadOnlyList<Overview> Overview
         );
 
-        public record Location(
+        public sealed record Location(
             [property: JsonPropertyName("title")] string Title,
             [property: JsonPropertyName("address")]
             string Address,
@@ -128,19 +128,19 @@ public class TimeTreeApiClient : ITimeTreeApiClient
             [property: JsonPropertyName("note")] string Note
         );
 
-        public record Overview(
+        public sealed record Overview(
             [property: JsonPropertyName("url")] string Url,
             [property: JsonPropertyName("thumbnail_url")]
             string ThumbnailUrl
         );
 
-        public record Paging(
+        public sealed record Paging(
             [property: JsonPropertyName("next_cursor")]
             string NextCursor,
             [property: JsonPropertyName("next")] bool Next
         );
 
-        public record PublicEvent(
+        public sealed record PublicEvent(
             [property: JsonPropertyName("id")] string Id,
             [property: JsonPropertyName("public_calendar_id")]
             int PublicCalendarId,
@@ -198,13 +198,13 @@ public class TimeTreeApiClient : ITimeTreeApiClient
             Summary Summary
         );
 
-        public record Root(
+        public sealed record Root(
             [property: JsonPropertyName("paging")] Paging Paging,
             [property: JsonPropertyName("public_events")]
             IReadOnlyList<PublicEvent> PublicEvents
         );
 
-        public record Summary(
+        public sealed record Summary(
             [property: JsonPropertyName("total_event_count")]
             int TotalEventCount,
             [property: JsonPropertyName("like_count")]
