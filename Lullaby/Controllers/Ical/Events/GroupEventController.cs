@@ -74,12 +74,14 @@ public class GroupEventController : ControllerBase
                     TimeZoneInfo.ConvertTime(e.EventStarts, asiaTokyoTimezone).DateTime,
                     "Asia/Tokyo"
                 ),
-                End = e.IsDateTimeDetailed
-                    ? new CalDateTime(
-                        TimeZoneInfo.ConvertTime(e.EventEnds, asiaTokyoTimezone).DateTime,
-                        "Asia/Tokyo"
-                    )
-                    : null,
+                End = new CalDateTime(
+                    TimeZoneInfo.ConvertTime(
+                        // 終日イベントはGCalなどではLullabyのDB上の終日の日付を含まないので、終日イベントの場合は終了日時を1秒前にする
+                        e.IsDateTimeDetailed ? e.EventEnds : e.EventEnds.AddSeconds(-1),
+                        asiaTokyoTimezone
+                    ).DateTime,
+                    "Asia/Tokyo"
+                ),
                 IsAllDay = !e.IsDateTimeDetailed,
                 Summary = e.EventName,
                 Description = e.EventDescription,
