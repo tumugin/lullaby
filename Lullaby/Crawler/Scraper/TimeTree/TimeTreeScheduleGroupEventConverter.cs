@@ -2,7 +2,7 @@ namespace Lullaby.Crawler.Scraper.TimeTree;
 
 using Events;
 
-public class TimeTreeScheduleGroupEventConverter
+public class TimeTreeScheduleGroupEventConverter : ITimeTreeScheduleGroupEventConverter
 {
     private readonly IEventTypeDetector eventTypeDetector;
 
