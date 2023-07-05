@@ -65,7 +65,8 @@ public class TimeTreeApiClient : ITimeTreeApiClient
     private static TimeTreeApiResult ConvertRawResultToTimeTreeApiResult(TimeTreeApiRawResult.Root root) =>
         new()
         {
-            NextPageCursor = root.Paging.NextCursor,
+            // Somehow, the cursor is set even if there is no next page.
+            NextPageCursor = root.Paging.Next ? root.Paging.NextCursor : null,
             HasNextPage = root.Paging.Next,
             Schedules = root.PublicEvents.Select(v => new TimeTreeApiResult.TimeTreeSchedule
             {
