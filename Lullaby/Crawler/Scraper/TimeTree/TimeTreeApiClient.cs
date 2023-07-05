@@ -80,20 +80,13 @@ public class TimeTreeApiClient : ITimeTreeApiClient
                     v.StartTimezone
                 ),
                 EndAt = ForciblySetTimeZoneToDateTimeOffset(
-                    DateTimeOffset.FromUnixTimeMilliseconds(v.UntilAt),
+                    DateTimeOffset.FromUnixTimeMilliseconds(v.EndAt),
                     v.EndTimezone
                 ),
-                IsAllDayEvent = new
-                    {
-                        StartAt = DateTimeOffset.FromUnixTimeMilliseconds(v.StartAt),
-                        EndAt = DateTimeOffset.FromUnixTimeMilliseconds(v.EndAt)
-                    } switch
-                    {
-                        {
-                            StartAt: { Hour: 0, Minute: 0, Second: 0 }, EndAt: { Hour: 0, Minute: 0, Second: 0 }
-                        } => true,
-                        _ => false
-                    }
+                UntilAt = ForciblySetTimeZoneToDateTimeOffset(
+                    DateTimeOffset.FromUnixTimeMilliseconds(v.UntilAt),
+                    v.EndTimezone
+                )
             }).ToArray()
         };
 

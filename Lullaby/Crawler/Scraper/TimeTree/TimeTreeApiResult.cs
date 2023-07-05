@@ -20,6 +20,6 @@ public class TimeTreeApiResult
         public required string? LocationName { get; init; }
         public required DateTimeOffset StartAt { get; init; }
         public required DateTimeOffset EndAt { get; init; }
-        public required bool IsAllDayEvent { get; init; }
+        public required DateTimeOffset UntilAt { get; init; }
     }
 }
