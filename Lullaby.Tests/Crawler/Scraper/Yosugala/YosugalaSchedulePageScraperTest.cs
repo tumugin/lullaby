@@ -7,13 +7,13 @@ using Lullaby.Crawler.Scraper.Yosugala;
 using RestSharp;
 using RichardSzalay.MockHttp;
 
-public class YosugalaSchedulePageScraperTest : BaseScraperTest
+public class YosugalaSchedulePageScraperTest
 {
     [Test]
     public async Task ScrapeAsyncTest()
     {
         var schedulePageFileContent =
-            await GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Yosugala.yosugala-test-page.html");
+            await ScraperTestUtils.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Yosugala.yosugala-test-page.html");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp.When(YosugalaSchedulePageScraper.SchedulePageUrlConstant)
             .Respond("text/html", schedulePageFileContent);
