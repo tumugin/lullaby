@@ -4,13 +4,13 @@ using System.Globalization;
 using Lullaby.Crawler.Scraper.TimeTree;
 using RichardSzalay.MockHttp;
 
-public class TimeTreeApiClientTest : BaseScraperTest
+public class TimeTreeApiClientTest
 {
     [Test]
     public async Task ScrapeAsyncTest()
     {
         var scheduleJson =
-            await GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.TimeTree.time-tree-test-json.json");
+            await ScraperTestUtils.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.TimeTree.time-tree-test-json.json");
         var mockHttp = new MockHttpMessageHandler();
         mockHttp
             .Fallback

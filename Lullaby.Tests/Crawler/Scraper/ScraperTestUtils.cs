@@ -1,10 +1,10 @@
 ﻿namespace Lullaby.Tests.Crawler.Scraper;
 
-public abstract class BaseScraperTest
+public abstract class ScraperTestUtils
 {
-    protected static async Task<string> GetTestFileFromManifest(string manifestPath)
+    public static async Task<string> GetTestFileFromManifest(string manifestPath)
     {
-        var testFileStream = typeof(BaseScraperTest)
+        var testFileStream = typeof(ScraperTestUtils)
             .Assembly
             .GetManifestResourceStream(manifestPath);
 

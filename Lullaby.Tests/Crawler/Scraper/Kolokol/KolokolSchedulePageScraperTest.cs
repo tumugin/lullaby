@@ -7,16 +7,16 @@ using Lullaby.Crawler.Scraper.Kolokol;
 using RestSharp;
 using RichardSzalay.MockHttp;
 
-public class KolokolSchedulePageScraperTest : BaseScraperTest
+public class KolokolSchedulePageScraperTest
 {
     [Test]
     public async Task ScrapeAsyncTest()
     {
         // mock html request
         var testFutureFileContent =
-            await GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Kolokol.kolokol-test-page.html");
+            await ScraperTestUtils.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Kolokol.kolokol-test-page.html");
         var testPastFileContent =
-            await GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Kolokol.kolokol-past-schedule-test-page.html");
+            await ScraperTestUtils.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Kolokol.kolokol-past-schedule-test-page.html");
         var mockHttp = new MockHttpMessageHandler();
         KolokolSchedulePageScraper.SchedulePageUrls.ToList().ForEach(pageUrl =>
         {
