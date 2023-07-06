@@ -18,5 +18,6 @@ public static class GroupsServiceExtensions
             .AddScoped<IGroup, Axelight>()
             .AddScoped<Prsmin, Prsmin>()
             .AddScoped<IGroup, Prsmin>()
+            .AddScoped<IGroup, Tenhana>()
             .AddScoped<IGroupKeys, GroupKeys>();
 }

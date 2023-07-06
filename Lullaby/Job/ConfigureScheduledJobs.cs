@@ -68,5 +68,14 @@ public static class ConfigureScheduledJobs
             .WithIdentity("prsmin cron trigger")
             .WithCronSchedule("0 0 * ? * * *")
         );
+
+        // 天使にはなれない - tenhana
+        var tenhanaJobKey = new JobKey(TenhanaCrawlerJob.JobKey);
+        quarts.AddJob<TenhanaCrawlerJob>(o => o.WithIdentity(tenhanaJobKey));
+        quarts.AddTrigger(t => t
+            .ForJob(tenhanaJobKey)
+            .WithIdentity("tenhana cron trigger")
+            .WithCronSchedule("0 0 * ? * * *")
+        );
     }
 }
