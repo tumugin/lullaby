@@ -5,10 +5,10 @@ using System.Text.Json.Serialization;
 using Crawler;
 using Db;
 using Groups;
-using Job;
+using Hangfire;
+using Hangfire.Redis.StackExchange;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Quartz;
 using RestSharp;
 using Services.Events;
 
@@ -26,6 +26,23 @@ public static class ServiceExtension
         serviceCollection.AddHttpClient();
         serviceCollection.AddScoped<RestClient, RestClient>(p => new RestClient(p.GetRequiredService<HttpClient>()));
         return serviceCollection;
+    }
+
+    private static void AddLullabyHangfire(this WebApplicationBuilder webApplicationBuilder)
+    {
+        if (webApplicationBuilder.Environment.EnvironmentName == "Testing")
+        {
+            return;
+        }
+
+        webApplicationBuilder.Services.AddHangfire(hangfire =>
+        {
+            hangfire.SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseRedisStorage(webApplicationBuilder.Configuration.GetConnectionString("RedisConnection"));
+        });
+        webApplicationBuilder.Services.AddHangfireServer();
     }
 
     public static WebApplicationBuilder AddApplicationServices(
@@ -72,30 +89,8 @@ public static class ServiceExtension
             });
         });
 
-        // Add Quartz
-        webApplicationBuilder.Services.AddQuartz(quartz =>
-        {
-            quartz.UseMicrosoftDependencyInjectionJobFactory();
-            // Do not configure quartz store databases and cron jobs for testing
-            if (webApplicationBuilder.Environment.EnvironmentName != "Testing")
-            {
-                quartz.UsePersistentStore(store =>
-                {
-                    store.UseJsonSerializer();
-                    store.UseProperties = true;
-                    store.UseClustering();
-                    store.UseMySqlConnector(c =>
-                    {
-                        c.ConnectionString = dbConnectionString;
-                    });
-                });
-                ConfigureScheduledJobs.Configure(quartz);
-            }
-        });
-        webApplicationBuilder.Services.AddQuartzHostedService(quartz =>
-        {
-            quartz.WaitForJobsToComplete = true;
-        });
+        // Add HangFire
+        webApplicationBuilder.AddLullabyHangfire();
 
         // Swagger
         webApplicationBuilder.Services.AddSwaggerGen(swagger =>

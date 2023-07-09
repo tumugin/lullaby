@@ -1,7 +1,25 @@
 namespace Lullaby;
 
+using Hangfire;
+using Job;
+
 public static class WebApplicationExtension
 {
+    private static void UseLullabyHangfire(this WebApplication webApplication)
+    {
+        if (webApplication.Environment.EnvironmentName == "Testing")
+        {
+            return;
+        }
+
+        ConfigureScheduledJobs.Configure(webApplication.Services.GetRequiredService<IRecurringJobManager>());
+        if (webApplication.Environment.IsDevelopment())
+        {
+            // TODO: Implement HangFire dashboard authentication for production
+            webApplication.UseHangfireDashboard();
+        }
+    }
+
     public static WebApplication UseLullabyWebApplication(this WebApplication webApplication)
     {
         // Configure the HTTP request pipeline.
@@ -17,6 +35,9 @@ public static class WebApplicationExtension
         {
             webApplication.UseDeveloperExceptionPage();
         }
+
+        // HangFire
+        webApplication.UseLullabyHangfire();
 
         // Swagger(enable for all envs because it's api application open for everyone)
         webApplication.UseSwagger();

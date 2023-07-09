@@ -14,6 +14,9 @@
     <PackageReference Include="AngleSharp" Version="1.0.4" />
     <PackageReference Include="DeepCloner" Version="0.10.4" />
     <PackageReference Include="Flurl" Version="3.0.7" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.3" />
+    <PackageReference Include="Hangfire.Core" Version="1.8.3" />
+    <PackageReference Include="Hangfire.Redis.StackExchange" Version="1.9.0" />
     <PackageReference Include="Ical.Net" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.8">
@@ -23,9 +26,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.8" />
     <PackageReference Include="MySqlConnector" Version="2.2.6" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
-    <PackageReference Include="Quartz" Version="3.6.3" />
-    <PackageReference Include="Quartz.AspNetCore" Version="3.6.3" />
-    <PackageReference Include="Quartz.Serialization.Json" Version="3.6.3" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
     <PackageReference Include="Sentry.AspNetCore" Version="3.33.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
@@ -35,6 +35,10 @@
 
   <ItemGroup>
     <Folder Include="Migrations" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\ToyboxJob\Index.cshtml" />
   </ItemGroup>
 
 </Project>
