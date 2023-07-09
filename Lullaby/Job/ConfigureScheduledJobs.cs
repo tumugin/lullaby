@@ -1,81 +1,65 @@
 namespace Lullaby.Job;
 
-using Quartz;
+using Hangfire;
 
 public static class ConfigureScheduledJobs
 {
-    public static void Configure(IServiceCollectionQuartzConfigurator quarts)
+    public static void Configure(IRecurringJobManager recurringJobManager)
     {
         // aoseka - 群青の世界
-        var aosekaJobKey = new JobKey(AosekaCrawlerJob.JobKey);
-        quarts.AddJob<AosekaCrawlerJob>(o => o.WithIdentity(aosekaJobKey));
-        quarts.AddTrigger(t => t
-            .ForJob(aosekaJobKey)
-            .WithIdentity("Aoseka cron trigger")
-            .WithCronSchedule("0 0 * ? * * *")
+        recurringJobManager.AddOrUpdate<AosekaCrawlerJob>(
+            AosekaCrawlerJob.JobKey,
+            x => x.Execute(default),
+            Cron.Hourly()
         );
 
         // kolokol - Kolokol
-        var kolokolJobKey = new JobKey(KolokolCrawlerJob.JobKey);
-        quarts.AddJob<KolokolCrawlerJob>(o => o.WithIdentity(kolokolJobKey));
-        quarts.AddTrigger(t => t
-            .ForJob(kolokolJobKey)
-            .WithIdentity("Kolokol cron trigger")
-            .WithCronSchedule("0 0 * ? * * *")
+        recurringJobManager.AddOrUpdate<KolokolCrawlerJob>(
+            KolokolCrawlerJob.JobKey,
+            x => x.Execute(default),
+            Cron.Hourly()
         );
 
         // yosugala - yosugala
-        var yosugalaJobKey = new JobKey(YosugalaCrawlerJob.JobKey);
-        quarts.AddJob<YosugalaCrawlerJob>(o => o.WithIdentity(yosugalaJobKey));
-        quarts.AddTrigger(t => t
-            .ForJob(yosugalaJobKey)
-            .WithIdentity("yosugala cron trigger")
-            .WithCronSchedule("0 0 * ? * * *")
+        recurringJobManager.AddOrUpdate<YosugalaCrawlerJob>(
+            YosugalaCrawlerJob.JobKey,
+            x => x.Execute(default),
+            Cron.Hourly()
         );
 
         // OSS - OSS
-        var ossJobKey = new JobKey(OssCrawlerJob.JobKey);
-        quarts.AddJob<OssCrawlerJob>(o => o.WithIdentity(ossJobKey));
-        quarts.AddTrigger(t => t
-            .ForJob(ossJobKey)
-            .WithIdentity("OSS cron trigger")
-            .WithCronSchedule("0 0 * ? * * *")
+        recurringJobManager.AddOrUpdate<OssCrawlerJob>(
+            OssCrawlerJob.JobKey,
+            x => x.Execute(default),
+            Cron.Hourly()
         );
 
         // 手羽先センセーション - tebasen
-        var tebasenJobKey = new JobKey(TebasenCrawlerJob.JobKey);
-        quarts.AddJob<TebasenCrawlerJob>(o => o.WithIdentity(tebasenJobKey));
-        quarts.AddTrigger(t => t
-            .ForJob(tebasenJobKey)
-            .WithIdentity("tebasen cron trigger")
-            .WithCronSchedule("0 0 * ? * * *")
+        recurringJobManager.AddOrUpdate<TebasenCrawlerJob>(
+            TebasenCrawlerJob.JobKey,
+            x => x.Execute(default),
+            Cron.Hourly()
         );
 
         // Axelight - axelight
-        var axelightJobKey = new JobKey(AxelightCrawlerJob.JobKey);
-        quarts.AddJob<AxelightCrawlerJob>(o => o.WithIdentity(axelightJobKey));
-        quarts.AddTrigger(t => t
-            .ForJob(axelightJobKey)
-            .WithIdentity("axelight cron trigger")
-            .WithCronSchedule("0 0 * ? * * *")
+        recurringJobManager.AddOrUpdate<AxelightCrawlerJob>(
+            AxelightCrawlerJob.JobKey,
+            x => x.Execute(default),
+            Cron.Hourly()
         );
 
         // PRSMIN - prsmin
-        var prsminJobKey = new JobKey(PrsminCrawlerJob.JobKey);
-        quarts.AddJob<PrsminCrawlerJob>(o => o.WithIdentity(prsminJobKey));
-        quarts.AddTrigger(t => t
-            .ForJob(prsminJobKey)
-            .WithIdentity("prsmin cron trigger")
-            .WithCronSchedule("0 0 * ? * * *")
+        recurringJobManager.AddOrUpdate<PrsminCrawlerJob>(
+            PrsminCrawlerJob.JobKey,
+            x => x.Execute(default),
+            Cron.Hourly()
         );
 
         // 天使にはなれない - tenhana
-        var tenhanaJobKey = new JobKey(TenhanaCrawlerJob.JobKey);
-        quarts.AddJob<TenhanaCrawlerJob>(o => o.WithIdentity(tenhanaJobKey));
-        quarts.AddTrigger(t => t
-            .ForJob(tenhanaJobKey)
-            .WithIdentity("tenhana cron trigger")
-            .WithCronSchedule("0 0 * ? * * *")
+        recurringJobManager.AddOrUpdate<TenhanaCrawlerJob>(
+            TenhanaCrawlerJob.JobKey,
+            x => x.Execute(default),
+            Cron.Hourly()
         );
     }
 }
