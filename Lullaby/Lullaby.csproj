@@ -14,8 +14,8 @@
     <PackageReference Include="AngleSharp" Version="1.0.4" />
     <PackageReference Include="DeepCloner" Version="0.10.4" />
     <PackageReference Include="Flurl" Version="3.0.7" />
-    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.3" />
-    <PackageReference Include="Hangfire.Core" Version="1.8.3" />
+    <PackageReference Include="Hangfire.AspNetCore" Version="1.8.4" />
+    <PackageReference Include="Hangfire.Core" Version="1.8.4" />
     <PackageReference Include="Hangfire.Redis.StackExchange" Version="1.9.0" />
     <PackageReference Include="Ical.Net" Version="4.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="7.0.9" />
@@ -24,7 +24,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.9" />
-    <PackageReference Include="MySqlConnector" Version="2.2.6" />
+    <PackageReference Include="MySqlConnector" Version="2.2.7" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
     <PackageReference Include="RestSharp" Version="110.2.0" />
     <PackageReference Include="Sentry.AspNetCore" Version="3.34.0" />
