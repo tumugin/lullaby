@@ -40,16 +40,12 @@ public class TimeTreeApiClient : ITimeTreeApiClient
             })
             .ToUri();
 
-        using var httpRequestMessage = new HttpRequestMessage
-        {
-            RequestUri = requestUri,
-            Method = HttpMethod.Get,
-            Headers =
-            {
-                // Set same as the web client
-                { "X-Timetreea", "web/2.1.0/ja" }
-            }
-        };
+        using var httpRequestMessage = new HttpRequestMessage();
+        httpRequestMessage.RequestUri = requestUri;
+        httpRequestMessage.Method = HttpMethod.Get;
+        // Set same as the web client
+        httpRequestMessage.Headers.Add("X-Timetreea", "web/2.1.0/ja");
+
         var rawResponse = await this.httpClient.SendAsync(httpRequestMessage, cancellationToken);
         var rawJson = await rawResponse.Content.ReadAsStringAsync(cancellationToken);
         var rawResult = JsonSerializer.Deserialize<TimeTreeApiRawResult.Root>(rawJson);
