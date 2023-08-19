@@ -110,7 +110,7 @@ public class RyzmScheduleObject
     {
         [JsonPropertyName("current_page")] public int CurrentPage { get; init; }
 
-        [JsonPropertyName("from")] public int From { get; init; }
+        [JsonPropertyName("from")] public int? From { get; init; }
 
         [JsonPropertyName("last_page")] public int LastPage { get; init; }
 
@@ -120,7 +120,7 @@ public class RyzmScheduleObject
 
         [JsonPropertyName("per_page")] public int PerPage { get; init; }
 
-        [JsonPropertyName("to")] public int To { get; init; }
+        [JsonPropertyName("to")] public int? To { get; init; }
 
         [JsonPropertyName("total")] public int Total { get; init; }
     }
