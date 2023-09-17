@@ -10,4 +10,7 @@ public class BaseWebTest : BaseDatabaseTest
         => this.Client =
             new TestingWebApplicationFactory(this.Environment, builder => BuildDbContextOptions(builder))
                 .CreateClient();
+
+    [TearDown]
+    public void TearDownWebServer() => this.Client.Dispose();
 }
