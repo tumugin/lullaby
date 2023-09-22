@@ -61,5 +61,12 @@ public static class ConfigureScheduledJobs
             x => x.Execute(default),
             Cron.Hourly()
         );
+
+        // TENRIN - tenrin
+        recurringJobManager.AddOrUpdate<TenrinCrawlerJob>(
+            TenrinCrawlerJob.JobKey,
+            x => x.Execute(default),
+            Cron.Hourly()
+        );
     }
 }

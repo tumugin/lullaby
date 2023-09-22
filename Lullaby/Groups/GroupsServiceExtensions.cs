@@ -20,5 +20,6 @@ public static class GroupsServiceExtensions
             .AddScoped<IGroup, Prsmin>()
             .AddScoped<IGroup, Tenhana>()
             .AddScoped<Tenhana, Tenhana>()
+            .AddScoped<Tenrin, Tenrin>()
             .AddScoped<IGroupKeys, GroupKeys>();
 }
