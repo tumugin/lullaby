@@ -10,6 +10,7 @@ using Scraper.OSS;
 using Scraper.Prsmin;
 using Scraper.Tebasen;
 using Scraper.Tenhana;
+using Scraper.Tenrin;
 using Scraper.TimeTree;
 using Scraper.Yosugala;
 
@@ -32,7 +33,8 @@ public static class CrawlerServiceExtensions
             .AddScoped<ISchedulePageScraper, TebasenSchedulePageScraper>()
             .AddScoped<ISchedulePageScraper, AxelightSchedulePageScraper>()
             .AddScoped<ISchedulePageScraper, PrsminSchedulePageScraper>()
-            .AddScoped<ISchedulePageScraper, TenhanaScraper>();
+            .AddScoped<ISchedulePageScraper, TenhanaScraper>()
+            .AddScoped<ISchedulePageScraper, TenrinScraper>();
 
         serviceCollection.AddScoped<IGroupCrawler, GroupCrawler>();
 

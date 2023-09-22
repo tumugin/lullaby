@@ -12,9 +12,13 @@ public class TimeTreeApiClient : ITimeTreeApiClient
 
     public TimeTreeApiClient(HttpClient httpClient) => this.httpClient = httpClient;
 
-    public async Task<TimeTreeApiResult> GetEventsAsync(string calendarId, DateTimeOffset startDate,
+    public async Task<TimeTreeApiResult> GetEventsAsync(
+        string calendarId,
+        DateTimeOffset startDate,
         DateTimeOffset endDate,
-        string? pageCursor, CancellationToken cancellationToken)
+        string? pageCursor,
+        CancellationToken cancellationToken
+    )
     {
         // validate the offsets
         if (startDate.Offset != endDate.Offset)
@@ -31,6 +35,7 @@ public class TimeTreeApiClient : ITimeTreeApiClient
             {
                 limit = 30,
                 string_id = true,
+                cursor = pageCursor,
                 // Unix time in milliseconds
                 since = startDate.ToUnixTimeMilliseconds(),
                 // Unix time in milliseconds
