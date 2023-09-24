@@ -3,7 +3,6 @@ namespace Lullaby.Crawler.Scraper.TimeTree;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Flurl;
-using TimeZoneConverter;
 
 public class TimeTreeApiClient : ITimeTreeApiClient
 {
@@ -94,7 +93,7 @@ public class TimeTreeApiClient : ITimeTreeApiClient
 
     private static DateTimeOffset ForciblySetTimeZoneToDateTimeOffset(DateTimeOffset dateTimeOffset, string timezone)
     {
-        var timezoneInfo = TZConvert.GetTimeZoneInfo(timezone);
+        var timezoneInfo = TimeZoneInfo.FindSystemTimeZoneById(timezone);
         return new DateTimeOffset(dateTimeOffset.DateTime, timezoneInfo.BaseUtcOffset);
     }
 
