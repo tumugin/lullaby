@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using Requests.Ical.Events;
 using Services.Events;
 using Swashbuckle.AspNetCore.Annotations;
-using TimeZoneConverter;
 
 [Controller]
 [Produces("text/calendar")]
@@ -66,7 +65,7 @@ public class GroupEventController : ControllerBase
             )
         };
 
-        var asiaTokyoTimezone = TZConvert.GetTimeZoneInfo("Asia/Tokyo");
+        var asiaTokyoTimezone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Tokyo");
         var calendarEvents = events
             .Select(e => new CalendarEvent
             {
