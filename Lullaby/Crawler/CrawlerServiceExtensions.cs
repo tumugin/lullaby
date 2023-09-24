@@ -13,6 +13,7 @@ using Scraper.Tenhana;
 using Scraper.Tenrin;
 using Scraper.TimeTree;
 using Scraper.Yosugala;
+using Utility;
 
 public static class CrawlerServiceExtensions
 {
@@ -24,6 +25,8 @@ public static class CrawlerServiceExtensions
         serviceCollection.AddScoped<IEventTypeDetector, EventTypeDetector>();
 
         serviceCollection.AddTimeTree();
+
+        serviceCollection.AddScoped<IFullDateGuesser, FullDateGuesser>();
 
         serviceCollection
             .AddScoped<ISchedulePageScraper, AosekaSchedulePageScraper>()
