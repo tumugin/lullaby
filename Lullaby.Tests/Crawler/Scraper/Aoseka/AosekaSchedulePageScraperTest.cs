@@ -4,54 +4,68 @@ using System.Globalization;
 using AngleSharp;
 using Lullaby.Crawler.Events;
 using Lullaby.Crawler.Scraper.Aoseka;
+using Lullaby.Crawler.Utility;
 using RestSharp;
 using RichardSzalay.MockHttp;
 
 public class AosekaSchedulePageScraperTest
 {
-    [Test]
-    public async Task TestScrapeAsync()
+    private AosekaSchedulePageScraper aosekaSchedulePageScraper = null!;
+
+    [SetUp]
+    public void SetUp()
     {
         // mock html request
-        var testFileContent =
-            await ScraperTestUtils.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Aoseka.aoseka-test-page.html");
+        var testFileContent = ScraperTestUtils.GetTestFileFromManifest(
+            "Lullaby.Tests.Crawler.Scraper.Aoseka.aoseka-test-page.html"
+        ).Result;
         var mockHttp = new MockHttpMessageHandler();
         mockHttp
             .When(AosekaSchedulePageScraper.SchedulePageUrl)
             .Respond("text/html", testFileContent);
         var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
 
-        var scraper = new AosekaSchedulePageScraper(client, BrowsingContext.New(Configuration.Default.WithDefaultLoader()));
+        this.aosekaSchedulePageScraper = new AosekaSchedulePageScraper(
+            client,
+            BrowsingContext.New(Configuration.Default.WithDefaultLoader()),
+            new FullDateGuesser(),
+            new EventTypeDetector()
+        );
+    }
 
-        var result = await scraper.ScrapeAsync(default);
+    [Test]
+    public async Task TestScrapeAsyncHasResults()
+    {
+        var result = await this.aosekaSchedulePageScraper.ScrapeAsync(default);
+        Assert.That(result, Has.Count.EqualTo(14));
+    }
 
-        Assert.That(result, Has.Count.EqualTo(64));
+    [Test]
+    public async Task TestScrapeAsync()
+    {
+        var result = await this.aosekaSchedulePageScraper.ScrapeAsync(default);
 
-        // TOKYO IDOL FESTIVAL 2022 supported byにしたんクリニック
-        var tif = result
+        // 定期公演『BLUE』vol.5
+        var testEvent = result
             .FirstOrDefault(v =>
-                v.EventName == "TOKYO IDOL FESTIVAL 2022 supported byにしたんクリニック"
+                v.EventName == "定期公演『BLUE』vol.5"
             );
+
         Assert.Multiple(() =>
         {
-            Assert.That(tif?.EventName, Is.EqualTo("TOKYO IDOL FESTIVAL 2022 supported byにしたんクリニック"));
-            Assert.That(tif?.EventDescription,
-                Is.EqualTo(@"「TOKYO IDOL FESTIVAL 2022 supported byにしたんクリニック」
-□お台場・青海周辺エリア
-チケット▶︎https://ticket.rakuten.co.jp/features/tip/
-
-日割りは後日解禁！
-詳細▶︎https://official.idolfes.com/s/tif2022/?ima=0914")
+            Assert.That(testEvent?.EventName, Is.EqualTo("定期公演『BLUE』vol.5"));
+            Assert.That(testEvent?.EventDescription,
+                Is.EqualTo(@"")
             );
-            Assert.That(tif?.EventType, Is.EqualTo(EventType.BattleOrFes));
-            Assert.That(tif?.EventPlace, Is.Null);
-            Assert.That(tif?.EventDateTime, Is.TypeOf(typeof(UnDetailedEventDateTime)));
+            Assert.That(testEvent?.EventType, Is.EqualTo(EventType.Unknown));
+            Assert.That(testEvent?.EventPlace, Is.EqualTo("Spotify O-Crest"));
+            Assert.That(testEvent?.EventDateTime, Is.TypeOf(typeof(UnDetailedEventDateTime)));
             Assert.That(
-                (tif?.EventDateTime as UnDetailedEventDateTime)?.EventStartDate,
+                testEvent?.EventDateTime.EventStartDateTimeOffset,
                 Is.EqualTo(DateTimeOffset.Parse("2022-08-05 00:00:00+09:00", CultureInfo.InvariantCulture))
             );
             Assert.That(
-                (tif?.EventDateTime as UnDetailedEventDateTime)?.EventEndDate,
+                testEvent?.EventDateTime.EventEndDateTimeOffset,
                 Is.EqualTo(DateTimeOffset.Parse("2022-08-06 00:00:00+09:00", CultureInfo.InvariantCulture))
             );
         });

@@ -6,8 +6,8 @@ using System.Text.RegularExpressions;
 public partial class FullDateGuesser : IFullDateGuesser
 {
     /// <inheritdoc />
-    public IList<DateTimeOffset> GuessFullDateByUncompletedDate(
-        IList<string> uncompletedDate,
+    public IReadOnlyList<DateTimeOffset> GuessFullDateByUncompletedDate(
+        IReadOnlyList<string> uncompletedDate,
         DateTimeOffset currentTime
     )
     {

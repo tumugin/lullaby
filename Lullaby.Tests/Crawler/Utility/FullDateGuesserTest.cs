@@ -37,8 +37,8 @@ public class FullDateGuesserTest
     )]
     public void GuessFullDateByUncompletedDateTest(
         string currentDateTime,
-        IList<string> uncompletedDate,
-        IList<string> expected
+        IReadOnlyList<string> uncompletedDate,
+        IReadOnlyList<string> expected
     )
     {
         var currentTime = DateTimeOffset.Parse(currentDateTime, CultureInfo.InvariantCulture);
