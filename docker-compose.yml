@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   mysql:
-    image: mariadb:10.11.5
+    image: mariadb:11.1.2
     ports:
       - "3306:3306"
     volumes:
