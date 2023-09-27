@@ -3,7 +3,6 @@ namespace Lullaby.Crawler.Scraper.Aoseka;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using AngleSharp;
-using AngleSharp.Html.Parser;
 using Events;
 using Groups;
 using RestSharp;
@@ -35,7 +34,6 @@ public partial class AosekaSchedulePageScraper : ISchedulePageScraper
 
     public async Task<IReadOnlyList<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
     {
-        var htmlParser = new HtmlParser();
         var downloadedDocument = await this.DownloadDocument(cancellationToken);
         var aosekaEvents = await this.ScrapeRawDocument(downloadedDocument, cancellationToken);
 
