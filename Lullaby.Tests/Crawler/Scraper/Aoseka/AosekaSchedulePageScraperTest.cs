@@ -55,18 +55,19 @@ public class AosekaSchedulePageScraperTest
         {
             Assert.That(testEvent?.EventName, Is.EqualTo("定期公演『BLUE』vol.5"));
             Assert.That(testEvent?.EventDescription,
-                Is.EqualTo(@"")
+                Is.EqualTo(@"https://twitter.com/_official/status/1699407246718099548?s=46&t=6eY06r32ieFIBkEEOeEbdQ
+📍Spotify O-Crest 🕖OPEN 19:00/START 19:30")
             );
             Assert.That(testEvent?.EventType, Is.EqualTo(EventType.Unknown));
             Assert.That(testEvent?.EventPlace, Is.EqualTo("Spotify O-Crest"));
-            Assert.That(testEvent?.EventDateTime, Is.TypeOf(typeof(UnDetailedEventDateTime)));
+            Assert.That(testEvent?.EventDateTime, Is.TypeOf(typeof(DetailedEventDateTime)));
             Assert.That(
                 testEvent?.EventDateTime.EventStartDateTimeOffset,
-                Is.EqualTo(DateTimeOffset.Parse("2022-08-05 00:00:00+09:00", CultureInfo.InvariantCulture))
+                Is.EqualTo(DateTimeOffset.Parse("2023-09-28 19:00:00+09:00", CultureInfo.InvariantCulture))
             );
             Assert.That(
                 testEvent?.EventDateTime.EventEndDateTimeOffset,
-                Is.EqualTo(DateTimeOffset.Parse("2022-08-06 00:00:00+09:00", CultureInfo.InvariantCulture))
+                Is.EqualTo(DateTimeOffset.Parse("2023-09-28 23:00:00+09:00", CultureInfo.InvariantCulture))
             );
         });
     }

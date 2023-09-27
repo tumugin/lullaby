@@ -113,21 +113,17 @@ public partial class AosekaSchedulePageScraper : ISchedulePageScraper
                 var date = parsedTitleMatches.Groups["date"].Value;
                 var title = parsedTitleMatches.Groups["title"].Value;
 
-                var parsedLocationTimeMatches = LocationTimePatternRegex().Match(descriptionElement.TextContent);
-                var parsedLocationOnlyMatches = LocationPatternRegex().Match(descriptionElement.TextContent);
+                var openTimeMatches = OpenTimePatternRegex().Match(descriptionElement.TextContent);
+                var parsedLocationMatches = LocationPatternRegex().Match(descriptionElement.TextContent);
 
-                var location = parsedLocationTimeMatches switch
+                var location = parsedLocationMatches switch
                 {
-                    { Success: true } => parsedLocationTimeMatches.Groups["location"].Value,
-                    { Success: false } => parsedLocationOnlyMatches switch
-                    {
-                        { Success: true } => parsedLocationOnlyMatches.Groups["location"].Value,
-                        { Success: false } => null
-                    }
+                    { Success: true } => parsedLocationMatches.Groups["location"].Value,
+                    { Success: false } => null
                 };
-                var openTime = parsedLocationTimeMatches switch
+                var openTime = openTimeMatches switch
                 {
-                    { Success: true } => parsedLocationTimeMatches.Groups["openTime"].Value,
+                    { Success: true } => openTimeMatches.Groups["openTime"].Value,
                     { Success: false } => null
                 };
 
@@ -147,10 +143,10 @@ public partial class AosekaSchedulePageScraper : ISchedulePageScraper
     [GeneratedRegex("(?<date>\\d{1,2}\\/\\d{1,2})\\((?<day>[月火水木金土日祝]+)\\)(?<title>.+)")]
     private static partial Regex DateTitlePatternRegex();
 
-    [GeneratedRegex("\ud83d\udccd(?<location>.+)\ud83d\udd50OPEN (?<openTime>\\d{1,2}:\\d{2})")]
-    private static partial Regex LocationTimePatternRegex();
+    [GeneratedRegex(@"OPEN (?<openTime>\d{1,2}:\d{2})")]
+    private static partial Regex OpenTimePatternRegex();
 
-    [GeneratedRegex("\ud83d\udccd(?<location>.+)")]
+    [GeneratedRegex(@"(\p{So}|\p{Cs}\p{Cs}(\p{Cf}\p{Cs}\p{Cs})*)(?<location>[\w\s-]+)")]
     private static partial Regex LocationPatternRegex();
 
     [GeneratedRegex("(?<hour>\\d{1,2}):(?<minutes>\\d{1,2})")]
