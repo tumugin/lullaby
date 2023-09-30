@@ -60,7 +60,7 @@ public static class ServiceExtension
         var dbConnectionString = webApplicationBuilder.Configuration.GetConnectionString("DefaultConnection")
                                  ?? throw new InvalidOperationException("DB ConnectionString must not be null.");
         webApplicationBuilder.Services.AddDbContext<LullabyContext>(options =>
-            options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString))
+            options.UseNpgsql(dbConnectionString)
         );
 
         webApplicationBuilder
