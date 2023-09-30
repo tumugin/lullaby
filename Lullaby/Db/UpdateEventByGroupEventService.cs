@@ -17,8 +17,8 @@ public class UpdateEventByGroupEventService : IUpdateEventByGroupEventService
 
         eventEntity.Also(entity =>
         {
-            entity.EventStarts = eventStarts;
-            entity.EventEnds = eventEnds;
+            entity.EventStarts = eventStarts.ToUniversalTime();
+            entity.EventEnds = eventEnds.ToUniversalTime();
             entity.IsDateTimeDetailed = groupEvent.EventDateTime is DetailedEventDateTime;
             entity.EventName = groupEvent.EventName;
             entity.EventDescription = groupEvent.EventDescription;

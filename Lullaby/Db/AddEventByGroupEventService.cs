@@ -17,8 +17,8 @@ public class AddEventByGroupEventService : IAddEventByGroupEventService
         var draftEvent = new Event
         {
             GroupKey = groupKey,
-            EventStarts = eventStarts,
-            EventEnds = eventEnds,
+            EventStarts = eventStarts.ToUniversalTime(),
+            EventEnds = eventEnds.ToUniversalTime(),
             IsDateTimeDetailed = groupEvent.EventDateTime is DetailedEventDateTime,
             EventName = groupEvent.EventName,
             EventDescription = groupEvent.EventDescription,
