@@ -15,16 +15,15 @@ jobs:
     runs-on: ubuntu-latest
     services:
       db:
-        image: mariadb:10.11.5
+        image: postgres:16.0
         ports:
-          - 3306:3306
+          - "5432:5432"
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: lullaby_test
-          MYSQL_USER: lullaby
-          MYSQL_PASSWORD: lullaby
+          POSTGRES_DB: lullaby
+          POSTGRES_USER: lullaby
+          POSTGRES_PASSWORD: lullaby
         options: >-
-          --health-cmd "mysqladmin ping"
+          --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5

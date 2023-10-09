@@ -1,16 +1,15 @@
 version: "3.9"
 services:
-  mysql:
-    image: mariadb:10.11.5
+  postgres:
+    image: postgres:16.0
     ports:
-      - "3306:3306"
+      - "5432:5432"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - postgres_data:/var/lib/postgresql/data
     environment:
-      - MYSQL_DATABASE=lullaby
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_USER=lullaby
-      - MYSQL_PASSWORD=lullaby
+      - POSTGRES_DB=lullaby
+      - POSTGRES_USER=lullaby
+      - POSTGRES_PASSWORD=lullaby
   redis:
     image: redis:7.2.1
     ports:
@@ -18,5 +17,5 @@ services:
     volumes:
       - redis_data:/data
 volumes:
-  mysql_data:
+  postgres_data:
   redis_data:
