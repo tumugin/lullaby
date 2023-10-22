@@ -10,7 +10,7 @@ using Utility;
 
 public partial class AosekaSchedulePageScraper : ISchedulePageScraper
 {
-    public const string SchedulePageUrl = "https://lit.link/gunjonosekai";
+    public const string SchedulePageUrl = "https://lit.link/aosekalive";
     private readonly IBrowsingContext browsingContext;
 
     private readonly RestClient client;
