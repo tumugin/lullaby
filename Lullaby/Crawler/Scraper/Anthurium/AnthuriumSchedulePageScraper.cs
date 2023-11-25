@@ -44,7 +44,12 @@ public class AnthuriumSchedulePageScraper : ISchedulePageScraper
                 EventPlace = null,
                 EventDateTime =
                     v.IsAllDay
-                        ? new UnDetailedEventDateTime { EventStartDate = v.StartDate, EventEndDate = v.EndDate }
+                        // NOTE: All day event from the API is like "Wed Jul 05 2023 23:59:59 GMT+0000" so we need to add 1 second to the end date.
+                        // All day event stored in this application ends at 00:00:00 of the next day.
+                        ? new UnDetailedEventDateTime
+                        {
+                            EventStartDate = v.StartDate, EventEndDate = v.EndDate.AddSeconds(1)
+                        }
                         : new DetailedEventDateTime { EventStartDateTime = v.StartDate, EventEndDateTime = v.EndDate },
                 EventType = this.eventTypeDetector.DetectEventTypeByTitle(v.EventName),
                 EventDescription = this.htmlParser.ParseDocument(v.EventDetail).TextContent
