@@ -68,5 +68,12 @@ public static class ConfigureScheduledJobs
             x => x.Execute(default),
             Cron.Hourly()
         );
+
+        // アンスリューム - anthurium
+        recurringJobManager.AddOrUpdate<AnthuriumCrawlerJob>(
+            AnthuriumCrawlerJob.JobKey,
+            x => x.Execute(default),
+            Cron.Hourly()
+        );
     }
 }
