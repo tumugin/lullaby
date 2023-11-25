@@ -71,7 +71,7 @@ public class AnthuriumSchedulePageScraper : ISchedulePageScraper
         return dateRanges;
     }
 
-    private class DateTimeRange
+    private sealed class DateTimeRange
     {
         public required DateTimeOffset Start { get; init; }
         public required DateTimeOffset End { get; init; }
