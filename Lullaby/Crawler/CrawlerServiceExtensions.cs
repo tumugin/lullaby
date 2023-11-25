@@ -3,6 +3,7 @@ namespace Lullaby.Crawler;
 using AngleSharp;
 using Events;
 using Scraper;
+using Scraper.Anthurium;
 using Scraper.Aoseka;
 using Scraper.Axelight;
 using Scraper.Kolokol;
@@ -38,6 +39,8 @@ public static class CrawlerServiceExtensions
             .AddScoped<ISchedulePageScraper, PrsminSchedulePageScraper>()
             .AddScoped<ISchedulePageScraper, TenhanaScraper>()
             .AddScoped<ISchedulePageScraper, TenrinScraper>();
+
+        serviceCollection.AddAnthurium();
 
         serviceCollection.AddScoped<IGroupCrawler, GroupCrawler>();
 
