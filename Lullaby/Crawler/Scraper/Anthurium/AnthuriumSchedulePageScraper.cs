@@ -1,9 +1,11 @@
 namespace Lullaby.Crawler.Scraper.Anthurium;
 
+using AngleSharp;
 using AngleSharp.Html.Parser;
 using ApiClient;
 using Events;
 using Groups;
+using Utils;
 
 public class AnthuriumSchedulePageScraper : ISchedulePageScraper
 {
@@ -52,7 +54,9 @@ public class AnthuriumSchedulePageScraper : ISchedulePageScraper
                         }
                         : new DetailedEventDateTime { EventStartDateTime = v.StartDate, EventEndDateTime = v.EndDate },
                 EventType = this.eventTypeDetector.DetectEventTypeByTitle(v.EventName),
-                EventDescription = this.htmlParser.ParseDocument(v.EventDetail).TextContent
+                EventDescription = v.EventDetail != null
+                    ? (this.htmlParser.ParseDocument(v.EventDetail).Body?.ToHtml(new TextMarkupFormatter()).Trim() ?? "")
+                    : ""
             })
             .ToArray();
     }
