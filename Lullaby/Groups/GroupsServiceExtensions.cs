@@ -4,6 +4,8 @@ public static class GroupsServiceExtensions
 {
     public static IServiceCollection AddGroups(this IServiceCollection serviceCollection) =>
         serviceCollection
+            .AddScoped<IGroupKeys, GroupKeys>()
+            // groups
             .AddScoped<IGroup, Aoseka>()
             .AddScoped<Aoseka, Aoseka>()
             .AddScoped<IGroup, Kolokol>()
@@ -24,5 +26,6 @@ public static class GroupsServiceExtensions
             .AddScoped<Tenrin, Tenrin>()
             .AddScoped<IGroup, Anthurium>()
             .AddScoped<Anthurium, Anthurium>()
-            .AddScoped<IGroupKeys, GroupKeys>();
+            .AddScoped<Narlow, Narlow>()
+            .AddScoped<IGroup, Narlow>();
 }

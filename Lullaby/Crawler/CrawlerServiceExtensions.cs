@@ -8,6 +8,7 @@ using Scraper.Anthurium;
 using Scraper.Aoseka;
 using Scraper.Axelight;
 using Scraper.Kolokol;
+using Scraper.Narlow;
 using Scraper.OSS;
 using Scraper.Prsmin;
 using Scraper.Tebasen;
@@ -40,7 +41,8 @@ public static class CrawlerServiceExtensions
             .AddScoped<ISchedulePageScraper, AxelightSchedulePageScraper>()
             .AddScoped<ISchedulePageScraper, PrsminSchedulePageScraper>()
             .AddScoped<ISchedulePageScraper, TenhanaScraper>()
-            .AddScoped<ISchedulePageScraper, TenrinScraper>();
+            .AddScoped<ISchedulePageScraper, TenrinScraper>()
+            .AddScoped<ISchedulePageScraper, NarlowSchedulePageScraper>();
 
         serviceCollection.AddAnthurium();
 
