@@ -75,5 +75,12 @@ public static class ConfigureScheduledJobs
             x => x.Execute(default),
             Cron.Hourly()
         );
+
+        // NARLOW - narlow
+        recurringJobManager.AddOrUpdate<NarlowCrawlerJob>(
+            NarlowCrawlerJob.JobKey,
+            x => x.Execute(default),
+            Cron.Hourly()
+        );
     }
 }
