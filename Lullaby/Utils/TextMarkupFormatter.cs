@@ -13,7 +13,7 @@ public class TextMarkupFormatter : IMarkupFormatter
 
     public string Processing(IProcessingInstruction processing) => string.Empty;
 
-    public string Text(ICharacterData text) => text.Data;
+    public string Text(ICharacterData text) => text.Data.Trim();
 
     public string OpenTag(IElement element, bool selfClosing)
     {

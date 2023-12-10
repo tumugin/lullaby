@@ -6,6 +6,7 @@ using AngleSharp;
 using Events;
 using Flurl;
 using Groups;
+using Utils;
 
 public partial class NarlowSchedulePageScraper : ISchedulePageScraper
 {
@@ -15,6 +16,7 @@ public partial class NarlowSchedulePageScraper : ISchedulePageScraper
 
     public Type TargetGroup => typeof(Narlow);
 
+    private static readonly string WebsiteUrl = "https://narlow.net";
     private static readonly string SchedulePageUrl = "https://narlow.net/SCHEDULE";
     private readonly TimeZoneInfo jstTimezone = TimeZoneInfo.FindSystemTimeZoneById("Asia/Tokyo");
 
@@ -84,7 +86,8 @@ public partial class NarlowSchedulePageScraper : ISchedulePageScraper
             .SelectMany(x => x.QuerySelectorAll(".contents__wrapper a").ToAsyncEnumerable())
             .Select(x => x.GetAttribute("href"))
             .Where(x => x != null)
-            .Select(x => new Uri(x!))
+            .Distinct()
+            .Select(x => new Url(WebsiteUrl).AppendPathSegment(x).ToUri())
             .ToArrayAsync(cancellationToken);
     }
 
@@ -93,6 +96,9 @@ public partial class NarlowSchedulePageScraper : ISchedulePageScraper
 
     [GeneratedRegex("OPEN (\\d+):(\\d+)")]
     private static partial Regex OpenTimePattenRegex();
+
+    [GeneratedRegex("[ ]{2,}")]
+    private static partial Regex ManySpaceRegex();
 
     private async Task<GroupEvent> ParseIndividualSchedulePage(
         Uri individualSchedulePageUrl,
@@ -105,9 +111,9 @@ public partial class NarlowSchedulePageScraper : ISchedulePageScraper
 
         var eventTitle = document.QuerySelector(".article-header__title")?.TextContent ??
                          throw new InvalidDataException("Event title must not be null");
-        var eventDateString = document.QuerySelector("article-header__description__date")?.TextContent ??
+        var eventDateString = document.QuerySelector(".article-header__description__date")?.TextContent ??
                               throw new InvalidDataException("Event date must not be null");
-        var eventDescription = document.QuerySelector("article-text")?.TextContent ??
+        var eventDescription = document.QuerySelector(".article-text")?.ToHtml(new TextMarkupFormatter()) ??
                                throw new InvalidDataException("Event description must not be null");
 
         // 一旦日本時間の0時としてパースして作成する
@@ -148,7 +154,7 @@ public partial class NarlowSchedulePageScraper : ISchedulePageScraper
                     EventEndDateTime = detailedOpenTime.Value.AddHours(4)
                 }
                 : new UnDetailedEventDateTime { EventStartDate = parsedDate, EventEndDate = parsedDate.AddDays(1) },
-            EventDescription = eventDescription,
+            EventDescription = eventDescription.Trim(),
             EventType = this.eventTypeDetector.DetectEventTypeByTitle(eventTitle)
         };
     }
