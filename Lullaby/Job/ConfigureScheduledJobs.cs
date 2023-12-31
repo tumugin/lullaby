@@ -9,7 +9,8 @@ public static class ConfigureScheduledJobs
         // aoseka - 群青の世界
         recurringJobManager.AddOrUpdate<AosekaCrawlerJob>(
             AosekaCrawlerJob.JobKey,
-            x => x.Execute(default),
+            // disable for now because group has been suspended
+            x => Task.CompletedTask,
             Cron.Hourly()
         );
 
@@ -30,7 +31,8 @@ public static class ConfigureScheduledJobs
         // OSS - OSS
         recurringJobManager.AddOrUpdate<OssCrawlerJob>(
             OssCrawlerJob.JobKey,
-            x => x.Execute(default),
+            // disable for now because group has been suspended
+            x => Task.CompletedTask,
             Cron.Hourly()
         );
 
