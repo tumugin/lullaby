@@ -16,6 +16,4 @@ public class AosekaCrawlerJob : BaseCrawlerJob
         this.aoseka = aoseka;
 
     protected override IGroup TargetGroup => this.aoseka;
-
-
 }
