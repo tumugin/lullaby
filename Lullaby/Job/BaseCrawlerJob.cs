@@ -12,6 +12,6 @@ public abstract class BaseCrawlerJob
     protected abstract IGroup TargetGroup { get; }
 
     [AutomaticRetry(Attempts = 3)]
-    public async Task Execute(CancellationToken cancellationToken) =>
+    public virtual async Task Execute(CancellationToken cancellationToken = default) =>
         await this.groupCrawler.GetAndUpdateSavedEvents(this.TargetGroup, cancellationToken);
 }
