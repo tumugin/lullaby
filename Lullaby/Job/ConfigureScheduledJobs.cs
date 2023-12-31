@@ -10,7 +10,7 @@ public static class ConfigureScheduledJobs
         recurringJobManager.AddOrUpdate<AosekaCrawlerJob>(
             AosekaCrawlerJob.JobKey,
             // disable for now because group has been suspended
-            x => ExecuteForSuspendingGroup(),
+            (x) => x.Execute(default),
             Cron.Hourly()
         );
 
@@ -32,7 +32,7 @@ public static class ConfigureScheduledJobs
         recurringJobManager.AddOrUpdate<OssCrawlerJob>(
             OssCrawlerJob.JobKey,
             // disable for now because group has been suspended
-            x => ExecuteForSuspendingGroup(),
+            x => x.Execute(default),
             Cron.Hourly()
         );
 
@@ -85,6 +85,4 @@ public static class ConfigureScheduledJobs
             Cron.Hourly()
         );
     }
-
-    private static Task ExecuteForSuspendingGroup() => Task.CompletedTask;
 }

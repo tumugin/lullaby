@@ -16,4 +16,9 @@ public class AosekaCrawlerJob : BaseCrawlerJob
         this.aoseka = aoseka;
 
     protected override IGroup TargetGroup => this.aoseka;
+
+    /**
+     *  disable for now because group has been suspended
+     */
+    public override Task Execute(CancellationToken cancellationToken = default) => Task.CompletedTask;
 }

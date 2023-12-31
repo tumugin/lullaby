@@ -16,4 +16,9 @@ public class OssCrawlerJob : BaseCrawlerJob
         this.oss = oss;
 
     protected override IGroup TargetGroup => this.oss;
+
+    /**
+     *  disable for now because group has been suspended
+     */
+    public override Task Execute(CancellationToken cancellationToken = default) => Task.CompletedTask;
 }
