@@ -5,12 +5,12 @@
 @model Lullaby.ViewModels.Index.IndexViewModel
 
 <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
-    <h1>Welcome to Lullaby server!</h1>
+    <h1>スケジュールをまとめるやつ(仮)</h1>
 </header>
 <main>
     <h2>これはなに？</h2>
     <p>
-        <a href="https://github.com/tumugin/lullaby" target="_blank" rel="noopener noreferrer">tumugin/lullaby</a>は自動的にアイドルグループのスケジュールページをスクレイピングし、iCal形式やJSON形式で取得出来るようにするプロジェクトです。
+        <a href="https://github.com/tumugin/lullaby" target="_blank" rel="noopener noreferrer">tumugin/lullaby</a>は自動的にアイドルグループのスケジュールをまとめて、iCal形式やJSON形式で取得出来るようにするプロジェクトです。
     </p>
     <h2>SwaggerでAPIを試す</h2>
     <p>
@@ -20,24 +20,26 @@
         </a>
     </p>
     <h2>対応グループ</h2>
-    <div class="d-grid gap-3">
+    <div class="row g-3">
         @foreach (var group in Model.AvailableGroups)
         {
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">@group.GroupName</h5>
-                    <div class="card-text">
-                        <ul>
-                            <li>
-                                キー: <code>@group.GroupKey</code>
-                            </li>
-                            <li>
-                                iCal: <a href="/ical/events/@group.GroupKey" target="_blank" rel="noopener noreferrer">/ical/events/@group.GroupKey</a>
-                            </li>
-                            <li>
-                                JSON: <a href="/api/events/@group.GroupKey" target="_blank" rel="noopener noreferrer">/api/events/@group.GroupKey</a>
-                            </li>
-                        </ul>
+            <div class=" col-md-6 col-xl-4">
+                <div class="card" style="height: 100%;">
+                    <div class="card-body">
+                        <h5 class="card-title">@group.GroupName</h5>
+                        <div class="card-text">
+                            <ul>
+                                <li>
+                                    キー: <code>@group.GroupKey</code>
+                                </li>
+                                <li>
+                                    iCal: <a href="/ical/events/@group.GroupKey" target="_blank" rel="noopener noreferrer">/ical/events/@group.GroupKey</a>
+                                </li>
+                                <li>
+                                    JSON: <a href="/api/events/@group.GroupKey" target="_blank" rel="noopener noreferrer">/api/events/@group.GroupKey</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
