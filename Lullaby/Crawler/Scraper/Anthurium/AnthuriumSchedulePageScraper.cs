@@ -40,23 +40,31 @@ public class AnthuriumSchedulePageScraper : ISchedulePageScraper
 
         return results
             .SelectMany(x => x)
-            .Select(v => new GroupEvent
+            .Select(v =>
             {
-                EventName = v.EventName,
-                EventPlace = null,
-                EventDateTime =
-                    v.IsAllDay
-                        // NOTE: All day event from the API is like "Wed Jul 05 2023 23:59:59 GMT+0000" so we need to add 1 second to the end date.
-                        // All day event stored in this application ends at 00:00:00 of the next day.
-                        ? new UnDetailedEventDateTime
-                        {
-                            EventStartDate = v.StartDate, EventEndDate = v.EndDate.AddSeconds(1)
-                        }
-                        : new DetailedEventDateTime { EventStartDateTime = v.StartDate, EventEndDateTime = v.EndDate },
-                EventType = this.eventTypeDetector.DetectEventTypeByTitle(v.EventName),
-                EventDescription = v.EventDetail != null
-                    ? (this.htmlParser.ParseDocument(v.EventDetail).Body?.ToHtml(new TextMarkupFormatter()).Trim() ?? "")
-                    : ""
+                using var parsedEventDetail =
+                    v.EventDetail != null ? this.htmlParser.ParseDocument(v.EventDetail) : null;
+                return new GroupEvent
+                {
+                    EventName = v.EventName,
+                    EventPlace = null,
+                    EventDateTime =
+                        v.IsAllDay
+                            // NOTE: All day event from the API is like "Wed Jul 05 2023 23:59:59 GMT+0000" so we need to add 1 second to the end date.
+                            // All day event stored in this application ends at 00:00:00 of the next day.
+                            ? new UnDetailedEventDateTime
+                            {
+                                EventStartDate = v.StartDate, EventEndDate = v.EndDate.AddSeconds(1)
+                            }
+                            : new DetailedEventDateTime
+                            {
+                                EventStartDateTime = v.StartDate, EventEndDateTime = v.EndDate
+                            },
+                    EventType = this.eventTypeDetector.DetectEventTypeByTitle(v.EventName),
+                    EventDescription = parsedEventDetail != null
+                        ? (parsedEventDetail.Body?.ToHtml(new TextMarkupFormatter()).Trim() ?? "")
+                        : ""
+                };
             })
             .ToArray();
     }

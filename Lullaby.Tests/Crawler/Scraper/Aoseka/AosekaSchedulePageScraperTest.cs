@@ -10,24 +10,30 @@ using RichardSzalay.MockHttp;
 
 public class AosekaSchedulePageScraperTest
 {
-    private AosekaSchedulePageScraper aosekaSchedulePageScraper = null!;
-
-    [SetUp]
-    public void SetUp()
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP001:Dispose created")]
+    private static AosekaSchedulePageScraper SetUpAosekaSchedulePageScraper()
     {
         // mock html request
         var testFileContent = ScraperTestUtils.GetTestFileFromManifest(
             "Lullaby.Tests.Crawler.Scraper.Aoseka.aoseka-test-page.html"
         ).Result;
-        var mockHttp = new MockHttpMessageHandler();
-        mockHttp
-            .When(AosekaSchedulePageScraper.SchedulePageUrl)
-            .Respond("text/html", testFileContent);
-        var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
 
-        this.aosekaSchedulePageScraper = new AosekaSchedulePageScraper(
+        var client = new RestClient(new RestClientOptions
+        {
+            ConfigureMessageHandler = _ =>
+            {
+                var mockHttp = new MockHttpMessageHandler();
+                mockHttp
+                    .When(AosekaSchedulePageScraper.SchedulePageUrl)
+                    .Respond("text/html", testFileContent);
+                return mockHttp;
+            }
+        });
+
+        var browsingContext = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
+        return new AosekaSchedulePageScraper(
             client,
-            BrowsingContext.New(Configuration.Default.WithDefaultLoader()),
+            browsingContext,
             new FullDateGuesser(),
             new EventTypeDetector()
         );
@@ -36,14 +42,16 @@ public class AosekaSchedulePageScraperTest
     [Test]
     public async Task TestScrapeAsyncHasResults()
     {
-        var result = await this.aosekaSchedulePageScraper.ScrapeAsync(default);
+        var scraper = SetUpAosekaSchedulePageScraper();
+        var result = await scraper.ScrapeAsync(default);
         Assert.That(result, Has.Count.EqualTo(14));
     }
 
     [Test]
     public async Task TestScrapeAsync()
     {
-        var result = await this.aosekaSchedulePageScraper.ScrapeAsync(default);
+        var scraper = SetUpAosekaSchedulePageScraper();
+        var result = await scraper.ScrapeAsync(default);
 
         // 定期公演『BLUE』vol.5
         var testEvent = result

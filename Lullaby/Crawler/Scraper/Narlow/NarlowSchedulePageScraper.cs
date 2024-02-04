@@ -71,7 +71,7 @@ public partial class NarlowSchedulePageScraper : ISchedulePageScraper
             .ToAsyncEnumerable()
             .SelectAwait(async date =>
             {
-                var request = await this.httpClient.GetAsync(
+                using var request = await this.httpClient.GetAsync(
                     this.GetMonthSchedulePageUrlByDate(date),
                     cancellationToken
                 );
@@ -105,9 +105,9 @@ public partial class NarlowSchedulePageScraper : ISchedulePageScraper
         CancellationToken cancellationToken
     )
     {
-        var request = await this.httpClient.GetAsync(individualSchedulePageUrl, cancellationToken);
+        using var request = await this.httpClient.GetAsync(individualSchedulePageUrl, cancellationToken);
         var rawHtml = await request.Content.ReadAsStringAsync(cancellationToken);
-        var document = await this.browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken);
+        using var document = await this.browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken);
 
         var eventTitle = document.QuerySelector(".article-header__title")?.TextContent ??
                          throw new InvalidDataException("Event title must not be null");

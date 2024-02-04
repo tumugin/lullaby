@@ -50,7 +50,7 @@ public class TimeTreeApiClient : ITimeTreeApiClient
         // Set same as the web client
         httpRequestMessage.Headers.Add("X-Timetreea", "web/2.1.0/ja");
 
-        var rawResponse = await this.httpClient.SendAsync(httpRequestMessage, cancellationToken);
+        using var rawResponse = await this.httpClient.SendAsync(httpRequestMessage, cancellationToken);
         var rawJson = await rawResponse.Content.ReadAsStringAsync(cancellationToken);
         var rawResult = JsonSerializer.Deserialize<TimeTreeApiRawResult.Root>(rawJson);
 

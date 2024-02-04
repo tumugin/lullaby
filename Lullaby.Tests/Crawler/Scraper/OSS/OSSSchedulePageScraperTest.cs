@@ -14,14 +14,22 @@ public class OssSchedulePageScraperTest
     {
         var schedulePageFileContent =
             await ScraperTestUtils.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.OSS.oss-test-page.html");
-        var mockHttp = new MockHttpMessageHandler();
-        mockHttp.When(OssSchedulePageScraper.SchedulePageUrlConstant)
-            .Respond("text/html", schedulePageFileContent);
-        var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
+        using var client = new RestClient(new RestClientOptions
+        {
+            ConfigureMessageHandler = _ =>
+            {
+                var mockHttp = new MockHttpMessageHandler();
+                mockHttp.When(OssSchedulePageScraper.SchedulePageUrlConstant)
+                    .Respond("text/html", schedulePageFileContent);
+                return mockHttp;
+            }
+        });
+
+        using var browsingContext = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
 
         var scraper = new OssSchedulePageScraper(
             client,
-            BrowsingContext.New(Configuration.Default.WithDefaultLoader()),
+            browsingContext,
             new EventTypeDetector()
         );
         var result = await scraper.ScrapeAsync(default);

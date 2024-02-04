@@ -12,7 +12,7 @@ public class GroupEventControllerTest : BaseWebTest
     public async Task GetTest()
     {
         await new EventSeeder(this.Context).SeedEvent(null, null);
-        var result =
+        using var result =
             await this.Client.GetAsync(
                 $"ical/events/aoseka"
             );
@@ -47,7 +47,7 @@ public class GroupEventControllerTest : BaseWebTest
                 { "eventEndsAt", "2022-10-15 19:30:00+09:00" }
             }
         );
-        var result = await this.Client.GetAsync(requestUri);
+        using var result = await this.Client.GetAsync(requestUri);
 
         Assert.Multiple(async () =>
         {
@@ -60,7 +60,7 @@ public class GroupEventControllerTest : BaseWebTest
     [Test]
     public async Task GetNotFoundTest()
     {
-        var result = await this.Client.GetAsync("ical/events/appare");
+        using var result = await this.Client.GetAsync("ical/events/appare");
         Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
     }
 }

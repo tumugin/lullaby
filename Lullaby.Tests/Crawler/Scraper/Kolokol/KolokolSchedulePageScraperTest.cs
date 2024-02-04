@@ -14,21 +14,31 @@ public class KolokolSchedulePageScraperTest
     {
         // mock html request
         var testFutureFileContent =
-            await ScraperTestUtils.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Kolokol.kolokol-test-page.html");
+            await ScraperTestUtils.GetTestFileFromManifest(
+                "Lullaby.Tests.Crawler.Scraper.Kolokol.kolokol-test-page.html");
         var testPastFileContent =
-            await ScraperTestUtils.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.Kolokol.kolokol-past-schedule-test-page.html");
-        var mockHttp = new MockHttpMessageHandler();
-        KolokolSchedulePageScraper.SchedulePageUrls.ToList().ForEach(pageUrl =>
+            await ScraperTestUtils.GetTestFileFromManifest(
+                "Lullaby.Tests.Crawler.Scraper.Kolokol.kolokol-past-schedule-test-page.html");
+        using var client = new RestClient(new RestClientOptions
         {
-            mockHttp
-                .When(pageUrl)
-                .Respond("text/html", pageUrl.Contains("/past/") ? testPastFileContent : testFutureFileContent);
+            ConfigureMessageHandler = _ =>
+            {
+                var mockHttp = new MockHttpMessageHandler();
+                KolokolSchedulePageScraper.SchedulePageUrls.ToList().ForEach(pageUrl =>
+                {
+                    mockHttp
+                        .When(pageUrl)
+                        .Respond("text/html", pageUrl.Contains("/past/") ? testPastFileContent : testFutureFileContent);
+                });
+                return mockHttp;
+            }
         });
-        var client = new RestClient(new RestClientOptions { ConfigureMessageHandler = _ => mockHttp });
+
+        using var browsingContext = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
 
         var scraper = new KolokolSchedulePageScraper(
             client,
-            BrowsingContext.New(Configuration.Default.WithDefaultLoader()),
+            browsingContext,
             new EventTypeDetector()
         );
         var result = await scraper.ScrapeAsync(default);

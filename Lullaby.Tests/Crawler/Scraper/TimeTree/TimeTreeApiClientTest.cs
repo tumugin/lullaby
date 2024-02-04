@@ -16,8 +16,9 @@ public class TimeTreeApiClientTest
         mockHttp
             .Fallback
             .Respond("application/json", scheduleJson);
+        using var httpClient = mockHttp.ToHttpClient();
 
-        var timeTreeApiClient = new TimeTreeApiClient(mockHttp.ToHttpClient());
+        var timeTreeApiClient = new TimeTreeApiClient(httpClient);
         var result = await timeTreeApiClient.GetEventsAsync(
             "tenhana_sj",
             DateTimeOffset.Parse("2024-01-01 00:00:00+09:00", CultureInfo.InvariantCulture),
