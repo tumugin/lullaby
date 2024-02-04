@@ -72,7 +72,7 @@ public class TimeTreeApiClient : ITimeTreeApiClient
             {
                 Id = v.Id,
                 Title = v.Title,
-                Overview = v.Overview,
+                Description = v.Note,
                 ImageUrls = v.Images.Overview.Select(x => x.Url).ToArray(),
                 LocationName = v.LocationName != "" ? v.LocationName : null,
                 // UnixTime in milliseconds should be in UTC but it seems to be in local timezone. We have to forcibly set the timezone.
@@ -141,6 +141,8 @@ public class TimeTreeApiClient : ITimeTreeApiClient
             [property: JsonPropertyName("title")] string Title,
             [property: JsonPropertyName("overview")]
             string Overview,
+            [property: JsonPropertyName("note")]
+            string Note,
             [property: JsonPropertyName("images")] Images Images,
             [property: JsonPropertyName("videos")] IReadOnlyList<object> Videos,
             [property: JsonPropertyName("status")] int Status,

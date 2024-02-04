@@ -15,7 +15,7 @@ public class TimeTreeApiResult
     {
         public required string Id { get; init; }
         public required string Title { get; init; }
-        public required string Overview { get; init; }
+        public required string Description { get; init; }
         public required IReadOnlyList<string> ImageUrls { get; init; }
         public required string? LocationName { get; init; }
         public required DateTimeOffset StartAt { get; init; }

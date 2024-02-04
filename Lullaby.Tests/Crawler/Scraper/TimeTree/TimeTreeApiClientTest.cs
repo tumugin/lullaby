@@ -35,7 +35,7 @@ public class TimeTreeApiClientTest
             {
                 Id: "2185012422837720456",
                 Title: "超NATSUZOME2023",
-                Overview:
+                Description:
                 "7/1(土)、7/2(日)\n｢超NATSUZOME2023｣\n@ 海浜幕張公園Gブロック\n\nOPEN 9:00/START 10:00\n\n#てんはな \n\n🎫先行抽選受付中\n一般\nticketvillage.jp/events/12220\nVIP\nr-t.jp/natsuzome2023",
                 ImageUrls: ["https://attachments.timetreeapp.com/public_event/a692/2023-06-01/0-1685641777958.jpg"],
                 LocationName: null,
