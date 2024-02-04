@@ -5,7 +5,7 @@ using TimeTree;
 
 public class TenhanaScraper : TimeTreeScraper, ISchedulePageScraper
 {
-    public override string TimeTreePublicCalendarId => "54197";
+    public override string TimeTreePublicCalendarId => "tenhana_sj";
 
     public Type TargetGroup => typeof(Tenhana);
 

@@ -10,17 +10,18 @@ public class TimeTreeApiClientTest
     public async Task ScrapeAsyncTest()
     {
         var scheduleJson =
-            await ScraperTestUtils.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.TimeTree.time-tree-test-json.json");
-        var mockHttp = new MockHttpMessageHandler();
+            await ScraperTestUtils.GetTestFileFromManifest(
+                "Lullaby.Tests.Crawler.Scraper.TimeTree.time-tree-test-json.json");
+        using var mockHttp = new MockHttpMessageHandler();
         mockHttp
             .Fallback
             .Respond("application/json", scheduleJson);
 
         var timeTreeApiClient = new TimeTreeApiClient(mockHttp.ToHttpClient());
         var result = await timeTreeApiClient.GetEventsAsync(
-            "54197",
-            DateTimeOffset.Parse("2023-07-01 00:00:00+09:00", CultureInfo.InvariantCulture),
-            DateTimeOffset.Parse("2023-07-31 00:00:00+09:00", CultureInfo.InvariantCulture),
+            "tenhana_sj",
+            DateTimeOffset.Parse("2024-01-01 00:00:00+09:00", CultureInfo.InvariantCulture),
+            DateTimeOffset.Parse("2024-01-31 00:00:00+09:00", CultureInfo.InvariantCulture),
             null,
             default
         );
@@ -29,20 +30,26 @@ public class TimeTreeApiClientTest
         {
             Assert.That(result.HasNextPage, Is.False);
             Assert.That(result.NextPageCursor, Is.Null);
-            Assert.That(result.Schedules, Has.Count.EqualTo(5));
+            Assert.That(result.Schedules, Has.Count.EqualTo(22));
 
-            Assert.That(result.Schedules[0] is
-            {
-                Id: "2185012422837720456",
-                Title: "超NATSUZOME2023",
-                Overview:
-                "7/1(土)、7/2(日)\n｢超NATSUZOME2023｣\n@ 海浜幕張公園Gブロック\n\nOPEN 9:00/START 10:00\n\n#てんはな \n\n🎫先行抽選受付中\n一般\nticketvillage.jp/events/12220\nVIP\nr-t.jp/natsuzome2023",
-                ImageUrls: ["https://attachments.timetreeapp.com/public_event/a692/2023-06-01/0-1685641777958.jpg"],
-                LocationName: null,
-                StartAt: { Year: 2023, Month: 7, Day: 1, Hour: 0, Minute: 0, Second: 0, Offset.Hours: 0 },
-                EndAt: { Year: 2023, Month: 7, Day: 2, Hour: 0, Minute: 0, Second: 0, Offset.Hours: 0 },
-                UntilAt: { Year: 2023, Month: 7, Day: 2, Hour: 23, Minute: 59, Second: 59, Offset.Hours: 0 },
-            }, Is.True);
+            Assert.That(result.Schedules[0].Id, Is.EqualTo("2341961480453499250"));
+            Assert.That(result.Schedules[0].Title, Is.EqualTo("TOKYOGIRLSGIRLSmini!!"));
+            Assert.That(result.Schedules[0].Description,
+                Is.EqualTo(
+                    "1/29(月)\nTOKYO GIRLS GIRLS mini!!\n\n池袋Studio Mixa\n\n出演時間\ud83c\udfa4 17:25-17:45\n特典会\ud83d\udcf8 17:55-18:55(B)\n\nお目当て特典：TikTok撮影券\ud83d\udc95\n\n\ud83c\udfab\nhttps://t.livepocket.jp/e/tgg__0129"
+                )
+            );
+            Assert.That(result.Schedules[0].ImageUrls, Has.Count.EqualTo(2));
+            Assert.That(result.Schedules[0].LocationName, Is.Null);
+            Assert.That(result.Schedules[0].StartAt, Is.EqualTo(
+                new DateTimeOffset(2024, 1, 29, 0, 0, 0, TimeSpan.Zero)
+            ));
+            Assert.That(result.Schedules[0].EndAt, Is.EqualTo(
+                new DateTimeOffset(2024, 1, 29, 0, 0, 0, TimeSpan.Zero)
+            ));
+            Assert.That(result.Schedules[0].UntilAt, Is.EqualTo(
+                new DateTimeOffset(2024, 1, 29, 23, 59, 59, TimeSpan.Zero)
+            ));
         });
     }
 }

@@ -10,8 +10,9 @@ public class TimeTreeScraperTest
     public async Task TestScrapeAsync()
     {
         var scheduleJson =
-            await ScraperTestUtils.GetTestFileFromManifest("Lullaby.Tests.Crawler.Scraper.TimeTree.time-tree-test-json.json");
-        var mockHttp = new MockHttpMessageHandler();
+            await ScraperTestUtils.GetTestFileFromManifest(
+                "Lullaby.Tests.Crawler.Scraper.TimeTree.time-tree-test-json.json");
+        using var mockHttp = new MockHttpMessageHandler();
         mockHttp
             .Fallback
             .Respond("application/json", scheduleJson);
@@ -25,21 +26,21 @@ public class TimeTreeScraperTest
 
         Assert.Multiple(() =>
         {
-            Assert.That(result, Has.Count.EqualTo(5));
-            Assert.That(result[0] is
-            {
-                EventName: "超NATSUZOME2023",
-                EventDescription:
-                "7/1(土)、7/2(日)\n｢超NATSUZOME2023｣\n@ 海浜幕張公園Gブロック\n\nOPEN 9:00/START 10:00\n\n#てんはな \n\n🎫先行抽選受付中\n一般\nticketvillage.jp/events/12220\nVIP\nr-t.jp/natsuzome2023",
-                EventPlace: null,
-                EventDateTime:
-                {
-                    EventStartDateTimeOffset:
-                    { Year: 2023, Month: 7, Day: 1, Hour: 0, Minute: 0, Second: 0, Offset.Hours: 0 },
-                    EventEndDateTimeOffset:
-                    { Year: 2023, Month: 7, Day: 3, Hour: 0, Minute: 0, Second: 0, Offset.Hours: 0 },
-                },
-            }, Is.True);
+            Assert.That(result, Has.Count.EqualTo(22));
+
+            Assert.That(result[0].EventName, Is.EqualTo("TOKYOGIRLSGIRLSmini!!"));
+            Assert.That(result[0].EventDescription,
+                Is.EqualTo(
+                    "1/29(月)\nTOKYO GIRLS GIRLS mini!!\n\n池袋Studio Mixa\n\n出演時間\ud83c\udfa4 17:25-17:45\n特典会\ud83d\udcf8 17:55-18:55(B)\n\nお目当て特典：TikTok撮影券\ud83d\udc95\n\n\ud83c\udfab\nhttps://t.livepocket.jp/e/tgg__0129"
+                )
+            );
+            Assert.That(result[0].EventPlace, Is.Null);
+            Assert.That(result[0].EventDateTime.EventStartDateTimeOffset, Is.EqualTo(
+                new DateTimeOffset(2024, 1, 29, 0, 0, 0, TimeSpan.Zero)
+            ));
+            Assert.That(result[0].EventDateTime.EventEndDateTimeOffset, Is.EqualTo(
+                new DateTimeOffset(2024, 1, 30, 0, 0, 0, TimeSpan.Zero)
+            ));
         });
     }
 
@@ -53,6 +54,6 @@ public class TimeTreeScraperTest
         {
         }
 
-        public override string TimeTreePublicCalendarId => "54197";
+        public override string TimeTreePublicCalendarId => "tenhana_sj";
     }
 }

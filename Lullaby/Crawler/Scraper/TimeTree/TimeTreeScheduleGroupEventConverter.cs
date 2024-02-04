@@ -23,7 +23,7 @@ public class TimeTreeScheduleGroupEventConverter : ITimeTreeScheduleGroupEventCo
         {
             EventName = timeTreeSchedule.Title,
             EventPlace = timeTreeSchedule.LocationName,
-            EventDescription = timeTreeSchedule.Overview,
+            EventDescription = timeTreeSchedule.Description,
             EventType = this.eventTypeDetector.DetectEventTypeByTitle(timeTreeSchedule.Title),
             EventDateTime = isAllDayEvent
                 ? new UnDetailedEventDateTime
