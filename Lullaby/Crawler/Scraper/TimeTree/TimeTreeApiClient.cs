@@ -29,7 +29,7 @@ public class TimeTreeApiClient : ITimeTreeApiClient
         }
 
         var requestUri = this.timeTreeApiBaseUrl
-            .AppendPathSegments("api", "v1", "public_calendars", calendarId, "public_events")
+            .AppendPathSegments("api", "v2", "public_calendars", calendarId, "public_events")
             .SetQueryParams(new
             {
                 limit = 30,
