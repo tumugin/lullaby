@@ -1,7 +1,7 @@
 namespace Lullaby.Services.Events;
 
 using Crawler.Events;
-using Models;
+using Database.Models;
 
 public interface IAddEventByGroupEventService
 {

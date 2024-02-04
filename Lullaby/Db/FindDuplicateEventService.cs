@@ -1,7 +1,8 @@
 namespace Lullaby.Db;
 
+using Database.DbContext;
+using Database.Models;
 using Microsoft.EntityFrameworkCore;
-using Models;
 using Services.Events;
 
 public class FindDuplicateEventService : IFindDuplicateEventService

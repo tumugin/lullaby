@@ -2,6 +2,7 @@ namespace Lullaby.Tests.Crawler.Scraper.Narlow;
 
 using System.Globalization;
 using AngleSharp;
+using Database.Enums;
 using Lullaby.Crawler.Events;
 using Lullaby.Crawler.Scraper.Narlow;
 using RichardSzalay.MockHttp;

@@ -1,5 +1,7 @@
 namespace Lullaby.Crawler.Events;
 
+using Database.Enums;
+
 public class EventTypeDetector : IEventTypeDetector
 {
     private readonly IReadOnlyCollection<string> battleEventNames =

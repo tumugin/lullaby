@@ -1,7 +1,8 @@
 namespace Lullaby.Db;
 
 using Crawler.Events;
-using Models;
+using Database.DbContext;
+using Database.Models;
 using Services.Events;
 using Utils;
 

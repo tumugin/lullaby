@@ -1,4 +1,4 @@
-namespace Lullaby.Crawler.Events;
+namespace Lullaby.Database.Enums;
 
 using System.Text.Json.Serialization;
 

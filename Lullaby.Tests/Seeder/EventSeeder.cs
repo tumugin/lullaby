@@ -1,9 +1,11 @@
 namespace Lullaby.Tests.Seeder;
 
 using System.Globalization;
+using Database.DbContext;
+using Database.Enums;
+using Database.Models;
 using Lullaby.Crawler.Events;
 using Lullaby.Db;
-using Models;
 
 public class EventSeeder
 {
