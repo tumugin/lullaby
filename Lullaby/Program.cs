@@ -5,6 +5,6 @@ using Lullaby;
 var builder = WebApplication.CreateBuilder(args);
 builder.AddApplicationServices();
 
-var app = builder.Build();
+using var app = builder.Build();
 app.UseLullabyWebApplication()
     .Run();

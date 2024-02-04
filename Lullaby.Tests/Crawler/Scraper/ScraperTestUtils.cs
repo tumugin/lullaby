@@ -13,7 +13,8 @@ public abstract class ScraperTestUtils
             throw new InvalidOperationException($"{manifestPath} not found.");
         }
 
-        var testFileContent = await new StreamReader(testFileStream).ReadToEndAsync();
+        using var streamReader = new StreamReader(testFileStream);
+        var testFileContent = await streamReader.ReadToEndAsync();
         return testFileContent;
     }
 }

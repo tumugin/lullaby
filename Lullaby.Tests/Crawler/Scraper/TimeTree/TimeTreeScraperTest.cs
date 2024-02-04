@@ -16,8 +16,9 @@ public class TimeTreeScraperTest
         mockHttp
             .Fallback
             .Respond("application/json", scheduleJson);
+        using var httpClient = mockHttp.ToHttpClient();
 
-        var timeTreeApiClient = new TimeTreeApiClient(mockHttp.ToHttpClient());
+        var timeTreeApiClient = new TimeTreeApiClient(httpClient);
         var testClass = new TimeTreeScraperTestImpl(
             timeTreeApiClient,
             new TimeTreeScheduleGroupEventConverter(new EventTypeDetector())

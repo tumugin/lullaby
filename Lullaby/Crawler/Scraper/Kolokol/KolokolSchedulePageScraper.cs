@@ -76,7 +76,7 @@ public partial class KolokolSchedulePageScraper : ISchedulePageScraper
         CancellationToken cancellationToken
     )
     {
-        var document = await this.browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken);
+        using var document = await this.browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken);
         var scheduleElements = document.QuerySelectorAll(".scdBox");
         return scheduleElements
             .Select(

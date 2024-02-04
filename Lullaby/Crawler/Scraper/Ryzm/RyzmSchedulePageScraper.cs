@@ -45,7 +45,7 @@ public abstract partial class RyzmSchedulePageScraper
         CancellationToken cancellationToken
     )
     {
-        var document = await this.browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken);
+        using var document = await this.browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken);
         var element = document.QuerySelector("#__NEXT_DATA__") ??
                       throw new InvalidDataException("data element was not found");
         var ryzmSchedulePageObject =

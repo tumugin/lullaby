@@ -93,7 +93,7 @@ public partial class AosekaSchedulePageScraper : ISchedulePageScraper
         CancellationToken cancellationToken
     )
     {
-        var document = await this.browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken);
+        using var document = await this.browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken);
         var eventElements = document.QuerySelectorAll(".creator-detail-links__col");
 
         return eventElements
