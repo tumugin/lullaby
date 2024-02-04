@@ -1,6 +1,6 @@
 namespace Lullaby.Services.Events;
 
-using Models;
+using Database.Models;
 
 public interface IFindDuplicateEventService
 {

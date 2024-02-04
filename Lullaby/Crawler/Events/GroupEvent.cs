@@ -1,5 +1,7 @@
 namespace Lullaby.Crawler.Events;
 
+using Database.Enums;
+
 public class GroupEvent
 {
     public required string EventName { get; init; }

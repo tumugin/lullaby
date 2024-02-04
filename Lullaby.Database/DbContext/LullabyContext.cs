@@ -1,4 +1,4 @@
-namespace Lullaby.Db;
+namespace Lullaby.Database.DbContext;
 
 using Microsoft.EntityFrameworkCore;
 using Models;

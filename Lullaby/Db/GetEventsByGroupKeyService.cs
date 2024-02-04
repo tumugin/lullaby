@@ -1,8 +1,10 @@
 namespace Lullaby.Db;
 
 using Crawler.Events;
+using Database.DbContext;
+using Database.Enums;
+using Database.Models;
 using Microsoft.EntityFrameworkCore;
-using Models;
 using Services.Events;
 
 public class GetEventsByGroupKeyService : IGetEventsByGroupKeyService
