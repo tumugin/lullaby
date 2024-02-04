@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lullaby.Tests", "Lullaby.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lullaby.Database", "Lullaby.Database\Lullaby.Database.csproj", "{64CBBFF9-815D-4077-AD20-1FAFBF399851}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lullaby.Admin", "Lullaby.Admin\Lullaby.Admin.csproj", "{A00B9BB2-DBA4-437A-9388-1DF9CF7AECE2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,9 @@ Global
 		{64CBBFF9-815D-4077-AD20-1FAFBF399851}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64CBBFF9-815D-4077-AD20-1FAFBF399851}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64CBBFF9-815D-4077-AD20-1FAFBF399851}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A00B9BB2-DBA4-437A-9388-1DF9CF7AECE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A00B9BB2-DBA4-437A-9388-1DF9CF7AECE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A00B9BB2-DBA4-437A-9388-1DF9CF7AECE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A00B9BB2-DBA4-437A-9388-1DF9CF7AECE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
