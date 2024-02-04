@@ -12,7 +12,7 @@ public class TimeTreeApiClientTest
         var scheduleJson =
             await ScraperTestUtils.GetTestFileFromManifest(
                 "Lullaby.Tests.Crawler.Scraper.TimeTree.time-tree-test-json.json");
-        var mockHttp = new MockHttpMessageHandler();
+        using var mockHttp = new MockHttpMessageHandler();
         mockHttp
             .Fallback
             .Respond("application/json", scheduleJson);
