@@ -8,7 +8,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Lullaby.Database\Lullaby.Database.csproj" />
-      <ProjectReference Include="..\Lullaby\Lullaby.csproj" />
     </ItemGroup>
 
     <ItemGroup>
