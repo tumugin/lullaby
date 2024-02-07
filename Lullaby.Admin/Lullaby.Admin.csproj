@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Lullaby.Database\Lullaby.Database.csproj" />
+      <ProjectReference Include="..\Lullaby\Lullaby.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -23,6 +24,10 @@
 
     <ItemGroup>
       <AdditionalFiles Include="Views\Shared\_Layout.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Pages\" />
     </ItemGroup>
 
 </Project>
