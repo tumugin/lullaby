@@ -8,19 +8,33 @@ COPY *.sln .
 COPY Lullaby/*.csproj ./Lullaby/
 COPY Lullaby.Database/*.csproj ./Lullaby.Database/
 COPY Lullaby.Tests/*.csproj ./Lullaby.Tests/
+COPY Lullaby.Admin/*.csproj ./Lullaby.Admin/
 
 # Restore as distinct layers
 RUN dotnet restore
 
 # Copy everything else
 COPY . ./
+
 # Build and publish a release
-WORKDIR Lullaby
+
+# main project
+WORKDIR /App/Lullaby
+RUN dotnet publish -c Release -o out
+
+# admin project
+WORKDIR /App/Lullaby.Admin
 RUN dotnet publish -c Release -o out
 
 # Build runtime image
 # see: https://hub.docker.com/_/microsoft-dotnet-aspnet/
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
-WORKDIR /App
+
+WORKDIR /App/Lullaby
 COPY --from=build-env /App/Lullaby/out .
+
+WORKDIR /App/Lullaby.Admin
+COPY --from=build-env /App/Lullaby.Admin/out .
+
+WORKDIR /App/Lullaby
 ENTRYPOINT ["dotnet", "Lullaby.dll"]

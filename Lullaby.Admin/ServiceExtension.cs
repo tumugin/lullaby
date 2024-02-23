@@ -1,34 +1,14 @@
-namespace Lullaby;
+namespace Lullaby.Admin;
 
-using System.Reflection;
 using System.Text.Json.Serialization;
-using Crawler;
 using Database.DbContext;
-using Db;
-using Groups;
 using Hangfire;
 using Hangfire.Redis.StackExchange;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using RestSharp;
-using Services.Events;
 
 public static class ServiceExtension
 {
-    private static IServiceCollection AddLullabyServices(this IServiceCollection serviceCollection)
-    {
-        serviceCollection
-            .AddCrawlers()
-            .AddGroups();
-        serviceCollection.AddScoped<IGetEventsByGroupKeyService, GetEventsByGroupKeyService>();
-        serviceCollection.AddScoped<IAddEventByGroupEventService, AddEventByGroupEventService>();
-        serviceCollection.AddScoped<IFindDuplicateEventService, FindDuplicateEventService>();
-        serviceCollection.AddScoped<IUpdateEventByGroupEventService, UpdateEventByGroupEventService>();
-        serviceCollection.AddHttpClient();
-        serviceCollection.AddScoped<RestClient, RestClient>(p => new RestClient(p.GetRequiredService<HttpClient>()));
-        return serviceCollection;
-    }
-
     private static void AddLullabyHangfire(this WebApplicationBuilder webApplicationBuilder)
     {
         if (webApplicationBuilder.Environment.EnvironmentName == "Testing")
@@ -43,7 +23,6 @@ public static class ServiceExtension
                 .UseRecommendedSerializerSettings()
                 .UseRedisStorage(webApplicationBuilder.Configuration.GetConnectionString("RedisConnection"));
         });
-        webApplicationBuilder.Services.AddHangfireServer();
     }
 
     public static WebApplicationBuilder AddApplicationServices(
@@ -64,15 +43,6 @@ public static class ServiceExtension
             options.UseNpgsql(dbConnectionString)
         );
 
-        webApplicationBuilder
-            .Services
-            .AddLullabyServices();
-
-        if (webApplicationBuilder.Environment.EnvironmentName == "Development")
-        {
-            webApplicationBuilder.Services.AddDatabaseDeveloperPageExceptionFilter();
-        }
-
         webApplicationBuilder.Services.AddControllersWithViews().AddJsonOptions(options =>
         {
             options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
@@ -82,34 +52,9 @@ public static class ServiceExtension
             options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute())
         );
 
-        // CORS
-        webApplicationBuilder.Services.AddCors(options =>
-        {
-            // APIはどこからでも使えて問題ないので全オープンにする
-            options.AddDefaultPolicy(policy =>
-            {
-                policy.AllowAnyOrigin()
-                    .AllowAnyHeader()
-                    .AllowAnyOrigin();
-            });
-        });
-
-        // Add HangFire
-        webApplicationBuilder.AddLullabyHangfire();
-
-        // Swagger
-        webApplicationBuilder.Services.AddSwaggerGen(swagger =>
-        {
-            swagger.EnableAnnotations();
-            swagger.IncludeXmlComments(
-                Path.Combine(
-                    AppContext.BaseDirectory,
-                    $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"
-                )
-            );
-        });
-
         webApplicationBuilder.Services.AddProblemDetails();
+
+        webApplicationBuilder.AddLullabyHangfire();
 
         return webApplicationBuilder;
     }
