@@ -36,8 +36,14 @@ public class AosekaSchedulePageScraperTest
             client,
             browsingContext,
             new FullDateGuesser(),
-            new EventTypeDetector()
+            new EventTypeDetector(),
+            new AosekaTimeProvider()
         );
+    }
+
+    private sealed class AosekaTimeProvider : TimeProvider
+    {
+        public override DateTimeOffset GetUtcNow() => new(2023, 5, 1, 0, 0, 0, TimeSpan.Zero);
     }
 
     [Test]
