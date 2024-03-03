@@ -18,7 +18,10 @@ public static class WebApplicationExtension
         else
         {
             webApplication.UseDeveloperExceptionPage();
+            webApplication.UseStatusCodePages();
         }
+
+        webApplication.UseStatusCodePagesWithReExecute("/Error/{0}");
 
         // HangFire
         webApplication.UseHangfireDashboard();

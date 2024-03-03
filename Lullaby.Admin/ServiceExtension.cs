@@ -43,14 +43,18 @@ public static class ServiceExtension
             options.UseNpgsql(dbConnectionString)
         );
 
-        webApplicationBuilder.Services.AddControllersWithViews().AddJsonOptions(options =>
-        {
-            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        });
+        webApplicationBuilder.Services.AddControllersWithViews()
+            .AddRazorRuntimeCompilation()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
         webApplicationBuilder.Services.AddMvc(options =>
             options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute())
         );
+
+        webApplicationBuilder.Services.AddRazorPages();
 
         webApplicationBuilder.Services.AddProblemDetails();
 
