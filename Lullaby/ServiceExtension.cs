@@ -10,6 +10,7 @@ using Hangfire;
 using Hangfire.Redis.StackExchange;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using RestSharp;
 using Services.Events;
 
@@ -20,6 +21,7 @@ public static class ServiceExtension
         serviceCollection
             .AddCrawlers()
             .AddGroups();
+        serviceCollection.TryAddSingleton(_ => TimeProvider.System);
         serviceCollection.AddScoped<IGetEventsByGroupKeyService, GetEventsByGroupKeyService>();
         serviceCollection.AddScoped<IAddEventByGroupEventService, AddEventByGroupEventService>();
         serviceCollection.AddScoped<IFindDuplicateEventService, FindDuplicateEventService>();
