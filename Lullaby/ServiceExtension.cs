@@ -20,7 +20,6 @@ public static class ServiceExtension
         serviceCollection
             .AddCrawlers()
             .AddGroups();
-        serviceCollection.AddSingleton<TimeProvider, TimeProvider>();
         serviceCollection.AddScoped<IGetEventsByGroupKeyService, GetEventsByGroupKeyService>();
         serviceCollection.AddScoped<IAddEventByGroupEventService, AddEventByGroupEventService>();
         serviceCollection.AddScoped<IFindDuplicateEventService, FindDuplicateEventService>();
