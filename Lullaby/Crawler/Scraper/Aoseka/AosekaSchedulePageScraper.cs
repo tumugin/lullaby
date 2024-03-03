@@ -16,18 +16,21 @@ public partial class AosekaSchedulePageScraper : ISchedulePageScraper
     private readonly RestClient client;
     private readonly IFullDateGuesser fullDateGuesser;
     private readonly IEventTypeDetector eventTypeDetector;
+    private readonly TimeProvider timeProvider;
 
     public AosekaSchedulePageScraper(
         RestClient client,
         IBrowsingContext browsingContext,
         IFullDateGuesser fullDateGuesser,
-        IEventTypeDetector eventTypeDetector
+        IEventTypeDetector eventTypeDetector,
+        TimeProvider timeProvider
     )
     {
         this.client = client;
         this.browsingContext = browsingContext;
         this.fullDateGuesser = fullDateGuesser;
         this.eventTypeDetector = eventTypeDetector;
+        this.timeProvider = timeProvider;
     }
 
     public Type TargetGroup => typeof(Aoseka);
@@ -42,7 +45,7 @@ public partial class AosekaSchedulePageScraper : ISchedulePageScraper
             aosekaEvents
                 .Select(e => e.Date)
                 .ToArray(),
-            TimeZoneInfo.ConvertTime(DateTimeOffset.Now, tokyoTimezone)
+            TimeZoneInfo.ConvertTime(this.timeProvider.GetLocalNow(), tokyoTimezone)
         );
 
         var convertedEvents = aosekaEvents
