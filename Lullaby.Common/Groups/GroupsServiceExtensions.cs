@@ -1,4 +1,6 @@
-namespace Lullaby.Groups;
+namespace Lullaby.Common.Groups;
+
+using Microsoft.Extensions.DependencyInjection;
 
 public static class GroupsServiceExtensions
 {

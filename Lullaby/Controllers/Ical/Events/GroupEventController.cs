@@ -1,10 +1,10 @@
 namespace Lullaby.Controllers.Ical.Events;
 
+using Common.Groups;
 using global::Ical.Net;
 using global::Ical.Net.CalendarComponents;
 using global::Ical.Net.DataTypes;
 using global::Ical.Net.Serialization;
-using Groups;
 using Microsoft.AspNetCore.Mvc;
 using Requests.Ical.Events;
 using Services.Events;

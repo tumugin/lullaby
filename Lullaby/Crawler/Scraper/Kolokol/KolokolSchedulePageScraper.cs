@@ -3,8 +3,8 @@ namespace Lullaby.Crawler.Scraper.Kolokol;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using AngleSharp;
+using Common.Groups;
 using Events;
-using Groups;
 using RestSharp;
 using Utils;
 

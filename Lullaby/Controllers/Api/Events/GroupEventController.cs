@@ -1,6 +1,6 @@
 namespace Lullaby.Controllers.Api.Events;
 
-using Groups;
+using Common.Groups;
 using Microsoft.AspNetCore.Mvc;
 using Requests.Api.Events;
 using Responses.Api.Events;

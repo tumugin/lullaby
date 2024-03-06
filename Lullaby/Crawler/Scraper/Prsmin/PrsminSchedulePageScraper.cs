@@ -1,8 +1,8 @@
 namespace Lullaby.Crawler.Scraper.Prsmin;
 
 using AngleSharp;
+using Common.Groups;
 using Events;
-using Groups;
 using RestSharp;
 using Ryzm;
 

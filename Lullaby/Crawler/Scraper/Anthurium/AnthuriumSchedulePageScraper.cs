@@ -3,8 +3,8 @@ namespace Lullaby.Crawler.Scraper.Anthurium;
 using AngleSharp;
 using AngleSharp.Html.Parser;
 using ApiClient;
+using Common.Groups;
 using Events;
-using Groups;
 using Utils;
 
 public class AnthuriumSchedulePageScraper : ISchedulePageScraper

@@ -1,6 +1,6 @@
 namespace Lullaby.ViewModels;
 
-using Groups;
+using Common.Groups;
 
 public class GroupViewModel
 {

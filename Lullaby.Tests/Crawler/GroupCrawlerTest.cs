@@ -2,11 +2,11 @@ namespace Lullaby.Tests.Crawler;
 
 using System.Globalization;
 using Common.Enums;
+using Common.Groups;
 using Lullaby.Crawler;
 using Lullaby.Crawler.Events;
 using Lullaby.Crawler.Scraper;
 using Lullaby.Db;
-using Groups;
 using Microsoft.EntityFrameworkCore;
 
 public class GroupCrawlerTest : BaseDatabaseTest
