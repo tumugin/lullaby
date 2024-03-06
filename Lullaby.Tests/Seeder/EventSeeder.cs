@@ -1,8 +1,8 @@
 namespace Lullaby.Tests.Seeder;
 
 using System.Globalization;
+using Common.Enums;
 using Database.DbContext;
-using Database.Enums;
 using Database.Models;
 using Lullaby.Crawler.Events;
 using Lullaby.Db;

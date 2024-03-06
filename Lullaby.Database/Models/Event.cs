@@ -2,7 +2,7 @@ namespace Lullaby.Database.Models;
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Enums;
+using Common.Enums;
 using Microsoft.EntityFrameworkCore;
 
 #pragma warning disable CA1716

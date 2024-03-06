@@ -1,7 +1,7 @@
 namespace Lullaby.ViewModels;
 
+using Common.Enums;
 using Crawler.Events;
-using Database.Enums;
 using Database.Models;
 
 public class EventViewModel

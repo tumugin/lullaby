@@ -1,6 +1,6 @@
 namespace Lullaby.Tests.Crawler.Events;
 
-using Database.Enums;
+using Common.Enums;
 using Lullaby.Crawler.Events;
 
 public class EventTypeDetectorTest

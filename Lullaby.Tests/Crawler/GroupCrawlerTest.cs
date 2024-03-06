@@ -1,7 +1,7 @@
 namespace Lullaby.Tests.Crawler;
 
 using System.Globalization;
-using Database.Enums;
+using Common.Enums;
 using Lullaby.Crawler;
 using Lullaby.Crawler.Events;
 using Lullaby.Crawler.Scraper;

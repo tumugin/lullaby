@@ -1,7 +1,7 @@
 namespace Lullaby.Services.Events;
 
+using Common.Enums;
 using Crawler.Events;
-using Database.Enums;
 using Database.Models;
 
 public interface IGetEventsByGroupKeyService
