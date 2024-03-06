@@ -1,6 +1,6 @@
 namespace Lullaby.Crawler.Scraper.Tenhana;
 
-using Groups;
+using Common.Groups;
 using TimeTree;
 
 public class TenhanaScraper : TimeTreeScraper, ISchedulePageScraper

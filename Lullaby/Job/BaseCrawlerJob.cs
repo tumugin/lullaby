@@ -1,7 +1,7 @@
 namespace Lullaby.Job;
 
+using Common.Groups;
 using Crawler;
-using Groups;
 using Hangfire;
 
 public abstract class BaseCrawlerJob

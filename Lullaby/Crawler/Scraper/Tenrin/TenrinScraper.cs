@@ -1,6 +1,6 @@
 namespace Lullaby.Crawler.Scraper.Tenrin;
 
-using Groups;
+using Common.Groups;
 using TimeTree;
 
 public class TenrinScraper : TimeTreeScraper, ISchedulePageScraper

@@ -1,4 +1,4 @@
-namespace Lullaby.Database.Enums;
+namespace Lullaby.Common.Enums;
 
 using System.Text.Json.Serialization;
 

@@ -3,9 +3,9 @@ namespace Lullaby.Crawler.Scraper.Narlow;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using AngleSharp;
+using Common.Groups;
 using Events;
 using Flurl;
-using Groups;
 using Utils;
 
 public partial class NarlowSchedulePageScraper : ISchedulePageScraper

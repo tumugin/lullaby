@@ -1,9 +1,9 @@
 namespace Lullaby.Crawler;
 
+using Common.Groups;
 using Database.DbContext;
 using Db;
 using Events;
-using Groups;
 using Scraper;
 using Services.Events;
 

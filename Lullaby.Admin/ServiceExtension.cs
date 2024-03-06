@@ -1,6 +1,7 @@
 namespace Lullaby.Admin;
 
 using System.Text.Json.Serialization;
+using Common.Groups;
 using Database.DbContext;
 using Hangfire;
 using Hangfire.Redis.StackExchange;
@@ -9,6 +10,13 @@ using Microsoft.EntityFrameworkCore;
 
 public static class ServiceExtension
 {
+    private static IServiceCollection AddLullabyServices(this IServiceCollection services)
+    {
+        services.AddGroups();
+        services.AddScoped<IGroupStatisticsService, GroupStatisticsService>();
+        return services;
+    }
+
     private static void AddLullabyHangfire(this WebApplicationBuilder webApplicationBuilder)
     {
         if (webApplicationBuilder.Environment.EnvironmentName == "Testing")
@@ -43,18 +51,23 @@ public static class ServiceExtension
             options.UseNpgsql(dbConnectionString)
         );
 
-        webApplicationBuilder.Services.AddControllersWithViews().AddJsonOptions(options =>
-        {
-            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-        });
+        webApplicationBuilder.Services.AddControllersWithViews()
+            .AddRazorRuntimeCompilation()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
         webApplicationBuilder.Services.AddMvc(options =>
             options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute())
         );
 
+        webApplicationBuilder.Services.AddRazorPages();
+
         webApplicationBuilder.Services.AddProblemDetails();
 
         webApplicationBuilder.AddLullabyHangfire();
+        webApplicationBuilder.Services.AddLullabyServices();
 
         return webApplicationBuilder;
     }

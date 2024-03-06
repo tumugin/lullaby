@@ -4,8 +4,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using AngleSharp;
+using Common.Groups;
 using Events;
-using Groups;
 using RestSharp;
 
 public partial class TebasenSchedulePageScraper : ISchedulePageScraper

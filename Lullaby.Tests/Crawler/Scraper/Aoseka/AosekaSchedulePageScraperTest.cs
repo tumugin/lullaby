@@ -2,7 +2,7 @@ namespace Lullaby.Tests.Crawler.Scraper.Aoseka;
 
 using System.Globalization;
 using AngleSharp;
-using Database.Enums;
+using Common.Enums;
 using Lullaby.Crawler.Events;
 using Lullaby.Crawler.Scraper.Aoseka;
 using Lullaby.Crawler.Utility;

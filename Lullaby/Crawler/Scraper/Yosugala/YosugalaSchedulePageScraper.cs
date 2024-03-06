@@ -1,8 +1,8 @@
 namespace Lullaby.Crawler.Scraper.Yosugala;
 
 using AngleSharp;
+using Common.Groups;
 using Events;
-using Groups;
 using RestSharp;
 using Ryzm;
 

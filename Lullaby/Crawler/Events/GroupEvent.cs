@@ -1,6 +1,6 @@
 namespace Lullaby.Crawler.Events;
 
-using Database.Enums;
+using Common.Enums;
 
 public class GroupEvent
 {

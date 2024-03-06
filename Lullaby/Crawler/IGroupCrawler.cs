@@ -1,6 +1,6 @@
 namespace Lullaby.Crawler;
 
-using Groups;
+using Common.Groups;
 
 public interface IGroupCrawler
 {

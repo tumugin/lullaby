@@ -1,6 +1,6 @@
 namespace Lullaby.Controllers;
 
-using Groups;
+using Common.Groups;
 using Microsoft.AspNetCore.Mvc;
 using ViewModels.Index;
 

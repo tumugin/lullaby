@@ -1,7 +1,7 @@
 namespace Lullaby.Requests.Ical.Events;
 
+using Common.Enums;
 using Crawler.Events;
-using Database.Enums;
 
 public class GroupEventIndexParameters
 {

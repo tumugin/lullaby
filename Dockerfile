@@ -7,6 +7,7 @@ WORKDIR /App
 COPY *.sln .
 COPY Lullaby/*.csproj ./Lullaby/
 COPY Lullaby.Database/*.csproj ./Lullaby.Database/
+COPY Lullaby.Common/*.csproj ./Lullaby.Common/
 COPY Lullaby.Tests/*.csproj ./Lullaby.Tests/
 COPY Lullaby.Admin/*.csproj ./Lullaby.Admin/
 

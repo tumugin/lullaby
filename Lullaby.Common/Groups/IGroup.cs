@@ -1,4 +1,4 @@
-namespace Lullaby.Groups;
+namespace Lullaby.Common.Groups;
 
 public interface IGroup
 {

@@ -1,6 +1,6 @@
 namespace Lullaby.ViewModels.Index;
 
-using Groups;
+using Common.Groups;
 
 public class IndexViewModel
 {
