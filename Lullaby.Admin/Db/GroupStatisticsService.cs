@@ -1,10 +1,11 @@
-﻿namespace Lullaby.Admin;
+﻿namespace Lullaby.Admin.Db;
 
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Lullaby.Common.Groups;
-using Lullaby.Database.DbContext;
+using Services;
+using Common.Groups;
+using Database.DbContext;
 using Microsoft.EntityFrameworkCore;
 
 public class GroupStatisticsService(LullabyContext lullabyContext) : IGroupStatisticsService

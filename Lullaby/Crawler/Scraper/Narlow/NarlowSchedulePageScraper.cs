@@ -97,9 +97,6 @@ public partial class NarlowSchedulePageScraper : ISchedulePageScraper
     [GeneratedRegex("OPEN (\\d+):(\\d+)")]
     private static partial Regex OpenTimePattenRegex();
 
-    [GeneratedRegex("[ ]{2,}")]
-    private static partial Regex ManySpaceRegex();
-
     private async Task<GroupEvent> ParseIndividualSchedulePage(
         Uri individualSchedulePageUrl,
         CancellationToken cancellationToken

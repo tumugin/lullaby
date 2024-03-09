@@ -1,7 +1,6 @@
 namespace Lullaby.Tests;
 
 using Database.DbContext;
-using Lullaby.Db;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 

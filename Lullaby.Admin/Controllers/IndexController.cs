@@ -1,8 +1,9 @@
 namespace Lullaby.Admin.Controllers;
 
-using Lullaby.Admin.ViewModels;
-using Lullaby.Common.Groups;
+using ViewModels;
+using Common.Groups;
 using Microsoft.AspNetCore.Mvc;
+using Services;
 
 public class IndexController(
     IGroupStatisticsService groupStatisticsService,

@@ -1,6 +1,6 @@
-﻿namespace Lullaby.Admin;
+﻿namespace Lullaby.Admin.Services;
 
-using Lullaby.Common.Groups;
+using Common.Groups;
 
 public interface IGroupStatisticsService
 {

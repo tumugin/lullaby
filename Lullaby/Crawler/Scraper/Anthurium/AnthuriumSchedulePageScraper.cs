@@ -62,7 +62,7 @@ public class AnthuriumSchedulePageScraper : ISchedulePageScraper
                             },
                     EventType = this.eventTypeDetector.DetectEventTypeByTitle(v.EventName),
                     EventDescription = parsedEventDetail != null
-                        ? (parsedEventDetail.Body?.ToHtml(new TextMarkupFormatter()).Trim() ?? "")
+                        ? parsedEventDetail.Body?.ToHtml(new TextMarkupFormatter()).Trim() ?? ""
                         : ""
                 };
             })

@@ -9,7 +9,7 @@ using RichardSzalay.MockHttp;
 
 public class NarlowSchedulePageScraperTest
 {
-    private NarlowSchedulePageScraper NarlowSchedulePageScraper = null!;
+    private NarlowSchedulePageScraper narlowSchedulePageScraper = null!;
 
     [SetUp]
     [System.Diagnostics.CodeAnalysis.SuppressMessage("IDisposableAnalyzers.Correctness", "IDISP001:Dispose created")]
@@ -34,7 +34,7 @@ public class NarlowSchedulePageScraperTest
         var client = mockHttp.ToHttpClient();
         var browsingContext = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
 
-        this.NarlowSchedulePageScraper = new NarlowSchedulePageScraper(
+        this.narlowSchedulePageScraper = new NarlowSchedulePageScraper(
             new EventTypeDetector(),
             browsingContext,
             client
@@ -44,14 +44,14 @@ public class NarlowSchedulePageScraperTest
     [Test]
     public async Task TestScrapeAsyncHasResults()
     {
-        var result = await this.NarlowSchedulePageScraper.ScrapeAsync(default);
+        var result = await this.narlowSchedulePageScraper.ScrapeAsync(default);
         Assert.That(result, Has.Count.EqualTo(15));
     }
 
     [Test]
     public async Task TestScrapeAsync()
     {
-        var result = await this.NarlowSchedulePageScraper.ScrapeAsync(default);
+        var result = await this.narlowSchedulePageScraper.ScrapeAsync(default);
 
         // アイドル甲子園 in 新宿BLAZE
         var testEvent = result
