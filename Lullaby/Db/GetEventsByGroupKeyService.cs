@@ -1,7 +1,6 @@
 namespace Lullaby.Db;
 
 using Common.Enums;
-using Crawler.Events;
 using Database.DbContext;
 using Database.Models;
 using Microsoft.EntityFrameworkCore;

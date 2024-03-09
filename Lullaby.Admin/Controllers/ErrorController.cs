@@ -1,6 +1,5 @@
 namespace Lullaby.Admin.Controllers;
 
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
 public class ErrorController : Controller
