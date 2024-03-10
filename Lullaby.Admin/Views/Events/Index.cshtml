@@ -15,6 +15,9 @@
         <div class="d-flex justify-content-center">
             @await Component.InvokeAsync("BootstrapPaginator", new { currentPage = Model.Result.CurrentPage, totalPages = Model.Result.TotalPages })
         </div>
+        <div>
+            @(Model.Result.TotalEvents)件中@(Model.Result.From)から@(Model.Result.To)件目を表示中
+        </div>
         @if (Model.Result.TotalEvents == 0)
         {
             <div class="col-12">

@@ -10,4 +10,6 @@ public class SearchEventResult
     public required int TotalEvents { get; init; }
 
     public int TotalPages => (int)Math.Ceiling((double)this.TotalEvents / this.Limit);
+    public int From => ((this.CurrentPage - 1) * this.Limit) + 1;
+    public int To => Math.Min(this.CurrentPage * this.Limit, this.TotalEvents);
 }

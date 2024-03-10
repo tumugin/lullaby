@@ -8,17 +8,13 @@
     var canMoveToLastPage = currentPage < totalPages;
     var pageNumbers = new[]
         {
-            currentPage - 5,
-            currentPage - 4,
             currentPage - 3,
             currentPage - 2,
             currentPage - 1,
             currentPage,
             currentPage + 1,
             currentPage + 2,
-            currentPage + 3,
-            currentPage + 4,
-            currentPage + 5
+            currentPage + 3
         }
         .Where(v => v >= 1 && v <= totalPages)
         .ToArray();
