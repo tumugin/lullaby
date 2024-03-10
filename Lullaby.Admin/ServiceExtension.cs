@@ -16,6 +16,7 @@ public static class ServiceExtension
     {
         services.AddGroups();
         services.AddScoped<IGroupStatisticsService, GroupStatisticsService>();
+        services.AddScoped<IEventSearchService, EventSearchService>();
         return services;
     }
 
