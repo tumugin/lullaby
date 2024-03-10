@@ -8,7 +8,8 @@ using ViewModels;
 
 public class EventsController(
     IEventSearchService eventSearchService,
-    IEnumerable<IGroup> groups
+    IEnumerable<IGroup> groups,
+    IUserInterfaceDateTimeOffsetService userInterfaceDateTimeOffsetService
 ) : Controller
 {
     public async Task<IActionResult> Index(
@@ -19,8 +20,12 @@ public class EventsController(
         var result = await eventSearchService.SearchEventAsync(
             request.GroupKey,
             request.EventName,
-            request.StartDateTime,
-            request.EndDateTime,
+            request.StartDateTime != null
+                ? userInterfaceDateTimeOffsetService.ConvertFormInputDateTimeToUtcDateTimeOffset(request.StartDateTime)
+                : null,
+            request.EndDateTime != null
+                ? userInterfaceDateTimeOffsetService.ConvertFormInputDateTimeToUtcDateTimeOffset(request.EndDateTime)
+                : null,
             request.Page,
             cancellationToken
         );

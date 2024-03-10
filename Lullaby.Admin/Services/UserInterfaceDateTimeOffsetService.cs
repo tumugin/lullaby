@@ -14,4 +14,10 @@ public class UserInterfaceDateTimeOffsetService(TimeZoneInfo defaultTimeZone) : 
     public string ConvertToShortString(DateTimeOffset dateTimeOffset) => this
         .ConvertToUserInterfaceDateTimeOffset(dateTimeOffset)
         .ToString("yyyy/MM/dd", CultureInfo.InvariantCulture);
+
+    public DateTimeOffset ConvertFormInputDateTimeToUtcDateTimeOffset(string input)
+    {
+        var parsedDateTime = DateTime.Parse(input, CultureInfo.InvariantCulture);
+        return (new DateTimeOffset(parsedDateTime, defaultTimeZone.BaseUtcOffset)).ToUniversalTime();
+    }
 }

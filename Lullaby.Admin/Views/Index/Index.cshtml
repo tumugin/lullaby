@@ -1,3 +1,5 @@
+@using Lullaby.Admin.Services
+@inject IUserInterfaceDateTimeOffsetService UserInterfaceDateTimeOffsetService
 @model Lullaby.Admin.ViewModels.IndexViewModel
 
 @{
@@ -11,7 +13,7 @@
 <main>
     <h2>グループごとの統計</h2>
     <div class="row g-3">
-        @if (Model.GroupStatistics.Count() == 0)
+        @if (!Model.GroupStatistics.Any())
         {
             <div class="col-12">
                 <p>DB上に登録されたグループが存在しません。</p>
@@ -32,10 +34,10 @@
                                     登録イベント数: @groupStatistics.TotalEvents
                                 </li>
                                 <li>
-                                    イベント最終更新日: @groupStatistics.LastUpdatedAt
+                                    イベント最終更新日: @UserInterfaceDateTimeOffsetService.ConvertToString(@groupStatistics.LastUpdatedAt)
                                 </li>
                                 <li>
-                                    最新のイベントの日付: @groupStatistics.LatestEventDate
+                                    最新のイベントの日付: @UserInterfaceDateTimeOffsetService.ConvertToString(@groupStatistics.LatestEventDate)
                                 </li>
                             </ul>
                         </div>

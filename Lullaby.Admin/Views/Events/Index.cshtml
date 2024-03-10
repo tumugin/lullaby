@@ -7,8 +7,33 @@
     Layout = "_Layout";
 }
 
-<header class="d-flex align-items-center pb-3 mb-5 border-bottom">
+<header class="pb-3 mb-5 border-bottom">
     <h1>イベント検索</h1>
+    <form class="row g-3" asp-controller="Events" asp-action="Index" method="get">
+        <div class="col-xxl-3">
+            <label for="groupKey" class="form-label">グループ</label>
+            <select id="groupKey" name="groupKey" class="form-select">
+                <option value="">全てのグループ</option>
+                @foreach (var group in Model.Groups)
+                {
+                    <option value="@group.GroupKey" selected="@(group.GroupKey == Model.Request.GroupKey)">@group.GroupName</option>
+                }
+            </select>
+        </div>
+        <div class="col-xxl-5">
+            <label for="eventName" class="form-label">イベント名</label>
+            <input type="text" id="eventName" name="eventName" class="form-control" placeholder="イベント名" value="@Model.Request.EventName"/>
+        </div>
+        <div class="col-xxl-2">
+            <label for="startDateTime" class="form-label">イベント開始日</label>
+            <input type="date" id="startDateTime" name="startDateTime" class="form-control" value="@Model.Request.StartDateTime"/>
+        </div>
+        <div class="col-xxl-2">
+            <label for="endDateTime" class="form-label">イベント終了日</label>
+            <input type="date" id="endDateTime" name="endDateTime" class="form-control" value="@Model.Request.EndDateTime"/>
+        </div>
+        <button class="btn btn-outline-primary" type="submit">検索</button>
+    </form>
 </header>
 <main>
     <div class="row g-3">
@@ -48,6 +73,12 @@
                             {
                                 <li>
                                     イベント日時: @UserInterfaceDateTimeOffsetService.ConvertToShortString(@groupEvent.EventStarts)
+                                </li>
+                            }
+                            @if (groupEvent.EventPlace != null)
+                            {
+                                <li>
+                                    イベント開催地: @groupEvent.EventPlace
                                 </li>
                             }
                             <li>
