@@ -38,7 +38,7 @@ public class EventSearchService(LullabyContext dbContext) : IEventSearchService
         }
 
         var results = await events
-            .OrderBy(v => v.EventStarts)
+            .OrderByDescending(v => v.EventStarts)
             .Paginate(50, page)
             .ToArrayAsync(cancellationToken);
 

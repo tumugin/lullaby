@@ -1,0 +1,53 @@
+@using Microsoft.Extensions.Primitives
+@using Microsoft.AspNetCore.Http
+@model Lullaby.Admin.ViewModels.BootstrapPaginatorViewModel
+@{
+    var currentPage = Model.CurrentPage;
+    var totalPages = Model.TotalPages;
+    var canMoveToFirstPage = currentPage > 1;
+    var canMoveToLastPage = currentPage < totalPages;
+    var pageNumbers = new[]
+        {
+            currentPage - 5,
+            currentPage - 4,
+            currentPage - 3,
+            currentPage - 2,
+            currentPage - 1,
+            currentPage,
+            currentPage + 1,
+            currentPage + 2,
+            currentPage + 3,
+            currentPage + 4,
+            currentPage + 5
+        }
+        .Where(v => v >= 1 && v <= totalPages)
+        .ToArray();
+
+    string GetPageUrl(int page)
+    {
+        var query = Context.Request.Query.ToDictionary();
+        query["page"] = new StringValues(page.ToString());
+        return Context.Request.Path + QueryString.Create(query).ToUriComponent();
+    }
+}
+
+<nav aria-label="ページ">
+    <ul class="pagination">
+        <li class="page-item @(canMoveToFirstPage ? "" : "disabled")">
+            <a class="page-link" href="@GetPageUrl(1)" aria-label="最初のページ">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        @foreach (var page in pageNumbers)
+        {
+            <li class="page-item @(currentPage == page ? "disabled" : "")">
+                <a class="page-link" href="@GetPageUrl(page)">@(page)</a>
+            </li>
+        }
+        <li class="page-item @(canMoveToLastPage ? "" : "disabled")">
+            <a class="page-link" href="@GetPageUrl(totalPages)" aria-label="最後のページ">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

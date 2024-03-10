@@ -17,6 +17,9 @@ public static class ServiceExtension
         services.AddGroups();
         services.AddScoped<IGroupStatisticsService, GroupStatisticsService>();
         services.AddScoped<IEventSearchService, EventSearchService>();
+        services.AddScoped<IUserInterfaceDateTimeOffsetService, UserInterfaceDateTimeOffsetService>(
+            _ => new UserInterfaceDateTimeOffsetService(TimeZoneInfo.FindSystemTimeZoneById("Asia/Tokyo"))
+        );
         return services;
     }
 

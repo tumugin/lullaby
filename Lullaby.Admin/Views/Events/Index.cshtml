@@ -1,4 +1,6 @@
+@using Lullaby.Admin.Services
 @model Lullaby.Admin.ViewModels.EventsListViewModel
+@inject IUserInterfaceDateTimeOffsetService UserInterfaceDateTimeOffsetService
 
 @{
     ViewBag.Title = "イベント検索";
@@ -8,3 +10,63 @@
 <header class="d-flex align-items-center pb-3 mb-5 border-bottom">
     <h1>イベント検索</h1>
 </header>
+<main>
+    <div class="row g-3">
+        <div class="d-flex justify-content-center">
+            @await Component.InvokeAsync("BootstrapPaginator", new { currentPage = Model.Result.CurrentPage, totalPages = Model.Result.TotalPages })
+        </div>
+        @if (Model.Result.TotalEvents == 0)
+        {
+            <div class="col-12">
+                <p>一致するイベントはありませんでした</p>
+            </div>
+        }
+        @foreach (var groupEvent in Model.Result.Events)
+        {
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h5 class="d-flex align-items-center gap-2">
+                            <span>@groupEvent.EventName</span>
+                            <span class="badge text-bg-primary">
+                                @Model.Groups.First(v => v.GroupKey == groupEvent.GroupKey).GroupName
+                            </span>
+                        </h5>
+                    </div>
+                    <div class="card-text">
+                        <ul>
+                            @if (groupEvent.IsDateTimeDetailed)
+                            {
+                                <li>
+                                    イベント日時: @UserInterfaceDateTimeOffsetService.ConvertToString(@groupEvent.EventStarts) から @UserInterfaceDateTimeOffsetService.ConvertToString(@groupEvent.EventEnds) まで
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    イベント日時: @UserInterfaceDateTimeOffsetService.ConvertToShortString(@groupEvent.EventStarts)
+                                </li>
+                            }
+                            <li>
+                                作成日時: @UserInterfaceDateTimeOffsetService.ConvertToString(groupEvent.CreatedAt)
+                            </li>
+                            <li>
+                                更新日時: @UserInterfaceDateTimeOffsetService.ConvertToString(groupEvent.UpdatedAt)
+                            </li>
+                        </ul>
+                        <div>
+                            @foreach (var line in groupEvent.EventDescription.Split('\n'))
+                            {
+                                <p class="lh-sm">@line</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="d-flex justify-content-center">
+            @await Component.InvokeAsync("BootstrapPaginator", new { currentPage = Model.Result.CurrentPage, totalPages = Model.Result.TotalPages })
+        </div>
+    </div>
+</main>

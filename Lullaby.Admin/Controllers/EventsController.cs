@@ -1,11 +1,15 @@
 namespace Lullaby.Admin.Controllers;
 
+using Common.Groups;
 using Services;
 using Microsoft.AspNetCore.Mvc;
 using Requests.Events;
 using ViewModels;
 
-public class EventsController(IEventSearchService eventSearchService) : Controller
+public class EventsController(
+    IEventSearchService eventSearchService,
+    IEnumerable<IGroup> groups
+) : Controller
 {
     public async Task<IActionResult> Index(
         IndexRequest request,
@@ -21,6 +25,6 @@ public class EventsController(IEventSearchService eventSearchService) : Controll
             cancellationToken
         );
 
-        return this.View(new EventsListViewModel { Request = request, Result = result });
+        return this.View(new EventsListViewModel { Request = request, Result = result, Groups = groups });
     }
 }
