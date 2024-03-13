@@ -39,7 +39,6 @@ public static class ConfigureScheduledJobs
         // yoloz - YOLOZ
         recurringJobManager.AddOrUpdate<YolozCrawlerJob>(
             YolozCrawlerJob.JobKey,
-            // disable for now because group has been suspended
             x => x.Execute(default),
             Cron.Hourly()
         );
