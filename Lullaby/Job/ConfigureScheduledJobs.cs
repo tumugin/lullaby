@@ -36,6 +36,13 @@ public static class ConfigureScheduledJobs
             Cron.Hourly()
         );
 
+        // yoloz - YOLOZ
+        recurringJobManager.AddOrUpdate<YolozCrawlerJob>(
+            YolozCrawlerJob.JobKey,
+            x => x.Execute(default),
+            Cron.Hourly()
+        );
+
         // 手羽先センセーション - tebasen
         recurringJobManager.AddOrUpdate<TebasenCrawlerJob>(
             TebasenCrawlerJob.JobKey,

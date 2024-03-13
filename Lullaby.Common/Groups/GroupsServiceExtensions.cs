@@ -29,5 +29,7 @@ public static class GroupsServiceExtensions
             .AddScoped<IGroup, Anthurium>()
             .AddScoped<Anthurium, Anthurium>()
             .AddScoped<Narlow, Narlow>()
-            .AddScoped<IGroup, Narlow>();
+            .AddScoped<IGroup, Narlow>()
+            .AddScoped<Yoloz, Yoloz>()
+            .AddScoped<IGroup, Yoloz>();
 }
