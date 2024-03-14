@@ -1,7 +1,5 @@
 namespace Lullaby.Admin.Services;
 
-using Database.Models;
-
 public interface IEventSearchService
 {
     public Task<SearchEventResult> SearchEventAsync(

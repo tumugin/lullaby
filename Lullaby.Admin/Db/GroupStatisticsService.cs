@@ -15,7 +15,8 @@ public class GroupStatisticsService(LullabyContext lullabyContext) : IGroupStati
         CancellationToken cancellationToken
     )
     {
-        var targetGroupKeys = targetGroups.Select(g => g.GroupKey).ToArray();
+        var targetGroupArray = targetGroups.ToArray();
+        var targetGroupKeys = targetGroupArray.Select(g => g.GroupKey).ToArray();
         var result = await lullabyContext.Events
             .Where(e => targetGroupKeys.Contains(e.GroupKey))
             .GroupBy(e => e.GroupKey)
@@ -29,7 +30,7 @@ public class GroupStatisticsService(LullabyContext lullabyContext) : IGroupStati
             .ToArrayAsync(cancellationToken);
         return result.Select(r => new GroupStatistics
         {
-            Group = targetGroups.Single(g => g.GroupKey == r.GroupKey),
+            Group = targetGroupArray.Single(g => g.GroupKey == r.GroupKey),
             TotalEvents = r.TotalEvents,
             LatestEventDate = r.LatestEventDate,
             LastUpdatedAt = r.LastUpdatedAt

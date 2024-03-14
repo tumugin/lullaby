@@ -16,7 +16,7 @@ using Services.Events;
 
 public static class ServiceExtension
 {
-    private static IServiceCollection AddLullabyServices(this IServiceCollection serviceCollection)
+    private static void AddLullabyServices(this IServiceCollection serviceCollection)
     {
         serviceCollection
             .AddCrawlers()
@@ -28,7 +28,6 @@ public static class ServiceExtension
         serviceCollection.AddScoped<IUpdateEventByGroupEventService, UpdateEventByGroupEventService>();
         serviceCollection.AddHttpClient();
         serviceCollection.AddScoped<RestClient, RestClient>(p => new RestClient(p.GetRequiredService<HttpClient>()));
-        return serviceCollection;
     }
 
     private static void AddLullabyHangfire(this WebApplicationBuilder webApplicationBuilder)

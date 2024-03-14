@@ -12,7 +12,7 @@ using Services;
 
 public static class ServiceExtension
 {
-    private static IServiceCollection AddLullabyServices(this IServiceCollection services)
+    private static void AddLullabyServices(this IServiceCollection services)
     {
         services.AddGroups();
         services.AddScoped<IGroupStatisticsService, GroupStatisticsService>();
@@ -20,7 +20,6 @@ public static class ServiceExtension
         services.AddScoped<IUserInterfaceDateTimeOffsetService, UserInterfaceDateTimeOffsetService>(
             _ => new UserInterfaceDateTimeOffsetService(TimeZoneInfo.FindSystemTimeZoneById("Asia/Tokyo"))
         );
-        return services;
     }
 
     private static void AddLullabyHangfire(this WebApplicationBuilder webApplicationBuilder)
