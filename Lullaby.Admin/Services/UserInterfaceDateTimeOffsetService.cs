@@ -18,6 +18,6 @@ public class UserInterfaceDateTimeOffsetService(TimeZoneInfo defaultTimeZone) : 
     public DateTimeOffset ConvertFormInputDateTimeToUtcDateTimeOffset(string input)
     {
         var parsedDateTime = DateTime.Parse(input, CultureInfo.InvariantCulture);
-        return (new DateTimeOffset(parsedDateTime, defaultTimeZone.BaseUtcOffset)).ToUniversalTime();
+        return new DateTimeOffset(parsedDateTime, defaultTimeZone.BaseUtcOffset).ToUniversalTime();
     }
 }
