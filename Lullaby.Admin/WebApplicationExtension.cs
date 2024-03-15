@@ -31,11 +31,12 @@ public static class WebApplicationExtension
 
         webApplication.UseRouting();
 
-        // Sentry
-        webApplication.UseSentryTracing();
-
+        // Auth
         webApplication.UseAuthentication();
         webApplication.UseAuthorization();
+
+        // Sentry
+        webApplication.UseSentryTracing();
 
         webApplication.MapControllerRoute(
             "default",

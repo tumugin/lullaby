@@ -7,7 +7,7 @@ using Db;
 using Hangfire;
 using Hangfire.Redis.StackExchange;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -58,11 +58,12 @@ public static class ServiceExtension
         webApplicationBuilder.Services.AddAuthentication(options =>
             {
                 options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
             })
             .AddCookie(setup => setup.ExpireTimeSpan = TimeSpan.FromHours(6))
             .AddOpenIdConnect(options =>
             {
+                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.ClientId = oidcConfigSection.GetValue<string>("ClientId");
                 options.ClientSecret = oidcConfigSection.GetValue<string>("ClientSecret");
                 options.MetadataAddress = oidcConfigSection.GetValue<string>("MetadataAddress");
