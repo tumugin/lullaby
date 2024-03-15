@@ -1,17 +1,17 @@
 namespace Lullaby.Admin.Controllers;
 
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-public class LogoutController(SignInManager<IdentityUser> signInManager) : Controller
+public class LogoutController() : Controller
 {
     [Authorize]
     [Route("/logout")]
     [HttpPost]
-    public IActionResult Logout()
+    public async Task<IActionResult> Logout()
     {
-        signInManager.SignOutAsync();
+        await this.HttpContext.SignOutAsync();
         return this.RedirectToAction("Index", "Index");
     }
 }
