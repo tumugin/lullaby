@@ -23,24 +23,28 @@ public static class WebApplicationExtension
 
         webApplication.UseStatusCodePagesWithReExecute("/Error/{0}");
 
-        // HangFire
-        webApplication.UseHangfireDashboard();
-
         webApplication.UseHttpsRedirection();
         webApplication.UseStaticFiles();
 
         webApplication.UseRouting();
 
-        // Sentry
-        webApplication.UseSentryTracing();
-
+        // Auth
         webApplication.UseAuthentication();
         webApplication.UseAuthorization();
+
+        // Sentry
+        webApplication.UseSentryTracing();
 
         webApplication.MapControllerRoute(
             "default",
             "{controller=Index}/{action=Index}/{id?}"
         );
+
+        // HangFire
+        webApplication.UseHangfireDashboard(options: new DashboardOptions
+        {
+            Authorization = new[] { new HangfireAuthorizationFilter() }
+        });
 
         return webApplication;
     }

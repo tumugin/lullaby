@@ -1,6 +1,7 @@
 namespace Lullaby.Admin.Controllers;
 
 using Common.Groups;
+using Microsoft.AspNetCore.Authorization;
 using Services;
 using Microsoft.AspNetCore.Mvc;
 using Requests.Events;
@@ -12,6 +13,7 @@ public class EventsController(
     IUserInterfaceDateTimeOffsetService userInterfaceDateTimeOffsetService
 ) : Controller
 {
+    [Authorize]
     public async Task<IActionResult> Index(
         IndexRequest request,
         CancellationToken cancellationToken
