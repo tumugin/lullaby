@@ -23,9 +23,6 @@ public static class WebApplicationExtension
 
         webApplication.UseStatusCodePagesWithReExecute("/Error/{0}");
 
-        // HangFire
-        webApplication.UseHangfireDashboard();
-
         webApplication.UseHttpsRedirection();
         webApplication.UseStaticFiles();
 
@@ -42,6 +39,12 @@ public static class WebApplicationExtension
             "default",
             "{controller=Index}/{action=Index}/{id?}"
         );
+
+        // HangFire
+        webApplication.UseHangfireDashboard(options: new DashboardOptions
+        {
+            Authorization = new[] { new HangfireAuthorizationFilter() }
+        });
 
         return webApplication;
     }
