@@ -63,15 +63,18 @@ public static class ServiceExtension
             .AddCookie(setup => setup.ExpireTimeSpan = TimeSpan.FromHours(6))
             .AddOpenIdConnect(options =>
             {
-                options.Authority = oidcConfigSection.GetValue<string>("Authority");
                 options.ClientId = oidcConfigSection.GetValue<string>("ClientId");
                 options.ClientSecret = oidcConfigSection.GetValue<string>("ClientSecret");
+                options.MetadataAddress = oidcConfigSection.GetValue<string>("MetadataAddress");
                 options.Scope.Add("openid");
                 options.Scope.Add("profile");
                 options.Scope.Add("email");
                 options.SaveTokens = true;
                 options.GetClaimsFromUserInfoEndpoint = true;
                 options.CallbackPath = "/oidc/callback";
+                options.RemoteSignOutPath = "/oidc/remote-sign-out";
+                options.SignedOutCallbackPath = "/oidc/signed-out";
+                options.AccessDeniedPath = "/oidc/access-denied";
             });
     }
 
