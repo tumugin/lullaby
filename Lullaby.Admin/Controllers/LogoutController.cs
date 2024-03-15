@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-public class LogoutController() : Controller
+public class LogoutController : Controller
 {
     [Authorize]
     [Route("/logout")]
