@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 public class ErrorController : Controller
 {
-    [Authorize]
+    [AllowAnonymous]
     [Route("/Error/{errorCode}")]
     public IActionResult Error(int errorCode) =>
         errorCode switch
