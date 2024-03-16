@@ -9,6 +9,7 @@ using Hangfire.Redis.StackExchange;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Services;
@@ -83,6 +84,11 @@ public static class ServiceExtension
         this WebApplicationBuilder webApplicationBuilder
     )
     {
+        webApplicationBuilder.Services.Configure<ForwardedHeadersOptions>(options =>
+        {
+            options.ForwardedHeaders = ForwardedHeaders.All;
+        });
+
         webApplicationBuilder.WebHost.UseSentry(o =>
         {
             o.Dsn = webApplicationBuilder.Configuration.GetSection("Sentry").GetValue<string?>("Dsn");
