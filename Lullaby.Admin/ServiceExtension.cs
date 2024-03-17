@@ -88,7 +88,8 @@ public static class ServiceExtension
         {
             options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
             webApplicationBuilder.Configuration.GetSection("ForwardedHeaders")
-                .GetValue<string[]>("KnownNetworks")?
+                .GetSection("KnownNetworks")
+                .Get<string[]>()?
                 .Select(x => IPNetwork.Parse(x))
                 .ToList()
                 .ForEach(x => options.KnownNetworks.Add(x));
