@@ -86,7 +86,13 @@ public static class ServiceExtension
     {
         webApplicationBuilder.Services.Configure<ForwardedHeadersOptions>(options =>
         {
-            options.ForwardedHeaders = ForwardedHeaders.All;
+            options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            webApplicationBuilder.Configuration.GetSection("ForwardedHeaders")
+                .GetValue<string[]>("KnownNetworks")?
+                .Select(x => IPNetwork.Parse(x))
+                .ToList()
+                .ForEach(x => options.KnownNetworks.Add(x));
+            options.ForwardLimit = null;
         });
 
         webApplicationBuilder.WebHost.UseSentry(o =>
