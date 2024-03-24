@@ -1,7 +1,7 @@
 namespace Lullaby;
 
 using Hangfire;
-using Job;
+using Jobs.Job;
 
 public static class WebApplicationExtension
 {
@@ -12,7 +12,9 @@ public static class WebApplicationExtension
             return;
         }
 
-        ConfigureScheduledJobs.Configure(webApplication.Services.GetRequiredService<IRecurringJobManager>());
+        // TODO: Job実行を分離させる
+        ConfigureLullabyScheduledJobs.Configure(webApplication.Services.GetRequiredService<IRecurringJobManager>());
+
         if (webApplication.Environment.IsDevelopment())
         {
             // TODO: Implement HangFire dashboard authentication for production

@@ -1,9 +1,9 @@
 namespace Lullaby.Tests.Db;
 
 using System.Globalization;
+using Common.Crawler.Events;
 using Common.Enums;
-using Lullaby.Crawler.Events;
-using Lullaby.Db;
+using Jobs.Db;
 using Seeder;
 using Microsoft.EntityFrameworkCore;
 

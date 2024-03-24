@@ -1,7 +1,7 @@
 namespace Lullaby.Tests.Crawler.Scraper.TimeTree;
 
 using System.Globalization;
-using Lullaby.Crawler.Scraper.TimeTree;
+using Common.Crawler.Scraper.TimeTree;
 using RichardSzalay.MockHttp;
 
 public class TimeTreeApiClientTest

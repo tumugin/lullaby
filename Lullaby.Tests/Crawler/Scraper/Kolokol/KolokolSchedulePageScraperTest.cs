@@ -2,8 +2,8 @@
 
 using System.Globalization;
 using AngleSharp;
-using Lullaby.Crawler.Events;
-using Lullaby.Crawler.Scraper.Kolokol;
+using Common.Crawler.Events;
+using Common.Crawler.Scraper.Kolokol;
 using RestSharp;
 using RichardSzalay.MockHttp;
 

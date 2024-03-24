@@ -1,10 +1,10 @@
 namespace Lullaby.Tests.Db;
 
 using System.Globalization;
+using Common.Crawler.Events;
 using Common.Enums;
-using Lullaby.Crawler.Events;
-using Lullaby.Db;
-using Services.Events;
+using Jobs.Db;
+using Jobs.Services.Crawler.Events;
 
 public class FindDuplicateEventServiceTest : BaseDatabaseTest
 {

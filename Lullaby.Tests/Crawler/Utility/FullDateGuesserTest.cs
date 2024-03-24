@@ -1,7 +1,7 @@
 ﻿namespace Lullaby.Tests.Crawler.Utility;
 
 using System.Globalization;
-using Lullaby.Crawler.Utility;
+using Common.Crawler.Utility;
 
 public class FullDateGuesserTest
 {

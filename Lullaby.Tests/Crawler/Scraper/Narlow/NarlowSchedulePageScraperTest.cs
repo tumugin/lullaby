@@ -2,9 +2,9 @@ namespace Lullaby.Tests.Crawler.Scraper.Narlow;
 
 using System.Globalization;
 using AngleSharp;
+using Common.Crawler.Events;
+using Common.Crawler.Scraper.Narlow;
 using Common.Enums;
-using Lullaby.Crawler.Events;
-using Lullaby.Crawler.Scraper.Narlow;
 using RichardSzalay.MockHttp;
 
 public class NarlowSchedulePageScraperTest

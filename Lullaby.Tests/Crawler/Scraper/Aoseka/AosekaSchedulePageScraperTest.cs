@@ -2,10 +2,10 @@ namespace Lullaby.Tests.Crawler.Scraper.Aoseka;
 
 using System.Globalization;
 using AngleSharp;
+using Common.Crawler.Events;
+using Common.Crawler.Scraper.Aoseka;
+using Common.Crawler.Utility;
 using Common.Enums;
-using Lullaby.Crawler.Events;
-using Lullaby.Crawler.Scraper.Aoseka;
-using Lullaby.Crawler.Utility;
 using RestSharp;
 using RichardSzalay.MockHttp;
 

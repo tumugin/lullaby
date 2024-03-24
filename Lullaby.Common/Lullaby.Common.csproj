@@ -7,7 +7,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="AngleSharp" Version="1.1.2" />
+      <PackageReference Include="Flurl" Version="4.0.0" />
+      <PackageReference Include="IDisposableAnalyzers" Version="4.0.7">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.3" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+      <PackageReference Include="RestSharp" Version="110.2.0" />
+      <PackageReference Include="System.Linq.Async" Version="6.0.1" />
     </ItemGroup>
 
 </Project>
