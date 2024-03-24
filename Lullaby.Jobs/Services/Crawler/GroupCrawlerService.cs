@@ -6,7 +6,7 @@ using Common.Groups;
 using Database.DbContext;
 using Events;
 
-public class GroupCrawlerServiceService : IGroupCrawlerService
+public class GroupCrawlerService : IGroupCrawlerService
 {
     private readonly IAddEventByGroupEventService addEventByGroupEventService;
     private readonly IFindDuplicateEventService findDuplicateEventService;
@@ -14,7 +14,7 @@ public class GroupCrawlerServiceService : IGroupCrawlerService
     private readonly IUpdateEventByGroupEventService updateEventByGroupEventService;
     private readonly LullabyContext lullabyContext;
 
-    public GroupCrawlerServiceService(
+    public GroupCrawlerService(
         IAddEventByGroupEventService addEventByGroupEventService,
         IFindDuplicateEventService findDuplicateEventService,
         IUpdateEventByGroupEventService updateEventByGroupEventService,

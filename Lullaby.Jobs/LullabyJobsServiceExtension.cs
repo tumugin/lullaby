@@ -19,7 +19,8 @@ public static class LullabyJobsServiceExtension
         serviceCollection.AddScoped<IAddEventByGroupEventService, AddEventByGroupEventService>();
         serviceCollection.AddScoped<IFindDuplicateEventService, FindDuplicateEventService>();
         serviceCollection.AddScoped<IUpdateEventByGroupEventService, UpdateEventByGroupEventService>();
-        serviceCollection.AddScoped<IGroupCrawlerService, GroupCrawlerServiceService>();
+        serviceCollection.AddScoped<ICleanupOldScheduledEventsService, CleanupOldScheduledEventsService>();
+        serviceCollection.AddScoped<IGroupCrawlerService, GroupCrawlerService>();
 
         return serviceCollection;
     }

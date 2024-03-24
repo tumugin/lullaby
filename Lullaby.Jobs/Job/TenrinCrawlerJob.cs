@@ -2,14 +2,15 @@ namespace Lullaby.Jobs.Job;
 
 using Common.Groups;
 using Services.Crawler;
+using Services.Crawler.Events;
 
-public class TenrinCrawlerJob : BaseCrawlerJob
+public class TenrinCrawlerJob(
+    IGroupCrawlerService groupCrawlerService,
+    Tenrin tenrin,
+    ICleanupOldScheduledEventsService cleanupOldScheduledEventsService
+) : BaseCrawlerJob(groupCrawlerService, cleanupOldScheduledEventsService)
 {
     public const string JobKey = "TenrinCrawlerJob";
 
-    private readonly Tenrin tenrin;
-    protected override IGroup TargetGroup => this.tenrin;
-
-    public TenrinCrawlerJob(IGroupCrawlerService groupCrawlerService, Tenrin tenrin) : base(groupCrawlerService)
-        => this.tenrin = tenrin;
+    protected override IGroup TargetGroup => tenrin;
 }

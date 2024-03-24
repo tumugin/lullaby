@@ -2,15 +2,15 @@ namespace Lullaby.Jobs.Job;
 
 using Common.Groups;
 using Services.Crawler;
+using Services.Crawler.Events;
 
-public class AxelightCrawlerJob : BaseCrawlerJob
+public class AxelightCrawlerJob(
+    IGroupCrawlerService groupCrawlerService,
+    Axelight axelight,
+    ICleanupOldScheduledEventsService cleanupOldScheduledEventsService
+) : BaseCrawlerJob(groupCrawlerService, cleanupOldScheduledEventsService)
 {
     public static readonly string JobKey = "AxelightCrawlerJob";
 
-    private readonly Axelight axelight;
-
-    public AxelightCrawlerJob(IGroupCrawlerService groupCrawlerService, Axelight axelight) : base(groupCrawlerService) =>
-        this.axelight = axelight;
-
-    protected override IGroup TargetGroup => this.axelight;
+    protected override IGroup TargetGroup => axelight;
 }

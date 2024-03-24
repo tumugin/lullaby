@@ -2,20 +2,17 @@ namespace Lullaby.Jobs.Job;
 
 using Common.Groups;
 using Services.Crawler;
+using Services.Crawler.Events;
 
-public class AosekaCrawlerJob : BaseCrawlerJob
+public class AosekaCrawlerJob(
+    IGroupCrawlerService groupCrawlerService,
+    Aoseka aoseka,
+    ICleanupOldScheduledEventsService cleanupOldScheduledEventsService
+) : BaseCrawlerJob(groupCrawlerService, cleanupOldScheduledEventsService)
 {
     public const string JobKey = "AosekaCrawlerJob";
 
-    private readonly Aoseka aoseka;
-
-    public AosekaCrawlerJob(
-        IGroupCrawlerService groupCrawlerService,
-        Aoseka aoseka
-    ) : base(groupCrawlerService) =>
-        this.aoseka = aoseka;
-
-    protected override IGroup TargetGroup => this.aoseka;
+    protected override IGroup TargetGroup => aoseka;
 
     /**
      *  disable for now because group has been suspended

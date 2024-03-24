@@ -9,7 +9,7 @@ using Jobs.Db;
 using Jobs.Services.Crawler;
 using Microsoft.EntityFrameworkCore;
 
-public class GroupCrawlerServiceServiceTest : BaseDatabaseTest
+public class GroupCrawlerServiceTest : BaseDatabaseTest
 {
     private AddEventByGroupEventService addEventByGroupEventService = null!;
     private FindDuplicateEventService findDuplicateEventService = null!;
@@ -28,7 +28,7 @@ public class GroupCrawlerServiceServiceTest : BaseDatabaseTest
     {
         var testGroup = new TestGroup();
         var scraper = new TestGroupPageScraper();
-        var groupCrawler = new GroupCrawlerServiceService(
+        var groupCrawler = new GroupCrawlerService(
             this.addEventByGroupEventService,
             this.findDuplicateEventService,
             this.updateEventByGroupEventService,
@@ -51,7 +51,7 @@ public class GroupCrawlerServiceServiceTest : BaseDatabaseTest
     {
         var testGroup = new TestGroup();
         var scraper = new TestGroupPageScraper();
-        var groupCrawler = new GroupCrawlerServiceService(
+        var groupCrawler = new GroupCrawlerService(
             this.addEventByGroupEventService,
             this.findDuplicateEventService,
             this.updateEventByGroupEventService,
