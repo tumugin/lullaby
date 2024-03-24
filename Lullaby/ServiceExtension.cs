@@ -3,31 +3,27 @@ namespace Lullaby;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using Common.Groups;
-using Crawler;
 using Database.DbContext;
 using Db;
 using Hangfire;
 using Hangfire.Redis.StackExchange;
+using Jobs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using RestSharp;
 using Services.Events;
 
 public static class ServiceExtension
 {
     private static void AddLullabyServices(this IServiceCollection serviceCollection)
     {
-        serviceCollection
-            .AddCrawlers()
-            .AddGroups();
+        serviceCollection.AddGroups();
         serviceCollection.TryAddSingleton(_ => TimeProvider.System);
         serviceCollection.AddScoped<IGetEventsByGroupKeyService, GetEventsByGroupKeyService>();
-        serviceCollection.AddScoped<IAddEventByGroupEventService, AddEventByGroupEventService>();
-        serviceCollection.AddScoped<IFindDuplicateEventService, FindDuplicateEventService>();
-        serviceCollection.AddScoped<IUpdateEventByGroupEventService, UpdateEventByGroupEventService>();
         serviceCollection.AddHttpClient();
-        serviceCollection.AddScoped<RestClient, RestClient>(p => new RestClient(p.GetRequiredService<HttpClient>()));
+
+        // TODO: Job実行を分離させる
+        serviceCollection.AddLullabyJobsServices();
     }
 
     private static void AddLullabyHangfire(this WebApplicationBuilder webApplicationBuilder)

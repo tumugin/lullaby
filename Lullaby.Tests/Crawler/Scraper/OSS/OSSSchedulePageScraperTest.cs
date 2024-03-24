@@ -2,8 +2,8 @@ namespace Lullaby.Tests.Crawler.Scraper.OSS;
 
 using System.Globalization;
 using AngleSharp;
-using Lullaby.Crawler.Events;
-using Lullaby.Crawler.Scraper.OSS;
+using Common.Crawler.Events;
+using Common.Crawler.Scraper.OSS;
 using RestSharp;
 using RichardSzalay.MockHttp;
 

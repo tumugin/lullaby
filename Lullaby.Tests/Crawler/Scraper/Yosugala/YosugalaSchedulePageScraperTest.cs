@@ -2,8 +2,8 @@ namespace Lullaby.Tests.Crawler.Scraper.Yosugala;
 
 using System.Globalization;
 using AngleSharp;
-using Lullaby.Crawler.Events;
-using Lullaby.Crawler.Scraper.Yosugala;
+using Common.Crawler.Events;
+using Common.Crawler.Scraper.Yosugala;
 using RestSharp;
 using RichardSzalay.MockHttp;
 

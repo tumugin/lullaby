@@ -47,6 +47,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Lullaby.Database\Lullaby.Database.csproj" />
+    <ProjectReference Include="..\Lullaby.Jobs\Lullaby.Jobs.csproj" />
   </ItemGroup>
 
 </Project>
