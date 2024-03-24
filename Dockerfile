@@ -10,6 +10,7 @@ COPY Lullaby.Database/*.csproj ./Lullaby.Database/
 COPY Lullaby.Common/*.csproj ./Lullaby.Common/
 COPY Lullaby.Tests/*.csproj ./Lullaby.Tests/
 COPY Lullaby.Admin/*.csproj ./Lullaby.Admin/
+COPY Lullaby.Jobs/*.csproj ./Lullaby.Jobs/
 
 # Restore as distinct layers
 RUN dotnet restore
