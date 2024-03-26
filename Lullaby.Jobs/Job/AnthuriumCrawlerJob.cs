@@ -2,14 +2,15 @@ namespace Lullaby.Jobs.Job;
 
 using Common.Groups;
 using Services.Crawler;
+using Services.Crawler.Events;
 
-public class AnthuriumCrawlerJob : BaseCrawlerJob
+public class AnthuriumCrawlerJob(
+    IGroupCrawlerService groupCrawlerService,
+    Anthurium anthurium,
+    ICleanupOldScheduledEventsService cleanupOldScheduledEventsService
+) : BaseCrawlerJob(groupCrawlerService, cleanupOldScheduledEventsService)
 {
     public static string JobKey => "AnthuriumCrawlerJob";
-    private readonly Anthurium anthurium;
 
-    public AnthuriumCrawlerJob(IGroupCrawlerService groupCrawlerService, Anthurium anthurium) : base(groupCrawlerService) =>
-        this.anthurium = anthurium;
-
-    protected override IGroup TargetGroup => this.anthurium;
+    protected override IGroup TargetGroup => anthurium;
 }

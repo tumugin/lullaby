@@ -2,15 +2,15 @@ namespace Lullaby.Jobs.Job;
 
 using Common.Groups;
 using Services.Crawler;
+using Services.Crawler.Events;
 
-public class TenhanaCrawlerJob : BaseCrawlerJob
+public class TenhanaCrawlerJob(
+    IGroupCrawlerService groupCrawlerService,
+    Tenhana tenhana,
+    ICleanupOldScheduledEventsService cleanupOldScheduledEventsService
+) : BaseCrawlerJob(groupCrawlerService, cleanupOldScheduledEventsService)
 {
     public const string JobKey = "TenhanaCrawlerJob";
 
-    private readonly Tenhana tenhana;
-
-    protected override IGroup TargetGroup => this.tenhana;
-
-    public TenhanaCrawlerJob(IGroupCrawlerService groupCrawlerService, Tenhana tenhana) : base(groupCrawlerService) =>
-        this.tenhana = tenhana;
+    protected override IGroup TargetGroup => tenhana;
 }
