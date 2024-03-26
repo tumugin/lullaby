@@ -1,6 +1,7 @@
 namespace Lullaby.Jobs.Db;
 
 using Common.Groups;
+using Common.Utils;
 using Database.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Services.Crawler.Events;
@@ -15,15 +16,26 @@ public class CleanupOldScheduledEventsService(LullabyContext context) : ICleanup
 
         var scheduledEvents = await context.Events
             .Where(v => v.GroupKey == targetGroup.GroupKey)
-            .Where(v => this.searchWords.Select(x => v.EventName.Contains(x)).Any())
+            .Let(query => this.searchWords.Aggregate(
+                query,
+                (current, searchWord) => current.Where(v => v.EventName.Contains(searchWord))
+            ))
             .ToArrayAsync(cancellationToken);
+
+        if (scheduledEvents.Length == 0)
+        {
+            return;
+        }
 
         var startDate = scheduledEvents.Min(x => x.EventStarts);
         var endDate = scheduledEvents.Max(x => x.EventEnds);
 
         var eventsToSearch = await context.Events
             .Where(v => v.GroupKey == targetGroup.GroupKey)
-            .Where(v => !this.searchWords.Select(x => v.EventName.Contains(x)).Any())
+            .Let(query => this.searchWords.Aggregate(
+                query,
+                (current, searchWord) => current.Where(v => !v.EventName.Contains(searchWord))
+            ))
             .Where(v => v.EventStarts >= startDate)
             .Where(v => v.EventEnds <= endDate)
             .ToArrayAsync(cancellationToken);
