@@ -1,8 +1,10 @@
 namespace Lullaby.Jobs.Db;
 
 using Common.Groups;
-using Common.Utils;
 using Database.DbContext;
+using LinqKit;
+using Lullaby.Common.Utils;
+using Lullaby.Database.Models;
 using Microsoft.EntityFrameworkCore;
 using Services.Crawler.Events;
 
@@ -14,12 +16,15 @@ public class CleanupOldScheduledEventsService(LullabyContext context) : ICleanup
     {
         await using var transaction = await context.Database.BeginTransactionAsync(cancellationToken);
 
-        var scheduledEvents = await context.Events
-            .Where(v => v.GroupKey == targetGroup.GroupKey)
+        var orPredicateSearchWords = PredicateBuilder.New<Event>()
             .Let(query => this.searchWords.Aggregate(
                 query,
-                (current, searchWord) => current.Where(v => v.EventName.Contains(searchWord))
-            ))
+                (current, searchWord) => current.Or(v => v.EventName.Contains(searchWord))
+            ));
+
+        var scheduledEvents = await context.Events
+            .Where(v => v.GroupKey == targetGroup.GroupKey)
+            .Where(orPredicateSearchWords)
             .ToArrayAsync(cancellationToken);
 
         if (scheduledEvents.Length == 0)
