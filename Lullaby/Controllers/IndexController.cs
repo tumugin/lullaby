@@ -10,5 +10,12 @@ public class IndexController : Controller
 {
     [HttpGet]
     public IActionResult Index([FromServices] IEnumerable<IGroup> groups) =>
-        this.View(new IndexViewModel { AvailableGroups = groups });
+        this.View(new IndexViewModel
+        {
+            AvailableGroups = groups
+                .ToArray()
+                .GroupBy(v => v.GroupKey)
+                .Select(v => v.First())
+                .ToArray()
+        });
 }
