@@ -85,24 +85,24 @@
       },
       "Npgsql.EntityFrameworkCore.PostgreSQL": {
         "type": "Direct",
-        "requested": "[8.0.2, )",
-        "resolved": "8.0.2",
-        "contentHash": "eoZPynwkZTWFTgnocvXORuCL2yFZtscrUdqVhjxiRULpC7BMg9zhLM5oDZAU5PoX1PgN77hmkKE4a3PQiHqh7Q==",
+        "requested": "[8.0.4, )",
+        "resolved": "8.0.4",
+        "contentHash": "/hHd9MqTRVDgIpsToCcxMDxZqla0HAQACiITkq1+L9J2hmHKV6lBAPlauF+dlNSfHpus7rrljWx4nAanKD6qAw==",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "8.0.2",
-          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.2",
-          "Microsoft.EntityFrameworkCore.Relational": "8.0.2",
-          "Npgsql": "8.0.2"
+          "Microsoft.EntityFrameworkCore": "8.0.4",
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.4",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.4",
+          "Npgsql": "8.0.3"
         }
       },
       "Sentry.AspNetCore": {
         "type": "Direct",
-        "requested": "[4.5.0, )",
-        "resolved": "4.5.0",
-        "contentHash": "L9OktChqJOoe+BN5liGQkaAJ1kGFRSDwo2IsDeBDiIoVk5SChEPIf21ERxayUlYHFDAA0sBfX9f4XZhgymzGOA==",
+        "requested": "[4.6.0, )",
+        "resolved": "4.6.0",
+        "contentHash": "2ysXBoiQ4kQwPU9CtoEI96T1MGZ4ByExn24YTwgdFItvF0jT6TFWUW+OFzk9a54FfT5smSM7wosrwAjJAGZ+wg==",
         "dependencies": {
           "Microsoft.Extensions.Configuration.Binder": "8.0.0",
-          "Sentry.Extensions.Logging": "4.5.0"
+          "Sentry.Extensions.Logging": "4.6.0"
         }
       },
       "Swashbuckle.AspNetCore": {
@@ -467,8 +467,8 @@
       },
       "Npgsql": {
         "type": "Transitive",
-        "resolved": "8.0.2",
-        "contentHash": "MuJzLoWCaQhQAR3oh66YR0Ir6mxuezncGX3f8wxvAc21g0+9HICktJQlqMoODhxztZKXE5k9GxRxqUAN+vPb4g==",
+        "resolved": "8.0.3",
+        "contentHash": "6WEmzsQJCZAlUG1pThKg/RmeF6V+I0DmBBBE/8YzpRtEzhyZzKcK7ulMANDm5CkxrALBEC8H+5plxHWtIL7xnA==",
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "8.0.0"
         }
@@ -491,18 +491,18 @@
       },
       "Sentry": {
         "type": "Transitive",
-        "resolved": "4.5.0",
-        "contentHash": "211TjfKU8oe7hRX8Z601XIlNbcWARRi+cEFM9knJMSDsPBFezdz4aIWUnQB8dKjAYKs2HBkZ1i2kaUy0jy7dMw=="
+        "resolved": "4.6.0",
+        "contentHash": "huuWuWaAk2UHy5gF6KL9c+RO6opYRflvfeqBXjmedSSdSnICc/+s2RGRilA7B05ufPbsR1zbLWpsvqO/f7rkaQ=="
       },
       "Sentry.Extensions.Logging": {
         "type": "Transitive",
-        "resolved": "4.5.0",
-        "contentHash": "gJpcDy0UERR/06IykeU+42wSsD56+UPwj/JdeXqt+4E7S9TTpmlo4AR+DljNdYtmmG2PqB1za1k1wO6bzfQz6g==",
+        "resolved": "4.6.0",
+        "contentHash": "p6SINpVJt/VBnLIFZvTTaMV4H9EelptFSR4X80MG7MFVYR/XBbGIPP1eVjtI2fc1CdLmnxl6AUS+CWQpK5o/iA==",
         "dependencies": {
           "Microsoft.Extensions.Configuration.Binder": "8.0.0",
           "Microsoft.Extensions.Http": "8.0.0",
           "Microsoft.Extensions.Logging.Configuration": "8.0.0",
-          "Sentry": "4.5.0"
+          "Sentry": "4.6.0"
         }
       },
       "StackExchange.Redis": {
@@ -657,7 +657,7 @@
         "dependencies": {
           "Lullaby.Common": "[1.0.0, )",
           "Microsoft.EntityFrameworkCore.Relational": "[8.0.4, )",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "[8.0.2, )"
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "[8.0.4, )"
         }
       },
       "lullaby.jobs": {
