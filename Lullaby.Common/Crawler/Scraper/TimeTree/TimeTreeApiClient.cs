@@ -73,7 +73,7 @@ public class TimeTreeApiClient : ITimeTreeApiClient
                 Id = v.Id,
                 Title = v.Title,
                 Description = v.Note,
-                ImageUrls = v.Images.Overview.Select(x => x.Url).ToArray(),
+                ImageUrls = v.Images.Overview?.Select(x => x.Url).ToArray() ?? [],
                 LocationName = v.LocationName != "" ? v.LocationName : null,
                 // UnixTime in milliseconds should be in UTC but it seems to be in local timezone. We have to forcibly set the timezone.
                 StartAt = ForciblySetTimeZoneToDateTimeOffset(
@@ -110,7 +110,7 @@ public class TimeTreeApiClient : ITimeTreeApiClient
         public sealed record Images(
             [property: JsonPropertyName("cover")] IReadOnlyList<Cover> Cover,
             [property: JsonPropertyName("overview")]
-            IReadOnlyList<Overview> Overview
+            IReadOnlyList<Overview>? Overview
         );
 
         public sealed record Location(
