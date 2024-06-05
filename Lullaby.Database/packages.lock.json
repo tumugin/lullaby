@@ -10,11 +10,11 @@
       },
       "Microsoft.EntityFrameworkCore.Relational": {
         "type": "Direct",
-        "requested": "[8.0.5, )",
-        "resolved": "8.0.5",
-        "contentHash": "x2bdSK3eKKEQkDdYcGxxDU+S7NqhBiz/Fciz01Mafz9P71VRdP3JskKHaZvwK0/sNEAT3hS7BTsDQGUA2F9mAA==",
+        "requested": "[8.0.6, )",
+        "resolved": "8.0.6",
+        "contentHash": "chhfmLusCGLGvNYtvMji6KGQlduPDnJsStG/LjS8qJhFWJDDzTZpSr2LHowewcxMrMo/Axc6Jwe+WwSi/vlkTg==",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "8.0.5",
+          "Microsoft.EntityFrameworkCore": "8.0.6",
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0"
         }
       },
@@ -45,10 +45,10 @@
       },
       "Microsoft.AspNetCore.WebUtilities": {
         "type": "Transitive",
-        "resolved": "8.0.5",
-        "contentHash": "p3w3LyI1dYtHskmzq+d2EAyaSEaHxULou/ophrLTSMHuKojWXngw/BjDyuwv42oQFmS4ECyOkZtYo3EhpXXQMw==",
+        "resolved": "8.0.6",
+        "contentHash": "GFZIH1szQtumGikV7nMkmAP3yqKNKio7g044U6hRyfcjcLvr+PGCeqV8DTyI2nqszJ0xClwDT6Bvf0f7SEMgPQ==",
         "dependencies": {
-          "Microsoft.Net.Http.Headers": "8.0.5",
+          "Microsoft.Net.Http.Headers": "8.0.6",
           "System.IO.Pipelines": "8.0.0"
         }
       },
@@ -59,24 +59,24 @@
       },
       "Microsoft.EntityFrameworkCore": {
         "type": "Transitive",
-        "resolved": "8.0.5",
-        "contentHash": "sqpDZgfzmTPXy/jCekqTaPDwqRDjtdGmIL+eqFfXtVAoH4AanWjeyxQ1ej3uVnTQO6f23+m9+ggJDVcgyPJxcA==",
+        "resolved": "8.0.6",
+        "contentHash": "Ms5e5QuBAjVIuQsGumeLvkgMiOpnj6wxPvwBIoe1NfTkseWK4NZYztnhgDlpkCPkrUmJEXLv69kl349Ours30Q==",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.5",
-          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.5",
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.6",
+          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.6",
           "Microsoft.Extensions.Caching.Memory": "8.0.0",
           "Microsoft.Extensions.Logging": "8.0.0"
         }
       },
       "Microsoft.EntityFrameworkCore.Abstractions": {
         "type": "Transitive",
-        "resolved": "8.0.5",
-        "contentHash": "qwYdfjFKtmTXX8NIm0MuZxUkon1tcw+aF5huzR7YOVr/tR3s4fqw9DWcvc23l3Jhpo/uGHWZcNPyFlI2CD3Usg=="
+        "resolved": "8.0.6",
+        "contentHash": "X7wSSBNFRuN8j8M9HDYG7rPpEeyhY+PdJZR9rftmgvsZH0eK5+bZ3b3As8iO4rLEpjsBzDnrgSIY6q2F3HQatw=="
       },
       "Microsoft.EntityFrameworkCore.Analyzers": {
         "type": "Transitive",
-        "resolved": "8.0.5",
-        "contentHash": "LzoKedC+9A8inF5d3iIzgyv/JDXgKrtpYoGIC3EqGWuHVDm9s/IHHApeTOTbzvnr7yBVV+nmYfyT1nwtzRDp0Q=="
+        "resolved": "8.0.6",
+        "contentHash": "fDNtuQ4lAaPaCOlsrwUck/GvnF4QLeDpMmE1L5QtxZpMSmWfnL2/vk8sDL9OVTWcfprooI9V5MNpIx3/Tq5ehg=="
       },
       "Microsoft.Extensions.Caching.Abstractions": {
         "type": "Transitive",
@@ -153,8 +153,8 @@
       },
       "Microsoft.Net.Http.Headers": {
         "type": "Transitive",
-        "resolved": "8.0.5",
-        "contentHash": "lLAXm/DlwOhTy2yEQr7d0ggC4I7RkQc/7SuaPfQ4uIdOOaS19eW8sdfaI1ZeiptQVBxwWKuG84Wl5XlMozhTig==",
+        "resolved": "8.0.6",
+        "contentHash": "SNkrPZM2nvnUJfnmZbyHSc8kgZeLKx6OxohJ+3UZFQoHRtSix4vDBOvYQBpFLh6lzF2NUmetQkOBNo5iCtxgRw==",
         "dependencies": {
           "Microsoft.Extensions.Primitives": "8.0.0"
         }
@@ -169,8 +169,8 @@
       },
       "RestSharp": {
         "type": "Transitive",
-        "resolved": "111.1.0",
-        "contentHash": "BWDcSLxNBDnILnWbvklMHtY3n93REYCu/1Ft13hh6xkluB1wfQvpPxvj9zaOlfwCZ+zMBDGuQmNAuo+mV8E9tQ=="
+        "resolved": "111.2.0",
+        "contentHash": "OkWr6AGM0zirdkRpxVOxXMWx9OHEIWrDzrpx1XIx5KyvTcmtjJVsKBscVkYTcFerhj5w5Bny7boRIV4a0ENGaQ=="
       },
       "System.IO.Pipelines": {
         "type": "Transitive",
@@ -195,9 +195,9 @@
         "dependencies": {
           "AngleSharp": "[1.1.2, )",
           "Flurl": "[4.0.0, )",
-          "Microsoft.AspNetCore.WebUtilities": "[8.0.5, )",
+          "Microsoft.AspNetCore.WebUtilities": "[8.0.6, )",
           "Microsoft.Extensions.DependencyInjection": "[8.0.0, )",
-          "RestSharp": "[111.1.0, )",
+          "RestSharp": "[111.2.0, )",
           "System.Linq.Async": "[6.0.1, )"
         }
       }

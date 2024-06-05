@@ -25,11 +25,11 @@
       },
       "Microsoft.AspNetCore.WebUtilities": {
         "type": "Direct",
-        "requested": "[8.0.5, )",
-        "resolved": "8.0.5",
-        "contentHash": "p3w3LyI1dYtHskmzq+d2EAyaSEaHxULou/ophrLTSMHuKojWXngw/BjDyuwv42oQFmS4ECyOkZtYo3EhpXXQMw==",
+        "requested": "[8.0.6, )",
+        "resolved": "8.0.6",
+        "contentHash": "GFZIH1szQtumGikV7nMkmAP3yqKNKio7g044U6hRyfcjcLvr+PGCeqV8DTyI2nqszJ0xClwDT6Bvf0f7SEMgPQ==",
         "dependencies": {
-          "Microsoft.Net.Http.Headers": "8.0.5",
+          "Microsoft.Net.Http.Headers": "8.0.6",
           "System.IO.Pipelines": "8.0.0"
         }
       },
@@ -44,9 +44,9 @@
       },
       "RestSharp": {
         "type": "Direct",
-        "requested": "[111.1.0, )",
-        "resolved": "111.1.0",
-        "contentHash": "BWDcSLxNBDnILnWbvklMHtY3n93REYCu/1Ft13hh6xkluB1wfQvpPxvj9zaOlfwCZ+zMBDGuQmNAuo+mV8E9tQ=="
+        "requested": "[111.2.0, )",
+        "resolved": "111.2.0",
+        "contentHash": "OkWr6AGM0zirdkRpxVOxXMWx9OHEIWrDzrpx1XIx5KyvTcmtjJVsKBscVkYTcFerhj5w5Bny7boRIV4a0ENGaQ=="
       },
       "System.Linq.Async": {
         "type": "Direct",
@@ -74,8 +74,8 @@
       },
       "Microsoft.Net.Http.Headers": {
         "type": "Transitive",
-        "resolved": "8.0.5",
-        "contentHash": "lLAXm/DlwOhTy2yEQr7d0ggC4I7RkQc/7SuaPfQ4uIdOOaS19eW8sdfaI1ZeiptQVBxwWKuG84Wl5XlMozhTig==",
+        "resolved": "8.0.6",
+        "contentHash": "SNkrPZM2nvnUJfnmZbyHSc8kgZeLKx6OxohJ+3UZFQoHRtSix4vDBOvYQBpFLh6lzF2NUmetQkOBNo5iCtxgRw==",
         "dependencies": {
           "Microsoft.Extensions.Primitives": "8.0.0"
         }
