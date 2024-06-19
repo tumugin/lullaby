@@ -13,9 +13,9 @@
       },
       "IDisposableAnalyzers": {
         "type": "Direct",
-        "requested": "[4.0.7, )",
-        "resolved": "4.0.7",
-        "contentHash": "Xrn/VABG/JhulJOmHOeOAY4/qafbEyRj3Z6gMeSABT1XCqMe8HnqOvid8gEVJt47VUZ6eD7XpTFLZ1KLyTZgdw=="
+        "requested": "[4.0.8, )",
+        "resolved": "4.0.8",
+        "contentHash": "vNi4NMG0CcJyjXxiNDcQ21FwV/whM9o9OEZKD+oP7tuxAqFEzX/x5OhC3OZJqW/w+8GOtCmJPBquYgMWgz0rfQ=="
       },
       "LinqKit.Core": {
         "type": "Direct",
@@ -252,8 +252,8 @@
       },
       "RestSharp": {
         "type": "Transitive",
-        "resolved": "111.2.0",
-        "contentHash": "OkWr6AGM0zirdkRpxVOxXMWx9OHEIWrDzrpx1XIx5KyvTcmtjJVsKBscVkYTcFerhj5w5Bny7boRIV4a0ENGaQ=="
+        "resolved": "111.3.0",
+        "contentHash": "+cHtmb3I5efys4scOCo+pWRgJNkwyEI8p39d4VMTbCXpPwsDeGP6OJH+1m4xtYUAZttMp2s4yxagy3usl2X13g=="
       },
       "System.Diagnostics.DiagnosticSource": {
         "type": "Transitive",
@@ -285,7 +285,7 @@
           "Flurl": "[4.0.0, )",
           "Microsoft.AspNetCore.WebUtilities": "[8.0.6, )",
           "Microsoft.Extensions.DependencyInjection": "[8.0.0, )",
-          "RestSharp": "[111.2.0, )",
+          "RestSharp": "[111.3.0, )",
           "System.Linq.Async": "[6.0.1, )"
         }
       },
