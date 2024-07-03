@@ -91,5 +91,12 @@ public static class ConfigureLullabyScheduledJobs
             x => x.Execute(default),
             Cron.Hourly()
         );
+
+        // 月刊PAM - gekkanpam
+        recurringJobManager.AddOrUpdate<GekkanpamCrawlerJob>(
+            GekkanpamCrawlerJob.JobKey,
+            x => x.Execute(default),
+            Cron.Hourly()
+        );
     }
 }
