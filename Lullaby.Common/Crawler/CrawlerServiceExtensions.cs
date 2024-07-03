@@ -3,11 +3,13 @@ namespace Lullaby.Common.Crawler;
 using AngleSharp;
 using AngleSharp.Html.Parser;
 using Events;
+using Groups;
 using Microsoft.Extensions.DependencyInjection;
 using Scraper;
 using Scraper.Anthurium;
 using Scraper.Aoseka;
 using Scraper.Axelight;
+using Scraper.Gekkanpam;
 using Scraper.Kolokol;
 using Scraper.Narlow;
 using Scraper.OSS;
@@ -45,7 +47,8 @@ public static class CrawlerServiceExtensions
             .AddScoped<ISchedulePageScraper, TenhanaScraper>()
             .AddScoped<ISchedulePageScraper, TenrinScraper>()
             .AddScoped<ISchedulePageScraper, NarlowSchedulePageScraper>()
-            .AddScoped<ISchedulePageScraper, YolozSchedulePageScraper>();
+            .AddScoped<ISchedulePageScraper, YolozSchedulePageScraper>()
+            .AddScoped<ISchedulePageScraper, GekkanpamScraper>();
 
         serviceCollection.AddAnthurium();
 
