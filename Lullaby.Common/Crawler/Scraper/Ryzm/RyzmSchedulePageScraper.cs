@@ -87,17 +87,29 @@ public abstract partial class RyzmSchedulePageScraper
                 var parsedDoorTime = rawSchedule.DoorsStartsTime != null
                     ? DoorTimeRegex().Matches(rawSchedule.DoorsStartsTime)
                     : null;
-                DateTimeOffset? detailedOpenTime = parsedDoorTime is { Count: 2 }
-                    ? new DateTimeOffset(
-                        eventStartDate.Year,
-                        eventStartDate.Month,
-                        eventStartDate.Day,
-                        int.Parse(parsedDoorTime[0].Groups[1].Value, CultureInfo.InvariantCulture),
-                        int.Parse(parsedDoorTime[0].Groups[2].Value, CultureInfo.InvariantCulture),
-                        0,
-                        eventStartDate.Offset
-                    )
+
+                int? startHour = parsedDoorTime is { Count: 2 }
+                    ? int.Parse(parsedDoorTime[0].Groups[1].Value, CultureInfo.InvariantCulture)
                     : null;
+                int? startMinute = parsedDoorTime is { Count: 2 }
+                    ? int.Parse(parsedDoorTime[0].Groups[2].Value, CultureInfo.InvariantCulture)
+                    : null;
+                var isMidnightEvent = startHour is >= 24;
+                var nextDay = eventStartDate.AddDays(1);
+
+                DateTimeOffset? detailedOpenTime =
+                    parsedDoorTime is { Count: 2 } && startHour is not null && startMinute is not null
+                        ? new DateTimeOffset(
+                            isMidnightEvent ? nextDay.Year : eventStartDate.Year,
+                            isMidnightEvent ? nextDay.Month : eventStartDate.Month,
+                            isMidnightEvent ? nextDay.Day : eventStartDate.Day,
+                            isMidnightEvent ? startHour.Value - 24 : startHour.Value,
+                            startMinute.Value,
+                            0,
+                            eventStartDate.Offset
+                        )
+                        : null;
+
                 IEventDateTime eventDateTime = detailedOpenTime switch
                 {
                     not null => new DetailedEventDateTime
