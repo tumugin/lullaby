@@ -76,13 +76,7 @@ public class RyzmScheduleObject
 
         [JsonPropertyName("body")] public object Body { get; init; } = null!;
 
-        [JsonPropertyName("publishes_at")] public DateTimeOffset PublishesAt { get; init; }
-
         [JsonPropertyName("archived")] public int Archived { get; init; }
-
-        [JsonPropertyName("created_at")] public DateTimeOffset CreatedAt { get; init; }
-
-        [JsonPropertyName("updated_at")] public DateTimeOffset UpdatedAt { get; init; }
     }
 
     public class ReservationSetting
