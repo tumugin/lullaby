@@ -98,5 +98,12 @@ public static class ConfigureLullabyScheduledJobs
             x => x.Execute(default),
             Cron.Hourly()
         );
+
+        // マグメル-MagMell- - magmell
+        recurringJobManager.AddOrUpdate<MagmellCrawlerJob>(
+            MagmellCrawlerJob.JobKey,
+            x => x.Execute(default),
+            Cron.Hourly()
+        );
     }
 }

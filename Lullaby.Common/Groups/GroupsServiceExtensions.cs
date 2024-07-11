@@ -33,5 +33,7 @@ public static class GroupsServiceExtensions
             .AddScoped<Yoloz, Yoloz>()
             .AddScoped<IGroup, Yoloz>()
             .AddScoped<IGroup, Gekkanpam>()
-            .AddScoped<Gekkanpam, Gekkanpam>();
+            .AddScoped<Gekkanpam, Gekkanpam>()
+            .AddScoped<IGroup, Magmell>()
+            .AddScoped<Magmell, Magmell>();
 }
