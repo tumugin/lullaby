@@ -92,16 +92,18 @@ public partial class MagmellSchedulePageScraper(
                 }
 
                 var date = partialMatch.Groups["date"].Value;
-                var title = partialMatch.Groups["title"].Value;
+                var title = fullMatch is { Length: 0 }
+                    ? partialMatch.Groups["title"].Value
+                    : fullMatch.Groups["title"].Value;
                 var place = fullMatch is { Length: 0 } ? null : fullMatch.Groups["place"].Value;
 
                 return new MagmellRawEvent
                 {
                     Date = date,
-                    Title = title,
-                    Place = place,
+                    Title = title.Trim(),
+                    Place = place?.Trim(),
                     LinkTo = e.LinkUrl,
-                    Description = e.Description
+                    Description = e.Description?.Trim()
                 };
             })
             .NotNull()
