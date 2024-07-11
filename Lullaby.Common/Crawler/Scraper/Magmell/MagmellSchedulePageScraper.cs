@@ -1,9 +1,11 @@
 namespace Lullaby.Common.Crawler.Scraper.Magmell;
 
+using System.Text.Json;
 using System.Text.RegularExpressions;
 using AngleSharp;
 using Events;
 using Groups;
+using Litlink;
 using Utility;
 using Utils;
 
@@ -65,28 +67,26 @@ public partial class MagmellSchedulePageScraper(
         CancellationToken cancellationToken)
     {
         using var document = await browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken);
-        var eventElements = document.QuerySelectorAll(".creator-detail-links__col");
+        var jsonElement = document.QuerySelector("#__NEXT_DATA__") ??
+                          throw new InvalidDataException("data element was not found");
+        var parsedJson = JsonSerializer.Deserialize<LitlinkJson.Root>(jsonElement.TextContent) ??
+                         throw new JsonException("Failed to parse JSON");
 
-        var result = eventElements.Select(e =>
-            {
-                var title = e.QuerySelector("h2")?.TextContent;
-                var description = e.QuerySelector("p")?.TextContent;
-                var linkElement = e.QuerySelector("a");
-                var linkUrl = linkElement?.Attributes["href"]?.Value;
-
-                return new { title = title, description = description, linkUrl = linkUrl };
-            })
+        var result = parsedJson.Props?.PageProps.Profile.ProfileLinks
+            .Where(e => e.ButtonLink is not null)
+            .NotNull()
+            .Select(e => new { e.ButtonLink!.Title, e.ButtonLink!.Description, LinkUrl = e.ButtonLink!.Url })
             .Select(e =>
             {
-                if (e.title is null)
+                if (e.Title is null)
                 {
                     return null;
                 }
 
-                var fullMatch = EventNameFullRegex().Match(e.title);
-                var partialMatch = EventNameRegex().Match(e.title);
+                var fullMatch = EventNameFullRegex().Match(e.Title);
+                var partialMatch = EventNameRegex().Match(e.Title);
 
-                if (fullMatch is { Length: 0 } || partialMatch is { Length: 0 })
+                if (fullMatch is { Length: 0 } && partialMatch is { Length: 0 })
                 {
                     return null;
                 }
@@ -100,12 +100,17 @@ public partial class MagmellSchedulePageScraper(
                     Date = date,
                     Title = title,
                     Place = place,
-                    LinkTo = e.linkUrl,
-                    Description = e.description
+                    LinkTo = e.LinkUrl,
+                    Description = e.Description
                 };
             })
             .NotNull()
             .ToArray();
+
+        if (result is null)
+        {
+            throw new InvalidDataException("Required properties are missing in the JSON object.");
+        }
 
         return result;
     }
