@@ -493,8 +493,8 @@
       },
       "RestSharp": {
         "type": "Transitive",
-        "resolved": "111.4.0",
-        "contentHash": "GcOIOyYYFm3oCFHbGBwGtDawC9yqvv6m7Ixyt+qeI+/UrPNyCJK31VOPRfEgj5M+3AfigSP6a8jZyFtBZxouTA=="
+        "resolved": "111.4.1",
+        "contentHash": "MhrBdwqYd+ezd3xD+c6eaAVcLJoWI+2TBH7rqX149nbYRkPJJfK/UbrgJVfKN9ZMehOFzo2PmKIZjS1ATnxEAQ=="
       },
       "Sentry": {
         "type": "Transitive",
@@ -619,7 +619,7 @@
           "Flurl": "[4.0.0, )",
           "Microsoft.AspNetCore.WebUtilities": "[8.0.7, )",
           "Microsoft.Extensions.DependencyInjection": "[8.0.0, )",
-          "RestSharp": "[111.4.0, )",
+          "RestSharp": "[111.4.1, )",
           "System.Linq.Async": "[6.0.1, )"
         }
       },
