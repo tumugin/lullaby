@@ -25,11 +25,11 @@
       },
       "Microsoft.AspNetCore.WebUtilities": {
         "type": "Direct",
-        "requested": "[8.0.7, )",
-        "resolved": "8.0.7",
-        "contentHash": "p4v+nBlHc8vnZep8T1cvchPYZBG+pKEJv2pt8sNXoOIcLOjYhJP7vOSzvBugio0AYdVsy8fJDmTZtj6wo5vOhQ==",
+        "requested": "[8.0.8, )",
+        "resolved": "8.0.8",
+        "contentHash": "KtyXdMIa1PE9gVE4FJn1/uEUriNZeDHF6hU4U+osJugZZJsRMm1mBKK56kWG+ctyDSXsC8OP8kHd1/js7xXn7g==",
         "dependencies": {
-          "Microsoft.Net.Http.Headers": "8.0.7",
+          "Microsoft.Net.Http.Headers": "8.0.8",
           "System.IO.Pipelines": "8.0.0"
         }
       },
@@ -74,8 +74,8 @@
       },
       "Microsoft.Net.Http.Headers": {
         "type": "Transitive",
-        "resolved": "8.0.7",
-        "contentHash": "etS+BY2/fIMqdnoUFiQ1xXMVwaBHUwdbpTj+cWWKyJwDbuxIy2KmBTgWkeIXJy8wrlg/vfqRZ7CfdSppu1EaWw==",
+        "resolved": "8.0.8",
+        "contentHash": "pIfvMyTblk5mVnCFlRxT+LcbWUAKGbXsugktN5hB7c3VbzyhQqPS8f5Y+uwdgkEXPCRzAD1PMK1bV0zItHqRLA==",
         "dependencies": {
           "Microsoft.Extensions.Primitives": "8.0.0"
         }
