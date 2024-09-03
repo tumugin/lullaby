@@ -46,9 +46,9 @@
       },
       "NUnit": {
         "type": "Direct",
-        "requested": "[4.2.1, )",
-        "resolved": "4.2.1",
-        "contentHash": "B+IKGRrYN+DKdJMecO6aocA4v+46bV5/klsyovIV4TF3k8WPU2W5WvEWLJxSg1dx62qTBvysfXLWWenfAB8slg=="
+        "requested": "[4.2.2, )",
+        "resolved": "4.2.2",
+        "contentHash": "mon0OPko28yZ/foVXrhiUvq1LReaGsBdziumyyYGxV/pOE4q92fuYeN+AF+gEU5pCjzykcdBt5l7xobTaiBjsg=="
       },
       "NUnit.Analyzers": {
         "type": "Direct",
@@ -596,8 +596,8 @@
       },
       "RestSharp": {
         "type": "Transitive",
-        "resolved": "111.4.1",
-        "contentHash": "MhrBdwqYd+ezd3xD+c6eaAVcLJoWI+2TBH7rqX149nbYRkPJJfK/UbrgJVfKN9ZMehOFzo2PmKIZjS1ATnxEAQ=="
+        "resolved": "112.0.0",
+        "contentHash": "vezxJ6DLk0eDx+rmXwVHQvJ3elZCJfnLd8neRrkA+IvTs9falf2CEAolsjI1YKkkHTOvG13xWTnHK7gU0zgaaw=="
       },
       "Sentry": {
         "type": "Transitive",
@@ -749,7 +749,7 @@
           "Flurl": "[4.0.0, )",
           "Microsoft.AspNetCore.WebUtilities": "[8.0.8, )",
           "Microsoft.Extensions.DependencyInjection": "[8.0.0, )",
-          "RestSharp": "[111.4.1, )",
+          "RestSharp": "[112.0.0, )",
           "System.Linq.Async": "[6.0.1, )"
         }
       },
