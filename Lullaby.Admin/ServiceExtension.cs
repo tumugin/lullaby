@@ -130,6 +130,9 @@ public static class ServiceExtension
         webApplicationBuilder.AddLullabyDataProtection();
         webApplicationBuilder.AddLullabyOidcAuthentication();
 
+        webApplicationBuilder.Services.AddAuthorizationBuilder()
+            .AddPolicy("Hangfire", policy => policy.RequireAuthenticatedUser());
+
         return webApplicationBuilder;
     }
 }

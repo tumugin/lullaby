@@ -47,6 +47,7 @@ public static class WebApplicationExtension
         {
             Authorization = new[] { new HangfireAuthorizationFilter() }
         });
+        webApplication.MapHangfireDashboardWithAuthorizationPolicy("Hangfire");
 
         return webApplication;
     }
