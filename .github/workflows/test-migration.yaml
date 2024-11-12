@@ -29,7 +29,7 @@ jobs:
           --health-retries 5
     steps:
       - uses: actions/checkout@v4
-      - name: Setup .NET Core SDK 7.0
+      - name: Setup .NET SDK
         uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
