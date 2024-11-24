@@ -75,7 +75,7 @@ public class AosekaSchedulePageScraperTest
             );
             Assert.That(testEvent?.EventType, Is.EqualTo(EventType.Unknown));
             Assert.That(testEvent?.EventPlace, Is.EqualTo("Spotify O-Crest"));
-            Assert.That(testEvent?.EventDateTime, Is.TypeOf(typeof(DetailedEventDateTime)));
+            Assert.That(testEvent?.EventDateTime, Is.TypeOf<DetailedEventDateTime>());
             Assert.That(
                 testEvent?.EventDateTime.EventStartDateTimeOffset,
                 Is.EqualTo(DateTimeOffset.Parse("2023-09-28 19:00:00+09:00", CultureInfo.InvariantCulture))

@@ -28,7 +28,7 @@ public static class ServiceExtension
 
     private static void AddLullabyHangfire(this WebApplicationBuilder webApplicationBuilder)
     {
-        if (webApplicationBuilder.Environment.EnvironmentName == "Testing")
+        if (webApplicationBuilder.IsTestingEnvironment())
         {
             return;
         }
@@ -43,6 +43,9 @@ public static class ServiceExtension
         webApplicationBuilder.Services.AddHangfireServer();
     }
 
+    private static bool IsTestingEnvironment(this WebApplicationBuilder webApplicationBuilder)
+        => webApplicationBuilder.Environment.EnvironmentName == "Testing";
+
     public static WebApplicationBuilder AddApplicationServices(
         this WebApplicationBuilder webApplicationBuilder
     )
@@ -56,9 +59,16 @@ public static class ServiceExtension
 
         var dbConnectionString = webApplicationBuilder.Configuration.GetConnectionString("DefaultConnection")
                                  ?? throw new InvalidOperationException("DB ConnectionString must not be null.");
-        webApplicationBuilder.Services.AddDbContext<LullabyContext>(options =>
-            options.UseNpgsql(dbConnectionString)
-        );
+
+        // If it is on testing env, don't register DBContext as
+        // "Only a single database provider can be registered in a service provider"
+        // error cause since from .NET 9.0 version NpgSQL libs.
+        if (!webApplicationBuilder.IsTestingEnvironment())
+        {
+            webApplicationBuilder.Services.AddDbContext<LullabyContext>(options =>
+                options.UseNpgsql(dbConnectionString)
+            );
+        }
 
         webApplicationBuilder
             .Services
