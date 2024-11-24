@@ -38,4 +38,4 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
       - name: Test migrations
-        run: dotnet ef database update --project Lullaby -- --environment Testing
+        run: dotnet ef database update --project Lullaby -- --environment Development
