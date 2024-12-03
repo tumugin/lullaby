@@ -85,26 +85,26 @@
       },
       "Hangfire.AspNetCore": {
         "type": "Transitive",
-        "resolved": "1.8.15",
-        "contentHash": "o85rtOYvhbWpNUGT4YrZE62lugShfdL3EMCqX2QoTC6eXVwpqtWOYfSeiTXAxlbF0CXNJJsuSCISKLmzbngWAA==",
+        "resolved": "1.8.17",
+        "contentHash": "6sFVmIySXX4n8GDrXYRxlXdFzsF6H+q5WPeDDBIQ2qiGDIEzMQvO8P01s3Kq9rRL3YwPuwjhrVcLI6c+ESIVig==",
         "dependencies": {
-          "Hangfire.NetCore": "[1.8.15]"
+          "Hangfire.NetCore": "[1.8.17]"
         }
       },
       "Hangfire.Core": {
         "type": "Transitive",
-        "resolved": "1.8.15",
-        "contentHash": "+w8gT6CFH4jicVEsJ8WlMRJMNV2MG52JNtvKoXPFHFs6nkDTND6iDeCjydyHgp+85lZPRXc+s9/vkxD2vbPrLg==",
+        "resolved": "1.8.17",
+        "contentHash": "PJbESth45US95kcFn3P2xd//l5C34YPskcU9q/mdIutVcYbd2kvsZDBFmz0/HYxa0nrocdjSpO6MGwPU4kE8Pw==",
         "dependencies": {
           "Newtonsoft.Json": "11.0.1"
         }
       },
       "Hangfire.NetCore": {
         "type": "Transitive",
-        "resolved": "1.8.15",
-        "contentHash": "HNACpklY1FGcsCr/xlPvmh5R5JqH2eEBxOp63Dwph6H6LdGWWqHoMpxjxkpYkZXM2mNpmk+j0Dk8lizadfnD+A==",
+        "resolved": "1.8.17",
+        "contentHash": "COFpdp1JOMj9gd76NObq0ejZv0UAfpa6d3uKdtc96+NT/PhjXVOT5im2Mff3jqBdwEcQodw2xS8oFUs863clvw==",
         "dependencies": {
-          "Hangfire.Core": "[1.8.15]",
+          "Hangfire.Core": "[1.8.17]",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "3.0.0",
           "Microsoft.Extensions.Hosting.Abstractions": "3.0.0",
           "Microsoft.Extensions.Logging.Abstractions": "3.0.0"
@@ -693,8 +693,8 @@
       "lullaby": {
         "type": "Project",
         "dependencies": {
-          "Hangfire.AspNetCore": "[1.8.15, )",
-          "Hangfire.Core": "[1.8.15, )",
+          "Hangfire.AspNetCore": "[1.8.17, )",
+          "Hangfire.Core": "[1.8.17, )",
           "Hangfire.Redis.StackExchange": "[1.9.4, )",
           "Ical.Net": "[4.3.1, )",
           "Lullaby.Database": "[1.0.0, )",
@@ -731,7 +731,7 @@
       "lullaby.jobs": {
         "type": "Project",
         "dependencies": {
-          "Hangfire.Core": "[1.8.15, )",
+          "Hangfire.Core": "[1.8.17, )",
           "LinqKit.Core": "[1.2.7, )",
           "Lullaby.Common": "[1.0.0, )",
           "Lullaby.Database": "[1.0.0, )",
