@@ -102,6 +102,7 @@ public static class ConfigureLullabyScheduledJobs
         // マグメル-MagMell- - magmell
         recurringJobManager.AddOrUpdate<MagmellCrawlerJob>(
             MagmellCrawlerJob.JobKey,
+            // disable for now because group has been suspended
             x => x.Execute(default),
             Cron.Hourly()
         );

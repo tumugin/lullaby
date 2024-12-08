@@ -13,4 +13,9 @@ public class MagmellCrawlerJob(
     public static string JobKey => "MagmellCrawlerJob";
 
     protected override IGroup TargetGroup => magmell;
+
+    /**
+    *  disable for now because group has been suspended
+    */
+    public override Task Execute(CancellationToken cancellationToken = default) => Task.CompletedTask;
 }
