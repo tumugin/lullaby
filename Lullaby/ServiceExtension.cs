@@ -113,6 +113,7 @@ public static class ServiceExtension
                     $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"
                 )
             );
+            swagger.SupportNonNullableReferenceTypes();
         });
 
         webApplicationBuilder.Services.AddProblemDetails();
