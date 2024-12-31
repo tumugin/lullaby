@@ -147,11 +147,8 @@
       },
       "AngleSharp": {
         "type": "Transitive",
-        "resolved": "1.1.2",
-        "contentHash": "aRFpAqixbuj1Vmqy2hsWPF0PJygo1SfjvmpBvVWZv6i+/u+C/L4wDdwFIzyCGUbjqr61NsZdPNPqDE8wlmG2qA==",
-        "dependencies": {
-          "System.Text.Encoding.CodePages": "8.0.0"
-        }
+        "resolved": "1.2.0",
+        "contentHash": "uF/PzSCVcb+b2nqVvHZbOqexoJ9R6QLjonugPf0PQl+0h7YKaFZeXyspctbHe5HGlx7/Iuk5BErtk+t63ac/ZA=="
       },
       "Flurl": {
         "type": "Transitive",
@@ -629,11 +626,6 @@
         "resolved": "6.0.0",
         "contentHash": "/iUeP3tq1S0XdNNoMz5C9twLSrM/TH+qElHkXWaPvuNOt+99G75NrV0OS2EqHx5wMN7popYjpc8oTjC1y16DLg=="
       },
-      "System.Text.Encoding.CodePages": {
-        "type": "Transitive",
-        "resolved": "8.0.0",
-        "contentHash": "OZIsVplFGaVY90G2SbpgU7EnCoOO5pw1t4ic21dBF3/1omrJFpAGoNAVpPyMVOC90/hvgkGG3VFqR13YgZMQfg=="
-      },
       "System.Text.Json": {
         "type": "Transitive",
         "resolved": "9.0.0",
@@ -647,7 +639,7 @@
       "lullaby.common": {
         "type": "Project",
         "dependencies": {
-          "AngleSharp": "[1.1.2, )",
+          "AngleSharp": "[1.2.0, )",
           "Flurl": "[4.0.0, )",
           "Microsoft.AspNetCore.WebUtilities": "[9.0.0, )",
           "Microsoft.Extensions.DependencyInjection": "[9.0.0, )",

@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="AngleSharp" Version="1.1.2" />
+      <PackageReference Include="AngleSharp" Version="1.2.0" />
       <PackageReference Include="Flurl" Version="4.0.0" />
       <PackageReference Include="IDisposableAnalyzers" Version="4.0.8">
         <PrivateAssets>all</PrivateAssets>
