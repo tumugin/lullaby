@@ -99,7 +99,7 @@ public partial class YosugalaSchedulePageScraper(
                 return new GroupEvent
                 {
                     EventName = title,
-                    EventPlace = null,
+                    EventPlace = rawEventPlace,
                     EventDateTime = detailedDate != null
                         ? new DetailedEventDateTime
                         {
