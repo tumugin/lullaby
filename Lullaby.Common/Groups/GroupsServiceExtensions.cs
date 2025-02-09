@@ -35,5 +35,7 @@ public static class GroupsServiceExtensions
             .AddScoped<IGroup, Gekkanpam>()
             .AddScoped<Gekkanpam, Gekkanpam>()
             .AddScoped<IGroup, Magmell>()
-            .AddScoped<Magmell, Magmell>();
+            .AddScoped<Magmell, Magmell>()
+            .AddScoped<IGroup, Fokalite>()
+            .AddScoped<Fokalite, Fokalite>();
 }

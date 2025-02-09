@@ -106,5 +106,12 @@ public static class ConfigureLullabyScheduledJobs
             x => x.Execute(default),
             Cron.Hourly()
         );
+
+        // FOKALITE - fokalite
+        recurringJobManager.AddOrUpdate<FokaliteCrawlerJob>(
+            FokaliteCrawlerJob.JobKey,
+            x => x.Execute(default),
+            Cron.Hourly()
+        );
     }
 }
