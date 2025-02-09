@@ -461,6 +461,11 @@
         "resolved": "13.0.3",
         "contentHash": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ=="
       },
+      "NodaTime": {
+        "type": "Transitive",
+        "resolved": "3.2.1",
+        "contentHash": "D1aHhUfPQUxU2nfDCVuSLahpp0xCYZTmj/KNH3mSK/tStJYcx9HO9aJ0qbOP3hzjGPV/DXOqY2AHe27Nt4xs4g=="
+      },
       "Npgsql": {
         "type": "Transitive",
         "resolved": "9.0.2",
@@ -593,6 +598,7 @@
           "Flurl": "[4.0.0, )",
           "Microsoft.AspNetCore.WebUtilities": "[9.0.1, )",
           "Microsoft.Extensions.DependencyInjection": "[9.0.1, )",
+          "NodaTime": "[3.2.1, )",
           "RestSharp": "[112.1.0, )",
           "System.Linq.Async": "[6.0.1, )"
         }
