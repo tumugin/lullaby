@@ -32,13 +32,11 @@ public class TimeTreeApiClient : ITimeTreeApiClient
             .AppendPathSegments("api", "v2", "public_calendars", calendarId, "public_events")
             .SetQueryParams(new
             {
-                limit = 30,
-                string_id = true,
                 cursor = pageCursor,
                 // Unix time in milliseconds
-                since = startDate.ToUnixTimeMilliseconds(),
+                from = startDate.ToUnixTimeMilliseconds(),
                 // Unix time in milliseconds
-                until = endDate.ToUnixTimeMilliseconds(),
+                to = endDate.ToUnixTimeMilliseconds(),
                 // Offset in seconds from UTC
                 utc_offset = startDate.Offset.Seconds
             })
@@ -48,7 +46,8 @@ public class TimeTreeApiClient : ITimeTreeApiClient
         httpRequestMessage.RequestUri = requestUri;
         httpRequestMessage.Method = HttpMethod.Get;
         // Set same as the web client
-        httpRequestMessage.Headers.Add("X-Timetreea", "web/2.1.0/ja");
+        httpRequestMessage.Headers.Add("x-timetreea", "web/2.1.0/ja");
+        httpRequestMessage.Headers.Add("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0");
 
         using var rawResponse = await this.httpClient.SendAsync(httpRequestMessage, cancellationToken);
         var rawJson = await rawResponse.Content.ReadAsStringAsync(cancellationToken);
