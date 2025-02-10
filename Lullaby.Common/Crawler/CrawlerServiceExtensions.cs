@@ -8,6 +8,7 @@ using Scraper;
 using Scraper.Anthurium;
 using Scraper.Aoseka;
 using Scraper.Axelight;
+using Scraper.Fokalite;
 using Scraper.Gekkanpam;
 using Scraper.Kolokol;
 using Scraper.Magmell;
@@ -49,7 +50,8 @@ public static class CrawlerServiceExtensions
             .AddScoped<ISchedulePageScraper, NarlowSchedulePageScraper>()
             .AddScoped<ISchedulePageScraper, YolozSchedulePageScraper>()
             .AddScoped<ISchedulePageScraper, GekkanpamScraper>()
-            .AddScoped<ISchedulePageScraper, MagmellSchedulePageScraper>();
+            .AddScoped<ISchedulePageScraper, MagmellSchedulePageScraper>()
+            .AddScoped<ISchedulePageScraper, FokaliteSchedulePageScraper>();
 
         serviceCollection.AddAnthurium();
 

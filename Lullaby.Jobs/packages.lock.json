@@ -228,6 +228,11 @@
           "Microsoft.Extensions.Primitives": "9.0.1"
         }
       },
+      "NodaTime": {
+        "type": "Transitive",
+        "resolved": "3.2.1",
+        "contentHash": "D1aHhUfPQUxU2nfDCVuSLahpp0xCYZTmj/KNH3mSK/tStJYcx9HO9aJ0qbOP3hzjGPV/DXOqY2AHe27Nt4xs4g=="
+      },
       "Npgsql": {
         "type": "Transitive",
         "resolved": "9.0.2",
@@ -266,6 +271,7 @@
           "Flurl": "[4.0.0, )",
           "Microsoft.AspNetCore.WebUtilities": "[9.0.1, )",
           "Microsoft.Extensions.DependencyInjection": "[9.0.1, )",
+          "NodaTime": "[3.2.1, )",
           "RestSharp": "[112.1.0, )",
           "System.Linq.Async": "[6.0.1, )"
         }

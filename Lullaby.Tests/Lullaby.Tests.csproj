@@ -38,7 +38,6 @@
     <None Remove="Crawler\Scraper\Kolokol\kolokol-past-schedule-test-page.html" />
     <EmbeddedResource Include="Crawler\Scraper\Kolokol\kolokol-past-schedule-test-page.html" />
     <None Remove="Crawler\Scraper\Yosugala\yosugala-test-page.html" />
-    <EmbeddedResource Include="Crawler\Scraper\Yosugala\yosugala-test-page.html" />
     <None Remove="Crawler\Scraper\OSS\oss-test-page.html" />
     <EmbeddedResource Include="Crawler\Scraper\OSS\oss-test-page.html" />
     <None Remove="Crawler\Scraper\Narlow\narlow-month-test-page.html" />
