@@ -52,7 +52,7 @@ public partial class YosugalaSchedulePageScraper(
             .Select(doc =>
             {
                 var title = doc.QuerySelector(".block--title")?.TextContent
-                    ?? throw new InvalidDataException("Title must not be null");
+                            ?? throw new InvalidDataException("Title must not be null");
                 var liTags = doc.QuerySelectorAll("li");
                 var rawEventDate = liTags
                     .FirstOrDefault(tag => tag.QuerySelector(".item-tit")?.TextContent == "公演日")
@@ -84,16 +84,23 @@ public partial class YosugalaSchedulePageScraper(
 
                 if (rawEventTime != null)
                 {
-                    var regexParsedEventTime = ParseTimes(rawEventTime);
-                    detailedDate = new DateTimeOffset(
-                        regexParsedEventDate.year,
-                        regexParsedEventDate.month,
-                        regexParsedEventDate.day,
-                        regexParsedEventTime.openHour,
-                        regexParsedEventTime.openMinute,
-                        0,
-                        this.jstTimezone.BaseUtcOffset
-                    );
+                    try
+                    {
+                        var regexParsedEventTime = ParseTimes(rawEventTime);
+                        detailedDate = new DateTimeOffset(
+                            regexParsedEventDate.year,
+                            regexParsedEventDate.month,
+                            regexParsedEventDate.day,
+                            regexParsedEventTime.openHour,
+                            regexParsedEventTime.openMinute,
+                            0,
+                            this.jstTimezone.BaseUtcOffset
+                        );
+                    }
+                    catch (ArgumentException)
+                    {
+                        // do nothing
+                    }
                 }
 
                 return new GroupEvent
@@ -106,7 +113,10 @@ public partial class YosugalaSchedulePageScraper(
                             EventStartDateTime = detailedDate.Value,
                             EventEndDateTime = detailedDate.Value.AddHours(4)
                         }
-                        : new UnDetailedEventDateTime { EventStartDate = parsedDate, EventEndDate = parsedDate.AddDays(1) },
+                        : new UnDetailedEventDateTime
+                        {
+                            EventStartDate = parsedDate, EventEndDate = parsedDate.AddDays(1)
+                        },
                     EventDescription = rawEventDetails?.ToHtml(new TextMarkupFormatter()) ??
                                        throw new InvalidDataException("Event description must not be null"),
                     EventType = eventTypeDetector.DetectEventTypeByTitle(title)
@@ -158,15 +168,15 @@ public partial class YosugalaSchedulePageScraper(
         var timeRangeFrom = TimeZoneInfo.ConvertTime(timeProvider.GetUtcNow(), this.jstTimezone)
             .ToOffsetDateTime()
             .With(DateAdjusters.StartOfMonth);
-        var targetDates = Enumerable.Range(1, MonthRange)
+        var targetDates = Enumerable.Range(0, MonthRange)
             .ToArray()
-            .Select(i => timeRangeFrom + Period.FromMonths(i).ToDuration())
+            .Select(i => timeRangeFrom.With(v => v.PlusMonths(i)))
             .ToArray();
 
         var urls = targetDates
             .Select(v => new Url(ScheduleMonthPageUrlConstant)
                 .SetQueryParam("year", v.ToString("yyyy", CultureInfo.InvariantCulture))
-                .SetQueryParam("month", v.ToString("mm", CultureInfo.InvariantCulture))
+                .SetQueryParam("month", v.ToString("MM", CultureInfo.InvariantCulture))
                 .ToUri()
             );
         var rawHtmls = await urls.ToAsyncEnumerable()
@@ -194,6 +204,7 @@ public partial class YosugalaSchedulePageScraper(
 
     [GeneratedRegex(@"^(\d{4})\.(\d{2})\.(\d{2})\[[A-Z]{3}\]$")]
     private static partial Regex DateRegex();
+
     [GeneratedRegex(@"開場(\d{2}):(\d{2}) - 開演(\d{2}):(\d{2})")]
     private static partial Regex TimeRegex();
 }
