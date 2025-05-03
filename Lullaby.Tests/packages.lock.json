@@ -641,27 +641,27 @@
       },
       "Sentry": {
         "type": "Transitive",
-        "resolved": "5.5.1",
-        "contentHash": "p93BeSvZrbs/Y+bHShFv3MV6lGCJ/H+A1OFLylMhv8ADWvkz4P7NTEJ2m1JUEKd6kaY69PP06mxVQROgTm3qhA=="
+        "resolved": "5.6.0",
+        "contentHash": "KZbxp1ehMvb/gnh2aGLER7GQKKVM3M8pZz6SxFkZZ4QxS7mXJb+01Iw08nAb6Cz9rLfv3s1BIGorOtMJNujzrA=="
       },
       "Sentry.AspNetCore": {
         "type": "Transitive",
-        "resolved": "5.5.1",
-        "contentHash": "V/8u+N0n8rI483aTfrENr3JtejyP4GNY7xJZr5OOYyFCW1JRts7fVnsTKuadOgj17dcr2IVDLcRBo25AhY3A9g==",
+        "resolved": "5.6.0",
+        "contentHash": "eQE1CMvBCADLBGqUOBrJY5ABSpP5q9jjffsA/koOWnOITKg9Xh89fW1yLQ0eaDFksK6Mgmf+EWz+Ua7Ph4wolQ==",
         "dependencies": {
           "Microsoft.Extensions.Configuration.Binder": "9.0.0",
-          "Sentry.Extensions.Logging": "5.5.1"
+          "Sentry.Extensions.Logging": "5.6.0"
         }
       },
       "Sentry.Extensions.Logging": {
         "type": "Transitive",
-        "resolved": "5.5.1",
-        "contentHash": "DV4VATxwFVNBBdxGv2KwoksfRyItBZi+ETB1cv11NzBU7jV7i9s/DtXNsh6AypnLSajbVhwx8EzQa8kwqJLwJA==",
+        "resolved": "5.6.0",
+        "contentHash": "zNs5xSk3N1kQew47gT8PEpu2Ek/X8eM2QyDnp+E0/XxQwrb3wx7uGZQZeiP9SWchvcJY3Q0oxI9hBF7IXhaAnQ==",
         "dependencies": {
           "Microsoft.Extensions.Configuration.Binder": "9.0.0",
           "Microsoft.Extensions.Http": "9.0.0",
           "Microsoft.Extensions.Logging.Configuration": "9.0.0",
-          "Sentry": "5.5.1"
+          "Sentry": "5.6.0"
         }
       },
       "StackExchange.Redis": {
@@ -754,7 +754,7 @@
           "Microsoft.EntityFrameworkCore.Relational": "[9.0.4, )",
           "Newtonsoft.Json": "[13.0.3, )",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "[9.0.4, )",
-          "Sentry.AspNetCore": "[5.5.1, )",
+          "Sentry.AspNetCore": "[5.6.0, )",
           "Swashbuckle.AspNetCore": "[8.1.1, )",
           "Swashbuckle.AspNetCore.Annotations": "[8.1.1, )",
           "System.Linq.Async": "[6.0.1, )"
