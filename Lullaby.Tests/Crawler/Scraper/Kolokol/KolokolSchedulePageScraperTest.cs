@@ -45,7 +45,7 @@ public class KolokolSchedulePageScraperTest
 
         Assert.That(result, Has.Count.EqualTo(48));
         var kinoSaki = result.FirstOrDefault(e => e.EventName == "きのさき生誕2023");
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(kinoSaki?.EventName, Is.EqualTo("きのさき生誕2023"));
             Assert.That(kinoSaki?.EventPlace, Is.EqualTo("梅田BananaHall"));
@@ -78,6 +78,6 @@ Kolokol"));
                 .ToString(CultureInfo.InvariantCulture),
                 Is.EqualTo("01/22/2023 22:00:00 +09:00")
             );
-        });
+        }
     }
 }

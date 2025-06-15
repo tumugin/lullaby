@@ -17,12 +17,12 @@ public class GroupEventControllerTest : BaseWebTest
                 $"ical/events/aoseka"
             );
         var content = await result.Content.ReadAsStringAsync();
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(content, Is.Not.Null);
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(result.Content.Headers.ContentType?.MediaType, Is.EqualTo("text/calendar"));
-        });
+        }
     }
 
     [Test]
@@ -48,13 +48,12 @@ public class GroupEventControllerTest : BaseWebTest
             }
         );
         using var result = await this.Client.GetAsync(requestUri);
-
-        Assert.Multiple(async () =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(await result.Content.ReadAsStringAsync(), Is.Not.Null);
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
             Assert.That(result.Content.Headers.ContentType?.MediaType, Is.EqualTo("text/calendar"));
-        });
+        }
     }
 
     [Test]

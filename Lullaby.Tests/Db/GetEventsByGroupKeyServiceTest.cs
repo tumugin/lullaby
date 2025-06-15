@@ -64,12 +64,11 @@ public class GetEventsByGroupKeyServiceTest : BaseDatabaseTest
             ),
             default
         );
-
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(results, Has.Count.EqualTo(1));
             Assert.That(results[0], Is.EqualTo(expectedEvent));
-        });
+        }
     }
 
     [Test]

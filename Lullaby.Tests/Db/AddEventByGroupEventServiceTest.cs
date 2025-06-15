@@ -36,7 +36,7 @@ public class AddEventByGroupEventServiceTest : BaseDatabaseTest
             },
             default
         );
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(result.Id, Is.GreaterThan(0L));
             Assert.That(result.EventStarts,
@@ -45,7 +45,7 @@ public class AddEventByGroupEventServiceTest : BaseDatabaseTest
             Assert.That(result.EventEnds,
                 Is.EqualTo(DateTimeOffset.Parse("2022-11-15 21:30:00+09:00", CultureInfo.InvariantCulture))
             );
-        });
+        }
     }
 
     [Test]
@@ -73,7 +73,7 @@ public class AddEventByGroupEventServiceTest : BaseDatabaseTest
             },
             default
         );
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(result.Id, Is.GreaterThan(0L));
             Assert.That(result.EventStarts,
@@ -82,6 +82,6 @@ public class AddEventByGroupEventServiceTest : BaseDatabaseTest
             Assert.That(result.EventEnds,
                 Is.EqualTo(DateTimeOffset.Parse("2022-11-15 00:00:00+09:00", CultureInfo.InvariantCulture))
             );
-        });
+        }
     }
 }
