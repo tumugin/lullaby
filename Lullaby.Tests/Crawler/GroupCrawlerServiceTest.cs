@@ -39,11 +39,11 @@ public class GroupCrawlerServiceTest : BaseDatabaseTest
 
         var addedResult = await this.Context.Events.ToArrayAsync();
         Assert.That(addedResult, Has.Length.EqualTo(2));
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(addedResult[0].EventDescription, Is.EqualTo("day1 test"));
             Assert.That(addedResult[1].EventDescription, Is.EqualTo("day2 test"));
-        });
+        }
     }
 
     [Test]
@@ -65,11 +65,11 @@ public class GroupCrawlerServiceTest : BaseDatabaseTest
 
         var addedResult = await this.Context.Events.ToListAsync();
         Assert.That(addedResult, Has.Count.EqualTo(2));
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(addedResult[0].EventDescription, Is.EqualTo("day1 test"));
             Assert.That(addedResult[1].EventDescription, Is.EqualTo("day2 test"));
-        });
+        }
     }
 
     private sealed class TestGroup : IGroup

@@ -24,8 +24,7 @@ public class TimeTreeScraperTest
             new TimeTreeScheduleGroupEventConverter(new EventTypeDetector())
         );
         var result = await testClass.ScrapeAsync(default);
-
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(result, Has.Count.EqualTo(22));
 
@@ -42,7 +41,7 @@ public class TimeTreeScraperTest
             Assert.That(result[0].EventDateTime.EventEndDateTimeOffset, Is.EqualTo(
                 new DateTimeOffset(2024, 1, 30, 0, 0, 0, TimeSpan.Zero)
             ));
-        });
+        }
     }
 
     private sealed class TimeTreeScraperTestImpl : TimeTreeScraper

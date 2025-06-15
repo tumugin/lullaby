@@ -65,8 +65,7 @@ public class AosekaSchedulePageScraperTest
             .FirstOrDefault(v =>
                 v.EventName == "定期公演『BLUE』vol.5"
             );
-
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(testEvent?.EventName, Is.EqualTo("定期公演『BLUE』vol.5"));
             Assert.That(testEvent?.EventDescription,
@@ -84,6 +83,6 @@ public class AosekaSchedulePageScraperTest
                 testEvent?.EventDateTime.EventEndDateTimeOffset,
                 Is.EqualTo(DateTimeOffset.Parse("2023-09-28 23:00:00+09:00", CultureInfo.InvariantCulture))
             );
-        });
+        }
     }
 }

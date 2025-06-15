@@ -8,9 +8,9 @@ public class IndexControllerTest : BaseWebTest
     public async Task TestIndex()
     {
         using var result = await this.Client.GetAsync("/");
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
-        });
+        }
     }
 }

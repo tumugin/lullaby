@@ -4,7 +4,7 @@ using Database.DbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-public class BaseDatabaseTest
+public abstract class BaseDatabaseTest
 {
     protected LullabyContext Context { get; private set; } = null!;
 

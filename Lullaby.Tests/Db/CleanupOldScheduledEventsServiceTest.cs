@@ -94,12 +94,12 @@ public class CleanupOldScheduledEventsServiceTest : BaseDatabaseTest
         );
 
         var events = await this.Context.Events.ToArrayAsync();
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(events, Has.Length.EqualTo(3));
             Assert.That(events[0].Id, Is.EqualTo(1));
             Assert.That(events[1].Id, Is.EqualTo(3));
             Assert.That(events[2].Id, Is.EqualTo(4));
-        });
+        }
     }
 }

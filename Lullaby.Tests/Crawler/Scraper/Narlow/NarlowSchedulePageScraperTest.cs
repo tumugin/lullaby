@@ -58,8 +58,7 @@ public class NarlowSchedulePageScraperTest
             .FirstOrDefault(v =>
                 v.EventName == "12/17（日）【対バン】「アイドル甲子園 in 新宿BLAZE」@新宿BLAZE"
             );
-
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(testEvent?.EventName, Is.EqualTo("12/17（日）【対バン】「アイドル甲子園 in 新宿BLAZE」@新宿BLAZE"));
             Assert.That(testEvent?.EventPlace, Is.Null);
@@ -75,6 +74,6 @@ public class NarlowSchedulePageScraperTest
                 Is.EqualTo(
                     "12/17（日）\n「アイドル甲子園 in 新宿BLAZE」\n@ 新宿BLAZE\nOPEN 9:35 \u00a0START 9:50\n\ud83c\udfab 10/13（金）20:00\uff5e 販売開始\nhttps://t.livepocket.jp/e/idolkoushien-1217-\n\u25c9チケット価格 （※各+1D）\n・前方エリアチケット \u00a57,000\n・一般チケット \u00a53,500\n・当日券 \u00a54,500"));
             Assert.That(testEvent?.EventType, Is.EqualTo(EventType.Battle));
-        });
+        }
     }
 }

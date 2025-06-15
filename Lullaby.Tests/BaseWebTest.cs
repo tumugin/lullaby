@@ -1,6 +1,6 @@
 namespace Lullaby.Tests;
 
-public class BaseWebTest : BaseDatabaseTest
+public abstract class BaseWebTest : BaseDatabaseTest
 {
     protected HttpClient Client { get; private set; } = null!;
     protected virtual string Environment => "Testing";

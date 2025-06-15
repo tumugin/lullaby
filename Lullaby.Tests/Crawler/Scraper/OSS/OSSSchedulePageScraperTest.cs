@@ -38,7 +38,7 @@ public class OssSchedulePageScraperTest
 
         // 【海老原天生誕祭】暴飲暴食
         var testEvent = result.First(v => v.EventName == "【海老原天生誕祭】暴飲暴食");
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(testEvent.EventName, Is.EqualTo("【海老原天生誕祭】暴飲暴食"));
             Assert.That(
@@ -56,6 +56,6 @@ https://t.livepocket.jp/e/g_16b")
                 testEvent.EventDateTime.EventEndDateTimeOffset.ToString("o", CultureInfo.InvariantCulture),
                 Is.EqualTo("2023-02-18T19:15:00.0000000+09:00")
             );
-        });
+        }
     }
 }

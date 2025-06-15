@@ -26,8 +26,7 @@ public class TimeTreeApiClientTest
             null,
             default
         );
-
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(result.HasNextPage, Is.False);
             Assert.That(result.NextPageCursor, Is.Null);
@@ -51,6 +50,6 @@ public class TimeTreeApiClientTest
             Assert.That(result.Schedules[0].UntilAt, Is.EqualTo(
                 new DateTimeOffset(2024, 1, 29, 23, 59, 59, TimeSpan.Zero)
             ));
-        });
+        }
     }
 }

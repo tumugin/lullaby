@@ -55,8 +55,7 @@ public class MagmellSchedulePageScraperTest
 
         var result = await scraper.ScrapeAsync(default);
         var testEvent = result.First(v => v.EventName == "#ﾆｷﾌﾟﾚ「ミツドモエ。」");
-
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(testEvent.EventName, Is.EqualTo("#ﾆｷﾌﾟﾚ「ミツドモエ。」"));
             Assert.That(testEvent.EventPlace, Is.EqualTo("渋谷近未来会館"));
@@ -75,6 +74,6 @@ public class MagmellSchedulePageScraperTest
                     "出演19:40-20:20 / 特典会21:10-22:20【チケット一般販売】〜7/30(火)23:59迄\nhttps://t.pia.jp/pia/ticketInformation.do?eventCd=2423877&rlsCd=001&lotRlsCd="
                 )
             );
-        });
+        }
     }
 }
