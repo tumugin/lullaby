@@ -27,7 +27,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.6" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
-    <PackageReference Include="Sentry.AspNetCore" Version="5.11.0" />
+    <PackageReference Include="Sentry.AspNetCore" Version="5.11.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="9.0.1" />
     <PackageReference Include="System.Linq.Async" Version="6.0.3" />

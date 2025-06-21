@@ -636,27 +636,27 @@
       },
       "Sentry": {
         "type": "Transitive",
-        "resolved": "5.11.0",
-        "contentHash": "cdsxt7QSEWp17NaExRc/1+gyn9fhxMK1OucJL3VxT+xgHmeLm8HrFTB4xfo4NT5ENILZyCEk5944508+V2mFug=="
+        "resolved": "5.11.1",
+        "contentHash": "qb9bwlVE6HJW6sZ3pqsrCTUmdwD+LHXMKIwk58y1TnUuZzw0Rm2COWVf4GmZS9AufsW52ydNaoBcZXtMthNSSw=="
       },
       "Sentry.AspNetCore": {
         "type": "Transitive",
-        "resolved": "5.11.0",
-        "contentHash": "AFhY1dIo6HdpQ8Jix/v4gveikTldt5H9ESgbDVtCY1oZiQqGAfPg/GoYPiZFbAnF+NAtOnKw3LkBVCMwtvNNgA==",
+        "resolved": "5.11.1",
+        "contentHash": "W8r2pn+t63V5YbJTtgY/JTrVPCAr3hFVZsQ7/XRWYt69wSz1DaaIR1jxewID+EaH5bxyYiW4Ei1ER/WFYBBMbQ==",
         "dependencies": {
           "Microsoft.Extensions.Configuration.Binder": "9.0.0",
-          "Sentry.Extensions.Logging": "5.11.0"
+          "Sentry.Extensions.Logging": "5.11.1"
         }
       },
       "Sentry.Extensions.Logging": {
         "type": "Transitive",
-        "resolved": "5.11.0",
-        "contentHash": "KRx3mv6ze+Hp8PQlO1/LppMwtN23XyoCoApDbmh3xgdTHMJxWatI2gC8rxVKC+oF1KuVITEIV0cUbn6NgiK5qw==",
+        "resolved": "5.11.1",
+        "contentHash": "sX5ARUxZSFAIGHjsMdHvU9ZJuFT2YZjQ9upaJ6c0/YSE/yyhVER4NjvoLSm3s95u+CLKPk3WNTsNOgUodsUE7w==",
         "dependencies": {
           "Microsoft.Extensions.Configuration.Binder": "9.0.0",
           "Microsoft.Extensions.Http": "9.0.0",
           "Microsoft.Extensions.Logging.Configuration": "9.0.0",
-          "Sentry": "5.11.0"
+          "Sentry": "5.11.1"
         }
       },
       "StackExchange.Redis": {
@@ -754,7 +754,7 @@
           "Microsoft.EntityFrameworkCore.Relational": "[9.0.6, )",
           "Newtonsoft.Json": "[13.0.3, )",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "[9.0.4, )",
-          "Sentry.AspNetCore": "[5.11.0, )",
+          "Sentry.AspNetCore": "[5.11.1, )",
           "Swashbuckle.AspNetCore": "[9.0.1, )",
           "Swashbuckle.AspNetCore.Annotations": "[9.0.1, )",
           "System.Linq.Async": "[6.0.3, )"
