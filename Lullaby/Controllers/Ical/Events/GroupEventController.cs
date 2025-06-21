@@ -71,17 +71,17 @@ public class GroupEventController : ControllerBase
             {
                 Start = new CalDateTime(
                     TimeZoneInfo.ConvertTime(e.EventStarts, asiaTokyoTimezone).DateTime,
-                    "Asia/Tokyo"
+                    "Asia/Tokyo",
+                    hasTime: e.IsDateTimeDetailed
                 ),
                 End = new CalDateTime(
                     TimeZoneInfo.ConvertTime(
-                        // 終日イベントはGCalなどではLullabyのDB上の終日の日付を含まないので、終日イベントの場合は終了日時を1秒前にする
-                        e.IsDateTimeDetailed ? e.EventEnds : e.EventEnds.AddSeconds(-1),
+                        e.EventEnds,
                         asiaTokyoTimezone
                     ).DateTime,
-                    "Asia/Tokyo"
+                    "Asia/Tokyo",
+                    hasTime: e.IsDateTimeDetailed
                 ),
-                IsAllDay = !e.IsDateTimeDetailed,
                 Summary = e.EventName,
                 Description = e.EventDescription,
                 Location = e.EventPlace
@@ -103,6 +103,6 @@ public class GroupEventController : ControllerBase
         var serializer = new CalendarSerializer();
         var serializedCalendar = serializer.SerializeToString(calendar);
 
-        return this.Content(serializedCalendar, "text/calendar");
+        return this.Content(serializedCalendar ?? string.Empty, "text/calendar");
     }
 }
