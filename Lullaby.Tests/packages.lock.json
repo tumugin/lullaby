@@ -123,10 +123,10 @@
       },
       "Ical.Net": {
         "type": "Transitive",
-        "resolved": "4.3.1",
-        "contentHash": "ZQHNJAy26XeW0OnVRxyHW1xNWkLdueIInPCo76sdNCC0Sr8dAfBzN3DApWWk2r0nwCU0oJIGsrFHdCcQu5RWag==",
+        "resolved": "5.0.0",
+        "contentHash": "7reah0v54sUXYa0mcNcXLx93tfrqasMxqudQ+zELidII+qhfaVqlw2A+Zbtb7q6eO64j7dSm9650zZnF6NeDGw==",
         "dependencies": {
-          "NodaTime": "3.2.0"
+          "NodaTime": "3.2.2"
         }
       },
       "LinqKit.Core": {
@@ -747,7 +747,7 @@
           "Hangfire.AspNetCore": "[1.8.20, )",
           "Hangfire.Core": "[1.8.20, )",
           "Hangfire.Redis.StackExchange": "[1.12.0, )",
-          "Ical.Net": "[4.3.1, )",
+          "Ical.Net": "[5.0.0, )",
           "Lullaby.Database": "[1.0.0, )",
           "Lullaby.Jobs": "[1.0.0, )",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "[9.0.6, )",
