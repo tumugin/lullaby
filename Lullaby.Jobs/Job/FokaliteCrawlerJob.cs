@@ -13,4 +13,9 @@ public class FokaliteCrawlerJob(
     public const string JobKey = "FokaliteCrawlerJob";
 
     protected override IGroup TargetGroup => fokalite;
+
+    /// <summary>
+    /// disable for now because group calendar has moved to GCal
+    /// </summary>
+    public override Task Execute(CancellationToken cancellationToken = default) => Task.CompletedTask;
 }

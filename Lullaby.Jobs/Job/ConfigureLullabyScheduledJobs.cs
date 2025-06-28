@@ -110,6 +110,7 @@ public static class ConfigureLullabyScheduledJobs
         // FOKALITE - fokalite
         recurringJobManager.AddOrUpdate<FokaliteCrawlerJob>(
             FokaliteCrawlerJob.JobKey,
+            // disable for now because group calendar has moved to GCal
             x => x.Execute(default),
             Cron.Hourly()
         );
