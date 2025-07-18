@@ -14,7 +14,7 @@
     <PackageReference Include="Hangfire.AspNetCore" Version="1.8.20" />
     <PackageReference Include="Hangfire.Core" Version="1.8.20" />
     <PackageReference Include="Hangfire.Redis.StackExchange" Version="1.12.0" />
-    <PackageReference Include="Ical.Net" Version="5.0.0" />
+    <PackageReference Include="Ical.Net" Version="5.1.0" />
     <PackageReference Include="IDisposableAnalyzers" Version="4.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -27,7 +27,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.7" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
-    <PackageReference Include="Sentry.AspNetCore" Version="5.11.2" />
+    <PackageReference Include="Sentry.AspNetCore" Version="5.12.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="9.0.3" />
     <PackageReference Include="System.Linq.Async" Version="6.0.3" />
