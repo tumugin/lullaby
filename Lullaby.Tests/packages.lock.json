@@ -123,8 +123,8 @@
       },
       "Ical.Net": {
         "type": "Transitive",
-        "resolved": "5.0.0",
-        "contentHash": "7reah0v54sUXYa0mcNcXLx93tfrqasMxqudQ+zELidII+qhfaVqlw2A+Zbtb7q6eO64j7dSm9650zZnF6NeDGw==",
+        "resolved": "5.1.0",
+        "contentHash": "vs3ua022HGxISADoBSIAsL7Gd5AlOMNVvMI+QD4XwSD4xutuCESTJnkgwTpZr+iW6yIPLXqWJDun4TlxcSuh2w==",
         "dependencies": {
           "NodaTime": "3.2.2"
         }
@@ -636,27 +636,27 @@
       },
       "Sentry": {
         "type": "Transitive",
-        "resolved": "5.11.2",
-        "contentHash": "oDzBGBUt8O/dzvSiGRePJVXKYVQdAV3D6bOdK0oSjR4AERVdEHfEHaFtXb0Mr4tGkhy7ZILeTyRUX0V62cCYEg=="
+        "resolved": "5.12.0",
+        "contentHash": "m3C9urnnPhvk+Ua+771NF6+qw4mLY9QKBwM9IaJFNvqslh6Yb+EBFckwP0V4jaMHdgyPBAjegcBE1lR9vJ6kAw=="
       },
       "Sentry.AspNetCore": {
         "type": "Transitive",
-        "resolved": "5.11.2",
-        "contentHash": "Dgk3Eu4mvxwwI+MXemddxgTYqEZOUHGcBCKB5Lr/Yzt+5UNWJoN0bJgUYGGap3NX/MNXYC6ODseIpzx6iJKHwA==",
+        "resolved": "5.12.0",
+        "contentHash": "dUPMdAyj6qipNU0aIiAa3giVJPl1FMEivPzsCLKYRgTTKegiIJchewMTOERVYxvCEJuvskdQ6nW9I4fwW9eqPQ==",
         "dependencies": {
           "Microsoft.Extensions.Configuration.Binder": "9.0.0",
-          "Sentry.Extensions.Logging": "5.11.2"
+          "Sentry.Extensions.Logging": "5.12.0"
         }
       },
       "Sentry.Extensions.Logging": {
         "type": "Transitive",
-        "resolved": "5.11.2",
-        "contentHash": "fmttJI5GoG1xjlbUFDRWIDHiiyhQoA4ERSx96zmGJ8LYd6ewQTQctmTS9LeOfMEKHnu96Paug8TQwZGGlGpW1A==",
+        "resolved": "5.12.0",
+        "contentHash": "kNNsw9oH2s5bp4PUMnCAnDnIIaxSs1xHIgoBUUpvuIgq7ZD5ev5NP5TBMh6pXNpk00BksXksJDfSxzRv0+BE6Q==",
         "dependencies": {
           "Microsoft.Extensions.Configuration.Binder": "9.0.0",
           "Microsoft.Extensions.Http": "9.0.0",
           "Microsoft.Extensions.Logging.Configuration": "9.0.0",
-          "Sentry": "5.11.2"
+          "Sentry": "5.12.0"
         }
       },
       "StackExchange.Redis": {
@@ -747,14 +747,14 @@
           "Hangfire.AspNetCore": "[1.8.20, )",
           "Hangfire.Core": "[1.8.20, )",
           "Hangfire.Redis.StackExchange": "[1.12.0, )",
-          "Ical.Net": "[5.0.0, )",
+          "Ical.Net": "[5.1.0, )",
           "Lullaby.Database": "[1.0.0, )",
           "Lullaby.Jobs": "[1.0.0, )",
           "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "[9.0.7, )",
           "Microsoft.EntityFrameworkCore.Relational": "[9.0.7, )",
           "Newtonsoft.Json": "[13.0.3, )",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "[9.0.4, )",
-          "Sentry.AspNetCore": "[5.11.2, )",
+          "Sentry.AspNetCore": "[5.12.0, )",
           "Swashbuckle.AspNetCore": "[9.0.3, )",
           "Swashbuckle.AspNetCore.Annotations": "[9.0.3, )",
           "System.Linq.Async": "[6.0.3, )"
