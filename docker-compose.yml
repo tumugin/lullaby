@@ -11,7 +11,7 @@ services:
       - POSTGRES_USER=lullaby
       - POSTGRES_PASSWORD=lullaby
   redis:
-    image: redis:8.0.3
+    image: redis:8.2.0
     ports:
       - "6379:6379"
     volumes:
