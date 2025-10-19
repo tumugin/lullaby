@@ -23,7 +23,7 @@ public class FindDuplicateEventService : IFindDuplicateEventService
         return await this.Context
             .Events
             .Where(e =>
-                query.Select(q => q.EventName).Contains(e.EventName) &&
+                query.Select(q => q.EventName.Trim()).Contains(e.EventName.Trim()) &&
                 query.Select(q => q.GroupKey).Contains(e.GroupKey) &&
                 query.Select(q => q.StartDateTime.ToUniversalTime()).Contains(e.EventStarts) &&
                 query.Select(q => q.EndDateTime.ToUniversalTime()).Contains(e.EventEnds)

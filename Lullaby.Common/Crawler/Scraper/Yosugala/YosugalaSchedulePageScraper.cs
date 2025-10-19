@@ -105,8 +105,8 @@ public partial class YosugalaSchedulePageScraper(
 
                 return new GroupEvent
                 {
-                    EventName = title,
-                    EventPlace = rawEventPlace,
+                    EventName = title.Trim(),
+                    EventPlace = rawEventPlace?.Trim(),
                     EventDateTime = detailedDate != null
                         ? new DetailedEventDateTime
                         {
@@ -117,9 +117,9 @@ public partial class YosugalaSchedulePageScraper(
                         {
                             EventStartDate = parsedDate, EventEndDate = parsedDate.AddDays(1)
                         },
-                    EventDescription = rawEventDetails?.ToHtml(new TextMarkupFormatter()) ??
+                    EventDescription = rawEventDetails?.ToHtml(new TextMarkupFormatter()).Trim() ??
                                        throw new InvalidDataException("Event description must not be null"),
-                    EventType = eventTypeDetector.DetectEventTypeByTitle(title)
+                    EventType = eventTypeDetector.DetectEventTypeByTitle(title.Trim())
                 };
             })
             .ToArrayAsync(cancellationToken);

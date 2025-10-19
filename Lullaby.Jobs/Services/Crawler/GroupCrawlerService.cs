@@ -53,15 +53,27 @@ public class GroupCrawlerService : IGroupCrawlerService
 
         foreach (var groupEvent in groupEvents)
         {
-            var duplicateEvent = duplicateEvents.FirstOrDefault(d =>
+            var targetDuplicateEvents = duplicateEvents.Where(d =>
                 d.GroupKey == group.GroupKey &&
-                d.EventName == groupEvent.EventName &&
+                d.EventName.Trim() == groupEvent.EventName.Trim() &&
                 d.EventStarts == groupEvent.EventDateTime.EventStartDateTimeOffset &&
                 d.EventEnds == groupEvent.EventDateTime.EventEndDateTimeOffset
-            );
-            if (duplicateEvent != null)
+            ).ToArray();
+
+            if (targetDuplicateEvents.Length > 0)
             {
-                await this.updateEventByGroupEventService.Execute(duplicateEvent, groupEvent, cancellationToken);
+                await this.updateEventByGroupEventService.Execute(
+                    targetDuplicateEvents.First(),
+                    groupEvent,
+                    cancellationToken
+                );
+
+                // Find duplicate events and update only the first one, remove others
+                foreach (var duplicateEvent in targetDuplicateEvents.Skip(1))
+                {
+                    this.lullabyContext.Events.Remove(duplicateEvent);
+                    await this.lullabyContext.SaveChangesAsync(cancellationToken);
+                }
             }
             else
             {
