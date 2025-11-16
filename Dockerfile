@@ -5,6 +5,7 @@ WORKDIR /App
 
 # Copy csproj
 COPY *.sln .
+COPY NuGet.Config .
 COPY Lullaby/*.csproj ./Lullaby/
 COPY Lullaby.Database/*.csproj ./Lullaby.Database/
 COPY Lullaby.Common/*.csproj ./Lullaby.Common/
