@@ -1,5 +1,5 @@
 # see: https://hub.docker.com/_/microsoft-dotnet-sdk/
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build-env
 
 WORKDIR /App
 
@@ -30,7 +30,7 @@ RUN dotnet publish -c Release -o out
 
 # Build runtime image
 # see: https://hub.docker.com/_/microsoft-dotnet-aspnet/
-FROM mcr.microsoft.com/dotnet/aspnet:9.0
+FROM mcr.microsoft.com/dotnet/aspnet:10.0
 
 WORKDIR /App/Lullaby
 COPY --from=build-env /App/Lullaby/out .

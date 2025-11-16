@@ -13,8 +13,8 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="9.0.11" />
-      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.11" />
+      <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="10.0.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
       <PackageReference Include="NodaTime" Version="3.2.2" />
       <PackageReference Include="RestSharp" Version="112.1.0" />
       <PackageReference Include="System.Linq.Async" Version="6.0.3" />
