@@ -8,6 +8,7 @@ using Db;
 using Hangfire;
 using Hangfire.Redis.StackExchange;
 using Jobs;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -50,6 +51,18 @@ public static class ServiceExtension
         this WebApplicationBuilder webApplicationBuilder
     )
     {
+        webApplicationBuilder.Services.Configure<ForwardedHeadersOptions>(options =>
+        {
+            options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+            webApplicationBuilder.Configuration.GetSection("ForwardedHeaders")
+                .GetSection("KnownNetworks")
+                .Get<string[]>()?
+                .Select(System.Net.IPNetwork.Parse)
+                .ToList()
+                .ForEach(x => options.KnownIPNetworks.Add(x));
+            options.ForwardLimit = null;
+        });
+
         webApplicationBuilder.WebHost.UseSentry(o =>
         {
             o.Dsn = webApplicationBuilder.Configuration.GetSection("Sentry").GetValue<string?>("Dsn");
