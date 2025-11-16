@@ -2,6 +2,7 @@ namespace Lullaby;
 
 using Hangfire;
 using Jobs.Job;
+using Scalar.AspNetCore;
 
 public static class WebApplicationExtension
 {
@@ -41,9 +42,9 @@ public static class WebApplicationExtension
         // HangFire
         webApplication.UseLullabyHangfire();
 
-        // Swagger(enable for all envs because it's api application open for everyone)
-        webApplication.UseSwagger();
-        webApplication.UseSwaggerUI();
+        // OpenAPI and Scalar (enable for all envs because it's api application open for everyone)
+        webApplication.MapOpenApi();
+        webApplication.MapScalarApiReference();
 
         webApplication.UseHttpsRedirection();
         webApplication.UseStaticFiles();

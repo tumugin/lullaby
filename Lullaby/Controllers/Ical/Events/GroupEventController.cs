@@ -8,7 +8,6 @@ using global::Ical.Net.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Requests.Ical.Events;
 using Services.Events;
-using Swashbuckle.AspNetCore.Annotations;
 
 [Controller]
 [Produces("text/calendar")]
@@ -29,9 +28,9 @@ public class GroupEventController : ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet]
-    [SwaggerResponse(200, "The operation was succeeded")]
-    [SwaggerResponse(404, "The group was not found")]
-    [SwaggerResponse(400, "The request was invalid")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Get(
         [FromRoute] string groupKey,
         [FromQuery] GroupEventIndexParameters groupEventIndexParameters,

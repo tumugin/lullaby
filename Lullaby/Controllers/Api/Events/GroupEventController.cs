@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Requests.Api.Events;
 using Responses.Api.Events;
 using Services.Events;
-using Swashbuckle.AspNetCore.Annotations;
 using ViewModels;
 
 [ApiController]
@@ -27,9 +26,9 @@ public class GroupEventController : ControllerBase
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet]
-    [SwaggerResponse(200, "The operation was succeeded", typeof(GroupEventsGetResponse))]
-    [SwaggerResponse(404, "The group was not found", typeof(ProblemDetails))]
-    [SwaggerResponse(400, "The request was invalid", typeof(ValidationProblemDetails))]
+    [ProducesResponseType<GroupEventsGetResponse>(StatusCodes.Status200OK)]
+    [ProducesResponseType<ProblemDetails>(StatusCodes.Status404NotFound)]
+    [ProducesResponseType<ValidationProblemDetails>(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Get(
         [FromRoute] string groupKey,
         [FromQuery] GroupEventIndexParameters groupEventIndexParameters,
