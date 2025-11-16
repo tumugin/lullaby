@@ -35,19 +35,19 @@ public partial class YosugalaSchedulePageScraper(
     {
         var rawHtmls = await pageUris
             .ToAsyncEnumerable()
-            .SelectAwait(async uri =>
+            .Select(async (uri, ct) =>
             {
                 using var request = await client.GetAsync(
                     uri,
-                    cancellationToken
+                    ct
                 );
-                return await request.Content.ReadAsStringAsync(cancellationToken);
+                return await request.Content.ReadAsStringAsync(ct);
             })
             .ToArrayAsync(cancellationToken);
 
         var groupEvents = await rawHtmls.ToAsyncEnumerable()
-            .SelectAwait(async rawHtml =>
-                await browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken)
+            .Select(async (rawHtml, ct) =>
+                await browsingContext.OpenAsync(req => req.Content(rawHtml), ct)
             )
             .Select(doc =>
             {
@@ -180,19 +180,20 @@ public partial class YosugalaSchedulePageScraper(
                 .ToUri()
             );
         var rawHtmls = await urls.ToAsyncEnumerable()
-            .SelectAwait(async uri =>
+            .Select(async (uri, ct) =>
             {
                 using var request = await client.GetAsync(
                     uri,
-                    cancellationToken
+                    ct
                 );
-                return await request.Content.ReadAsStringAsync(cancellationToken);
+                return await request.Content.ReadAsStringAsync(ct);
             })
             .ToArrayAsync(cancellationToken);
         return await rawHtmls
             .ToAsyncEnumerable()
-            .SelectAwait(async rawHtml =>
-                await browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken))
+            .Select(async (rawHtml, ct) =>
+                await browsingContext.OpenAsync(req => req.Content(rawHtml), ct)
+            )
             .SelectMany(x => x.QuerySelectorAll("a").ToAsyncEnumerable())
             .Select(x => x.GetAttribute("href"))
             .Where(x => x != null)

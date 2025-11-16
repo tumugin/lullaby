@@ -69,20 +69,21 @@ public partial class NarlowSchedulePageScraper : ISchedulePageScraper
         var targetDates = GetMonthlyTargetDates(startDateTime, endDateTime);
         var rawHtmls = await targetDates
             .ToAsyncEnumerable()
-            .SelectAwait(async date =>
+            .Select(async (date, ct) =>
             {
                 using var request = await this.httpClient.GetAsync(
                     this.GetMonthSchedulePageUrlByDate(date),
-                    cancellationToken
+                    ct
                 );
-                return await request.Content.ReadAsStringAsync(cancellationToken);
+                return await request.Content.ReadAsStringAsync(ct);
             })
             .ToArrayAsync(cancellationToken);
 
         return await rawHtmls
             .ToAsyncEnumerable()
-            .SelectAwait(async rawHtml =>
-                await this.browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken))
+            .Select(async (rawHtml, ct) =>
+                await this.browsingContext.OpenAsync(req => req.Content(rawHtml), ct)
+            )
             .SelectMany(x => x.QuerySelectorAll(".contents__wrapper a").ToAsyncEnumerable())
             .Select(x => x.GetAttribute("href"))
             .Where(x => x != null)
@@ -166,7 +167,7 @@ public partial class NarlowSchedulePageScraper : ISchedulePageScraper
         );
         var groupEvents = await individualSchedulePageUrls
             .ToAsyncEnumerable()
-            .SelectAwait(async v => await this.ParseIndividualSchedulePage(v, cancellationToken))
+            .Select(async (v, ct) => await this.ParseIndividualSchedulePage(v, ct))
             .ToArrayAsync(cancellationToken);
         return groupEvents;
     }
