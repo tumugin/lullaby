@@ -28,7 +28,7 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="Sentry.AspNetCore" Version="5.16.2" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.0" />
-    <PackageReference Include="Scalar.AspNetCore" Version="2.0.0" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.10.3" />
   </ItemGroup>
 
   <ItemGroup>
