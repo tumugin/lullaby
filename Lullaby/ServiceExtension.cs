@@ -103,18 +103,8 @@ public static class ServiceExtension
         // Add HangFire
         webApplicationBuilder.AddLullabyHangfire();
 
-        // Swagger
-        webApplicationBuilder.Services.AddSwaggerGen(swagger =>
-        {
-            swagger.EnableAnnotations();
-            swagger.IncludeXmlComments(
-                Path.Combine(
-                    AppContext.BaseDirectory,
-                    $"{Assembly.GetExecutingAssembly().GetName().Name}.xml"
-                )
-            );
-            swagger.SupportNonNullableReferenceTypes();
-        });
+        // OpenAPI
+        webApplicationBuilder.Services.AddOpenApi();
 
         webApplicationBuilder.Services.AddProblemDetails();
 
