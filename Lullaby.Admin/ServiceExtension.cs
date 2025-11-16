@@ -22,8 +22,8 @@ public static class ServiceExtension
         services.AddGroups();
         services.AddScoped<IGroupStatisticsService, GroupStatisticsService>();
         services.AddScoped<IEventSearchService, EventSearchService>();
-        services.AddScoped<IUserInterfaceDateTimeOffsetService, UserInterfaceDateTimeOffsetService>(
-            _ => new UserInterfaceDateTimeOffsetService(TimeZoneInfo.FindSystemTimeZoneById("Asia/Tokyo"))
+        services.AddScoped<IUserInterfaceDateTimeOffsetService, UserInterfaceDateTimeOffsetService>(_ =>
+            new UserInterfaceDateTimeOffsetService(TimeZoneInfo.FindSystemTimeZoneById("Asia/Tokyo"))
         );
     }
 
@@ -93,9 +93,9 @@ public static class ServiceExtension
             webApplicationBuilder.Configuration.GetSection("ForwardedHeaders")
                 .GetSection("KnownNetworks")
                 .Get<string[]>()?
-                .Select(x => IPNetwork.Parse(x))
+                .Select(System.Net.IPNetwork.Parse)
                 .ToList()
-                .ForEach(x => options.KnownNetworks.Add(x));
+                .ForEach(x => options.KnownIPNetworks.Add(x));
             options.ForwardLimit = null;
         });
 
