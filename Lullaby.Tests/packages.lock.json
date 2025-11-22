@@ -608,20 +608,20 @@
       },
       "Npgsql": {
         "type": "Transitive",
-        "resolved": "10.0.0-rc.2-ci.20251107T191940",
-        "contentHash": "dPOdOXaSgw8bitqRDx4cGs0zNTbZAcO0+zT9KO604cNCgPgqE7rlUSYgd2jntcQ+gbadNlTTfTWZ2dVNoYxXag==",
+        "resolved": "10.0.0",
+        "contentHash": "xZAYhPOU2rUIFpV48xsqhCx9vXs6Y+0jX2LCoSEfDFYMw9jtAOUk3iQsCnDLrFIv9NT3JGMihn7nnuZsPKqJmA==",
         "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.0-rc.2.25502.107"
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.0"
         }
       },
       "Npgsql.EntityFrameworkCore.PostgreSQL": {
         "type": "Transitive",
-        "resolved": "10.0.0-rtm-ci.20251116T113127",
-        "contentHash": "cg2a2M5+JovccF0GHajSaNhBYUGP1K70JfdiPnrlEXVTl0qP6e+iJrz1QUHXOTqAmLoBIDwaI7x3UO17UH6ZPg==",
+        "resolved": "10.0.0",
+        "contentHash": "E2+uSWxSB8LdsUVwPaqRWOcGOP92biry2JEwc0KJMdLJF+aZdczeIdEXVwEyv4nSVMQJH0o8tLhyAMiR6VF0lw==",
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "[10.0.0, 11.0.0)",
           "Microsoft.EntityFrameworkCore.Relational": "[10.0.0, 11.0.0)",
-          "Npgsql": "10.0.0-rc.2-ci.20251107T191940"
+          "Npgsql": "10.0.0"
         }
       },
       "Pipelines.Sockets.Unofficial": {
@@ -636,8 +636,8 @@
       },
       "Scalar.AspNetCore": {
         "type": "Transitive",
-        "resolved": "2.10.3",
-        "contentHash": "uDJlK7ZcHJgAIbXKB3zf4D/70VVEdsYaN3qwoUSBP3OHrdlLR/cIIYp16OFfX9d4VP29b30Jf6KXF59PvFGG4w=="
+        "resolved": "2.11.0",
+        "contentHash": "zOV12+2VE6Tsb3U3YRtJtVABmzbAEPEkiYLAckHBgUuj6suarSp3kA4HE3UU9kNQmJrU6xrD5GTOAtwVENMgJQ=="
       },
       "Sentry": {
         "type": "Transitive",
@@ -691,7 +691,7 @@
           "Microsoft.AspNetCore.OpenApi": "[10.0.0, )",
           "Microsoft.EntityFrameworkCore.Relational": "[10.0.0, )",
           "Newtonsoft.Json": "[13.0.4, )",
-          "Scalar.AspNetCore": "[2.10.3, )",
+          "Scalar.AspNetCore": "[2.11.0, )",
           "Sentry.AspNetCore": "[5.16.2, )"
         }
       },
@@ -711,7 +711,7 @@
         "dependencies": {
           "Lullaby.Common": "[1.0.0, )",
           "Microsoft.EntityFrameworkCore.Relational": "[10.0.0, )",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "[10.0.0-rtm-ci.20251116T113127, )"
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "[10.0.0, )"
         }
       },
       "lullaby.jobs": {
