@@ -22,13 +22,13 @@
       },
       "Npgsql.EntityFrameworkCore.PostgreSQL": {
         "type": "Direct",
-        "requested": "[10.0.0-rtm-ci.20251116T113127, )",
-        "resolved": "10.0.0-rtm-ci.20251116T113127",
-        "contentHash": "cg2a2M5+JovccF0GHajSaNhBYUGP1K70JfdiPnrlEXVTl0qP6e+iJrz1QUHXOTqAmLoBIDwaI7x3UO17UH6ZPg==",
+        "requested": "[10.0.0, )",
+        "resolved": "10.0.0",
+        "contentHash": "E2+uSWxSB8LdsUVwPaqRWOcGOP92biry2JEwc0KJMdLJF+aZdczeIdEXVwEyv4nSVMQJH0o8tLhyAMiR6VF0lw==",
         "dependencies": {
           "Microsoft.EntityFrameworkCore": "[10.0.0, 11.0.0)",
           "Microsoft.EntityFrameworkCore.Relational": "[10.0.0, 11.0.0)",
-          "Npgsql": "10.0.0-rc.2-ci.20251107T191940"
+          "Npgsql": "10.0.0"
         }
       },
       "AngleSharp": {
@@ -158,21 +158,16 @@
       },
       "Npgsql": {
         "type": "Transitive",
-        "resolved": "10.0.0-rc.2-ci.20251107T191940",
-        "contentHash": "dPOdOXaSgw8bitqRDx4cGs0zNTbZAcO0+zT9KO604cNCgPgqE7rlUSYgd2jntcQ+gbadNlTTfTWZ2dVNoYxXag==",
+        "resolved": "10.0.0",
+        "contentHash": "xZAYhPOU2rUIFpV48xsqhCx9vXs6Y+0jX2LCoSEfDFYMw9jtAOUk3iQsCnDLrFIv9NT3JGMihn7nnuZsPKqJmA==",
         "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.0-rc.2.25502.107"
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.0"
         }
       },
       "RestSharp": {
         "type": "Transitive",
         "resolved": "112.1.0",
         "contentHash": "bOUGNZqhhv/QeCXHTKEUil846yBjwWXpzPKjO67kFvaAOoF361z7jLY5BMnuZ6WD2WQRA750sNMcK7MSPCQ5Mg=="
-      },
-      "System.Linq.Async": {
-        "type": "Transitive",
-        "resolved": "6.0.3",
-        "contentHash": "hSHiq2m1ky7zUQgTp+/2h1K3lABIQ+GltRixoclHPg/Sc1vnfeS6g/Uy5moOVZKrZJdQiFPFZd6OobBp3tZcFg=="
       },
       "lullaby.common": {
         "type": "Project",
@@ -182,8 +177,7 @@
           "Microsoft.AspNetCore.WebUtilities": "[10.0.0, )",
           "Microsoft.Extensions.DependencyInjection": "[10.0.0, )",
           "NodaTime": "[3.2.2, )",
-          "RestSharp": "[112.1.0, )",
-          "System.Linq.Async": "[6.0.3, )"
+          "RestSharp": "[112.1.0, )"
         }
       }
     }
