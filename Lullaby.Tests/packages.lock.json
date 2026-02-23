@@ -608,10 +608,10 @@
       },
       "Npgsql": {
         "type": "Transitive",
-        "resolved": "10.0.0-rc.2-ci.20251107T191940",
-        "contentHash": "dPOdOXaSgw8bitqRDx4cGs0zNTbZAcO0+zT9KO604cNCgPgqE7rlUSYgd2jntcQ+gbadNlTTfTWZ2dVNoYxXag==",
+        "resolved": "10.0.0-rtm-ci.20251119T181153",
+        "contentHash": "g5WKR70zVFQd9S9838+F5mKilVvoYYqs0nAn6L33WE4SBCaqG0TlcY7RIMe7/lqxwRm+Iuh1+TRTcXa1hSX0Hw==",
         "dependencies": {
-          "Microsoft.Extensions.Logging.Abstractions": "10.0.0-rc.2.25502.107"
+          "Microsoft.Extensions.Logging.Abstractions": "10.0.0"
         }
       },
       "Npgsql.EntityFrameworkCore.PostgreSQL": {
