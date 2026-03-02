@@ -303,8 +303,8 @@
       },
       "Npgsql": {
         "type": "Transitive",
-        "resolved": "10.0.0-rtm-ci.20251119T181153",
-        "contentHash": "g5WKR70zVFQd9S9838+F5mKilVvoYYqs0nAn6L33WE4SBCaqG0TlcY7RIMe7/lqxwRm+Iuh1+TRTcXa1hSX0Hw=="
+        "resolved": "10.0.0-rtm-ci.20251120T195908",
+        "contentHash": "eAEckQ0A4B3NiZYApBHhBtsmWXAc3PgtjNuzclzdysnOAv4A5eYG/6eQLCNQCqS42MYtD9qZwATvh8wupuNX/g=="
       },
       "Npgsql.EntityFrameworkCore.PostgreSQL": {
         "type": "Transitive",
