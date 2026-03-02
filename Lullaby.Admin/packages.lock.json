@@ -253,8 +253,8 @@
       },
       "RestSharp": {
         "type": "Transitive",
-        "resolved": "112.1.0",
-        "contentHash": "bOUGNZqhhv/QeCXHTKEUil846yBjwWXpzPKjO67kFvaAOoF361z7jLY5BMnuZ6WD2WQRA750sNMcK7MSPCQ5Mg=="
+        "resolved": "113.1.0",
+        "contentHash": "poNb3XPzF0Rxp+XW9e7U+TZOIjABkGEYd0cGuNIstcRZTU8ES6+7tpbZ55+0XpxwnxxU8nSAZ89p6WUKI+Cg+A=="
       },
       "Sentry": {
         "type": "Transitive",
@@ -292,7 +292,7 @@
           "AngleSharp": "[1.4.0, )",
           "Flurl": "[4.0.0, )",
           "NodaTime": "[3.2.2, )",
-          "RestSharp": "[112.1.0, )"
+          "RestSharp": "[113.1.0, )"
         }
       },
       "lullaby.database": {
