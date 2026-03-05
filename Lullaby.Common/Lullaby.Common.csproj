@@ -16,7 +16,7 @@
       <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="10.0.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
       <PackageReference Include="NodaTime" Version="3.2.2" />
-      <PackageReference Include="RestSharp" Version="112.1.0" />
+      <PackageReference Include="RestSharp" Version="114.0.0" />
     </ItemGroup>
 
 </Project>
