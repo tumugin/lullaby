@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   postgres:
-    image: postgres:18.1
+    image: postgres:18.3
     ports:
       - "5432:5432"
     volumes:
@@ -11,7 +11,7 @@ services:
       - POSTGRES_USER=lullaby
       - POSTGRES_PASSWORD=lullaby
   redis:
-    image: redis:8.2.3
+    image: redis:8.6.1
     ports:
       - "6379:6379"
     volumes:
