@@ -19,6 +19,9 @@ public partial class KolokolSchedulePageScraper : ISchedulePageScraper
             "https://kolokol-official.com/schedule/past/num/20", "https://kolokol-official.com/schedule/past/num/30"
         };
 
+    private static readonly string RequestUserAgent =
+        "Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1";
+
     private readonly IBrowsingContext browsingContext;
 
     private readonly RestClient client;
@@ -45,21 +48,23 @@ public partial class KolokolSchedulePageScraper : ISchedulePageScraper
 
     private async Task<IReadOnlyList<string>> DownloadDocuments(CancellationToken cancellationToken)
     {
-        // 全部基本的には同じフォーマットで作られているのでまとめて落としてきてまとめて処理する
-        var asyncDocuments = SchedulePageUrls.Select(
-            schedulePageUrl => Task.Run(async () =>
-            {
-                var request = await this.client.GetAsync(new RestRequest(schedulePageUrl), cancellationToken);
-                return request.Content ?? throw new InvalidDataException("Response must not be null");
-            })
-        );
-        return await Task.WhenAll(asyncDocuments);
+        var scheduleDocuments = new List<string>();
+        foreach (var url in SchedulePageUrls)
+        {
+            var request = new RestRequest(url);
+            request.AddHeader("User-Agent", RequestUserAgent);
+            var response = await this.client.GetAsync(request, cancellationToken);
+            var document = response.Content ?? throw new InvalidDataException("Response must not be null");
+            scheduleDocuments.Add(document);
+        }
+
+        return scheduleDocuments;
     }
 
-    [GeneratedRegex("^(\\d+)\\.(\\d+)\\.(\\d+)")]
+    [GeneratedRegex("^(\\d+)/(\\d+)/(\\d+)")]
     private static partial Regex DatePatternRegex();
 
-    [GeneratedRegex("^開場 / (\\d+):(\\d+)")]
+    [GeneratedRegex("^開場\\s*/\\s*(\\d+):(\\d+)")]
     private static partial Regex OpenTimePattenRegex();
 
     [GeneratedRegex("[\r\n]{2,}")]
@@ -77,10 +82,9 @@ public partial class KolokolSchedulePageScraper : ISchedulePageScraper
     )
     {
         using var document = await this.browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken);
-        var scheduleElements = document.QuerySelectorAll(".scdBox");
+        var scheduleElements = document.QuerySelectorAll(".recSchedule");
         return scheduleElements
-            .Select(
-                scheduleElement =>
+            .Select(scheduleElement =>
                 {
                     var dateText = scheduleElement.QuerySelector(".date")?.TextContent;
                     var dateTextRegexMatches = dateText != null ? DatePatternRegex().Matches(dateText) : null;
@@ -97,28 +101,17 @@ public partial class KolokolSchedulePageScraper : ISchedulePageScraper
                         )
                         : throw new InvalidDataException("Date must not be null");
 
-                    // 過去スケジュールと将来のスケジュールでタイトルの入れ方が異なるのでどちらも取ってみる
-                    var titleTextOfFutureSchedule = scheduleElement.QuerySelector(".title")?.TextContent;
-                    var titleTextOfPastSchedule = scheduleElement
-                        .QuerySelectorAll("tr")
-                        .FirstOrDefault(e => e.QuerySelector("th")?.TextContent == "TITLE")
-                        ?.QuerySelector("td")
-                        ?.TextContent;
-                    var titleText = (titleTextOfFutureSchedule, titleTextOfPastSchedule) switch
-                    {
-                        (not null, not null) => titleTextOfFutureSchedule,
-                        (not null, null) => titleTextOfFutureSchedule,
-                        (null, not null) => titleTextOfPastSchedule,
-                        _ => throw new InvalidDataException("Title must not be null")
-                    };
+                    var titleText = scheduleElement.QuerySelector(".title")?.TextContent
+                        ?? throw new InvalidDataException("Title must not be null");
 
-                    var venueText = scheduleElement.QuerySelector(".place")?.TextContent;
+                    var venueText = scheduleElement.QuerySelector(".venue")?.TextContent;
 
                     var timeText = scheduleElement
-                        .QuerySelectorAll("tr")
-                        .FirstOrDefault(e => e.QuerySelector("th")?.TextContent == "TIME")
-                        ?.QuerySelector("td")
-                        ?.TextContent;
+                        .QuerySelectorAll(".scheduleList > dt")
+                        .FirstOrDefault(e => e.TextContent.Trim() == "TIME")
+                        ?.NextElementSibling
+                        ?.TextContent
+                        .Trim();
                     var openTimeTextRegexMatches = timeText != null ? OpenTimePattenRegex().Matches(timeText) : null;
                     // 開場時間が取れる場合は日本時間としてパースして作成する
                     // FIXME: なぜかC#のコンパイラがvarを使わせてくれないのでここだけ型を指定しておく
@@ -135,7 +128,7 @@ public partial class KolokolSchedulePageScraper : ISchedulePageScraper
                         : null;
 
                     var descriptionText = scheduleElement
-                        .QuerySelector("tbody")
+                        .QuerySelector(".acdNmSec .contents")
                         ?.TextContent
                         .Replace("\t", "")
                         .Let(s => ManySpaceRegex().Replace(s, " "))
