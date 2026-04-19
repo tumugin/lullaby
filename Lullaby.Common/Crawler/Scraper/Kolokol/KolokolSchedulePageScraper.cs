@@ -19,6 +19,9 @@ public partial class KolokolSchedulePageScraper : ISchedulePageScraper
             "https://kolokol-official.com/schedule/past/num/20", "https://kolokol-official.com/schedule/past/num/30"
         };
 
+    private static readonly string RequestUserAgent =
+        "Mozilla/5.0 (iPhone; CPU iPhone OS 14_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.3 Mobile/15E148 Safari/604.1";
+
     private readonly IBrowsingContext browsingContext;
 
     private readonly RestClient client;
@@ -45,15 +48,17 @@ public partial class KolokolSchedulePageScraper : ISchedulePageScraper
 
     private async Task<IReadOnlyList<string>> DownloadDocuments(CancellationToken cancellationToken)
     {
-        // 全部基本的には同じフォーマットで作られているのでまとめて落としてきてまとめて処理する
-        var asyncDocuments = SchedulePageUrls.Select(
-            schedulePageUrl => Task.Run(async () =>
-            {
-                var request = await this.client.GetAsync(new RestRequest(schedulePageUrl), cancellationToken);
-                return request.Content ?? throw new InvalidDataException("Response must not be null");
-            })
-        );
-        return await Task.WhenAll(asyncDocuments);
+        var scheduleDocuments = new List<string>();
+        foreach (var url in SchedulePageUrls)
+        {
+            var request = new RestRequest(url);
+            request.AddHeader("User-Agent", RequestUserAgent);
+            var response = await this.client.GetAsync(request, cancellationToken);
+            var document = response.Content ?? throw new InvalidDataException("Response must not be null");
+            scheduleDocuments.Add(document);
+        }
+
+        return scheduleDocuments;
     }
 
     [GeneratedRegex("^(\\d+)\\.(\\d+)\\.(\\d+)")]
@@ -79,8 +84,7 @@ public partial class KolokolSchedulePageScraper : ISchedulePageScraper
         using var document = await this.browsingContext.OpenAsync(req => req.Content(rawHtml), cancellationToken);
         var scheduleElements = document.QuerySelectorAll(".scdBox");
         return scheduleElements
-            .Select(
-                scheduleElement =>
+            .Select(scheduleElement =>
                 {
                     var dateText = scheduleElement.QuerySelector(".date")?.TextContent;
                     var dateTextRegexMatches = dateText != null ? DatePatternRegex().Matches(dateText) : null;
