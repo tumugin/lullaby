@@ -34,7 +34,15 @@ public class GroupCrawlerService : IGroupCrawlerService
         CancellationToken cancellationToken
     )
     {
-        var groupEvents = await this.GetEvents(group, cancellationToken);
+        // Scrapers aggregating overlapping pages can yield duplicate scraped events; dedupe by
+        // the same key used for DB duplicate detection to avoid re-deleting already-removed rows.
+        var groupEvents = (await this.GetEvents(group, cancellationToken))
+            .DistinctBy(v => (
+                EventName: v.EventName.Trim(),
+                v.EventDateTime.EventStartDateTimeOffset,
+                v.EventDateTime.EventEndDateTimeOffset
+            ))
+            .ToArray();
         var findDuplicateEventsQuery = groupEvents
             .Select(v =>
                 new IFindDuplicateEventService.EventSearchQueryData
