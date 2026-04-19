@@ -72,10 +72,59 @@ public class GroupCrawlerServiceTest : BaseDatabaseTest
         }
     }
 
+    [Test]
+    public async Task TestGetAndUpdateSavedEventsWithScrapedDuplicates()
+    {
+        var testGroup = new TestGroup();
+        var scraper = new DuplicateEmittingScraper();
+        var groupCrawler = new GroupCrawlerService(
+            this.addEventByGroupEventService,
+            this.findDuplicateEventService,
+            this.updateEventByGroupEventService,
+            new[] { scraper },
+            this.Context
+        );
+
+        await groupCrawler.GetAndUpdateSavedEvents(testGroup, default);
+        await groupCrawler.GetAndUpdateSavedEvents(testGroup, default);
+
+        var addedResult = await this.Context.Events.ToListAsync();
+        Assert.That(addedResult, Has.Count.EqualTo(1));
+        Assert.That(addedResult[0].EventDescription, Is.EqualTo("duplicate test"));
+    }
+
     private sealed class TestGroup : IGroup
     {
         public string GroupKey => "test";
         public string GroupName => "テスト";
+    }
+
+    private sealed class DuplicateEmittingScraper : ISchedulePageScraper
+    {
+        public Type TargetGroup => typeof(TestGroup);
+
+        public Task<IReadOnlyList<GroupEvent>> ScrapeAsync(CancellationToken cancellationToken)
+        {
+            var groupEvent = new GroupEvent
+            {
+                EventName = "duplicate event",
+                EventPlace = "Spotify O-nest",
+                EventType = EventType.OneMan,
+                EventDescription = "duplicate test",
+                EventDateTime = new DetailedEventDateTime
+                {
+                    EventStartDateTime = DateTimeOffset.Parse(
+                        "2022-08-05 10:00:00+09:00",
+                        CultureInfo.InvariantCulture
+                    ),
+                    EventEndDateTime = DateTimeOffset.Parse(
+                        "2022-08-05 20:00:00+09:00",
+                        CultureInfo.InvariantCulture
+                    )
+                }
+            };
+            return Task.FromResult<IReadOnlyList<GroupEvent>>(new[] { groupEvent, groupEvent });
+        }
     }
 
     private sealed class TestGroupPageScraper : ISchedulePageScraper
