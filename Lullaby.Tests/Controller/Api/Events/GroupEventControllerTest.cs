@@ -51,15 +51,14 @@ public class GroupEventControllerTest : BaseWebTest
     }
 
     [Test]
-    public Task GetNotFoundTest()
+    public async Task GetNotFoundTest()
     {
-        var ex = Assert.ThrowsAsync<HttpRequestException>(async () =>
+        var ex = await Assert.ThrowsAsync<HttpRequestException>(async () =>
         {
             await this.Client.GetFromJsonAsync<GroupEventsGetResponse>(
                 $"api/events/appare"
             );
         });
         Assert.That(ex!.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
-        return Task.CompletedTask;
     }
 }
