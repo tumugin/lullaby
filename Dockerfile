@@ -1,17 +1,17 @@
 # see: https://hub.docker.com/_/microsoft-dotnet-sdk/
-FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:11.0 AS build-env
 
 WORKDIR /App
 
 # Copy csproj
 COPY *.sln .
-COPY NuGet.Config .
-COPY Lullaby/*.csproj ./Lullaby/
-COPY Lullaby.Database/*.csproj ./Lullaby.Database/
-COPY Lullaby.Common/*.csproj ./Lullaby.Common/
-COPY Lullaby.Tests/*.csproj ./Lullaby.Tests/
-COPY Lullaby.Admin/*.csproj ./Lullaby.Admin/
-COPY Lullaby.Jobs/*.csproj ./Lullaby.Jobs/
+COPY NuGet.Config Directory.Build.props global.json ./
+COPY Lullaby/*.csproj Lullaby/packages.lock.json ./Lullaby/
+COPY Lullaby.Database/*.csproj Lullaby.Database/packages.lock.json ./Lullaby.Database/
+COPY Lullaby.Common/*.csproj Lullaby.Common/packages.lock.json ./Lullaby.Common/
+COPY Lullaby.Tests/*.csproj Lullaby.Tests/packages.lock.json ./Lullaby.Tests/
+COPY Lullaby.Admin/*.csproj Lullaby.Admin/packages.lock.json ./Lullaby.Admin/
+COPY Lullaby.Jobs/*.csproj Lullaby.Jobs/packages.lock.json ./Lullaby.Jobs/
 
 # Restore as distinct layers
 RUN dotnet restore
@@ -31,7 +31,7 @@ RUN dotnet publish -c Release -o out
 
 # Build runtime image
 # see: https://hub.docker.com/_/microsoft-dotnet-aspnet/
-FROM mcr.microsoft.com/dotnet/aspnet:10.0
+FROM mcr.microsoft.com/dotnet/aspnet:11.0
 
 WORKDIR /App/Lullaby
 COPY --from=build-env /App/Lullaby/out .

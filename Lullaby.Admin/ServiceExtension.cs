@@ -120,7 +120,6 @@ public static class ServiceExtension
         }
 
         webApplicationBuilder.Services.AddControllersWithViews()
-            .AddRazorRuntimeCompilation()
             .AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
