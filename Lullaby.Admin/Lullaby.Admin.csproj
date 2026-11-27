@@ -21,7 +21,7 @@
       </PackageReference>
       <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="11.0.0" />
       <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="11.0.0" />
-      <PackageReference Include="Sentry.AspNetCore" Version="7.0.1" />
+      <PackageReference Include="Sentry.AspNetCore" Version="7.1.0" />
     </ItemGroup>
 
     <ItemGroup>

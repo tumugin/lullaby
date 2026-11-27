@@ -57,17 +57,17 @@
       },
       "Sentry.AspNetCore": {
         "type": "Direct",
-        "requested": "[7.0.1, )",
-        "resolved": "7.0.1",
-        "contentHash": "FxYSrr9HileJYWR0hWCX3rOdIBYwJpcngOT1oK+TcNenh5Z8m2Sp6kPMUxlminLhnnU4XlTP6RGKEmlfw3AS7Q==",
+        "requested": "[7.1.0, )",
+        "resolved": "7.1.0",
+        "contentHash": "kUc0X0t5QmZr2xx/Oq4eOf6KhThnpDhPbNQNm/XSIETZRMX1AKPd5F8pEcgl+PsjbCDm2So1fYPyRDYOxbkWkg==",
         "dependencies": {
-          "Sentry.Extensions.Logging": "7.0.1"
+          "Sentry.Extensions.Logging": "7.1.0"
         }
       },
       "AngleSharp": {
         "type": "Transitive",
-        "resolved": "1.10.4",
-        "contentHash": "pv8cLA19oRc8UwczC1ogMeq5mTBWn8V1N12CVMfrAjykf8imNDHt82yzompriVN/Z7ededDP0Fg5ZWAtG5DB+Q=="
+        "resolved": "1.11.0",
+        "contentHash": "1wEWfvt74q9RNAgWYLC9lfS1rT/CNfFw2rvjLJTaZEKRJ3qf35iTbwjH15VTQDwv48CjekHQIcVbxuD/GSiWcQ=="
       },
       "Flurl": {
         "type": "Transitive",
@@ -178,17 +178,17 @@
       },
       "Npgsql": {
         "type": "Transitive",
-        "resolved": "10.0.3",
-        "contentHash": "7nb5YzXuvWWJxB0J8DiyL3we+X4FOctZrt0fIBnucOIaIevFEEwGQVZKtiu9olXdlNAK1eNgqSral6r/jlhI4w=="
+        "resolved": "10.0.4",
+        "contentHash": "m2VCpcU9MKD8lLxTn+YaNIRWd+Gz3y/9wIaM+2ifDF24xZ2Kvvjx4CDB2BIgobr1Gj6a/gsdmfz1sQ+kmd7liw=="
       },
       "Npgsql.EntityFrameworkCore.PostgreSQL": {
         "type": "Transitive",
-        "resolved": "10.0.3",
-        "contentHash": "IPGrrZnRkuW7OlHDhUESZz4G5DLkW7Nej/O3Cx+0iTsgyU5XJxBgpsvTHLloo3WWuAKKbDHXBvWPVkX1deRh1Q==",
+        "resolved": "10.0.4",
+        "contentHash": "KRFbmHOn260bgSSQTKZsKtvEFW1k1AaZUtb/IPmW31M47qMkzAOglP7FHQgMeqpZeMJ2rjRwczfEUP5lyWUAdA==",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "[10.0.4, 11.0.0)",
-          "Microsoft.EntityFrameworkCore.Relational": "[10.0.4, 11.0.0)",
-          "Npgsql": "10.0.3"
+          "Microsoft.EntityFrameworkCore": "[10.0.15, 11.0.0)",
+          "Microsoft.EntityFrameworkCore.Relational": "[10.0.15, 11.0.0)",
+          "Npgsql": "10.0.4"
         }
       },
       "Pipelines.Sockets.Unofficial": {
@@ -203,15 +203,15 @@
       },
       "Sentry": {
         "type": "Transitive",
-        "resolved": "7.0.1",
-        "contentHash": "4hyExeUWArJdiO6VlmwCUHgWPosvasauNpgB6pVP7swuwyahWHRqgWHKwj3t5h18wFezIMte6BmI4dqEzl1TYw=="
+        "resolved": "7.1.0",
+        "contentHash": "bI0DJ6Zr9Q1zjwPku5rTCQ/wiOCTKowqyOhlDCIsuVJSf1a0RbItjJsbH0fTvygJi2wC0KLLxGYqBRr+aA/9Qg=="
       },
       "Sentry.Extensions.Logging": {
         "type": "Transitive",
-        "resolved": "7.0.1",
-        "contentHash": "id2zlzODGIjoU3jqwl/TJ1awJGvAXyI280FdmIMMsPu5lpEN2PbMzBjujDbu8tsLHmDu+sLHDCPbIy8AdGXJOA==",
+        "resolved": "7.1.0",
+        "contentHash": "Xmzb5vurOV+73AvsHdl5IYledSKPOk27pGw6C0E7Ka2RRZ8HeVQSSZscsE/8VKK8jHUwpbpLlDzNuSFL07TcOA==",
         "dependencies": {
-          "Sentry": "7.0.1"
+          "Sentry": "7.1.0"
         }
       },
       "StackExchange.Redis": {
@@ -234,7 +234,7 @@
       "lullaby.common": {
         "type": "Project",
         "dependencies": {
-          "AngleSharp": "[1.10.4, )",
+          "AngleSharp": "[1.11.0, )",
           "Flurl": "[4.0.0, )",
           "NodaTime": "[3.3.7, )",
           "RestSharp": "[114.1.0, )"
@@ -245,7 +245,7 @@
         "dependencies": {
           "Lullaby.Common": "[1.0.0, )",
           "Microsoft.EntityFrameworkCore.Relational": "[10.0.15, )",
-          "Npgsql.EntityFrameworkCore.PostgreSQL": "[10.0.3, )"
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "[10.0.4, )"
         }
       },
       "lullaby.jobs": {
